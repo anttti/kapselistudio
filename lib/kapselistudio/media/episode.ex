@@ -8,6 +8,7 @@ defmodule Kapselistudio.Media.Episode do
     field :shownotes, :string
     field :title, :string
     field :url, :string
+    belongs_to :podcast, Kapselistudio.Media.Podcast
 
     timestamps()
   end
