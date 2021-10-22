@@ -17,27 +17,6 @@ defmodule KapselistudioWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", KapselistudioWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-
-    live "/podcasts", PodcastLive.Index, :index
-    live "/podcasts/new", PodcastLive.Index, :new
-    live "/podcasts/:id/edit", PodcastLive.Index, :edit
-    live "/podcasts/:id", PodcastLive.Show, :show
-
-    live "/episodes", EpisodeLive.Index, :index
-    live "/episodes/new", EpisodeLive.Index, :new
-    live "/episodes/:id/edit", EpisodeLive.Index, :edit
-    live "/episodes/:id", EpisodeLive.Show, :show
-
-    live "/tags", TagLive.Index, :index
-    live "/tags/new", TagLive.Index, :new
-    live "/tags/:id/edit", TagLive.Index, :edit
-    live "/tags/:id", TagLive.Show, :show
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", KapselistudioWeb do
   #   pipe_through :api
@@ -71,8 +50,6 @@ defmodule KapselistudioWeb.Router do
     end
   end
 
-  ## Authentication routes
-
   scope "/", KapselistudioWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
@@ -88,6 +65,21 @@ defmodule KapselistudioWeb.Router do
 
   scope "/", KapselistudioWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    live "/", PodcastLive.Index, :index
+    live "/podcasts/new", PodcastLive.Index, :new
+    live "/podcasts/:id/edit", PodcastLive.Index, :edit
+    live "/podcasts/:id", PodcastLive.Show, :show
+
+    live "/episodes", EpisodeLive.Index, :index
+    live "/episodes/new", EpisodeLive.Index, :new
+    live "/episodes/:id/edit", EpisodeLive.Index, :edit
+    live "/episodes/:id", EpisodeLive.Show, :show
+
+    live "/tags", TagLive.Index, :index
+    live "/tags/new", TagLive.Index, :new
+    live "/tags/:id/edit", TagLive.Index, :edit
+    live "/tags/:id", TagLive.Show, :show
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
