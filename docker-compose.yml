@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  db:
+    build: ./db
+    environment:
+      - POSTGRES_PASSWORD=LongPasswordCatIsLong
+    ports:
+      - "7432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d

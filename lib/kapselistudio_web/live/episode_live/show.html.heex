@@ -1,0 +1,42 @@
+<h1>Show Episode</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal KapselistudioWeb.EpisodeLive.FormComponent,
+    id: @episode.id,
+    title: @page_title,
+    action: @live_action,
+    episode: @episode,
+    return_to: Routes.episode_show_path(@socket, :show, @episode) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Number:</strong>
+    <%= @episode.number %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @episode.url %>
+  </li>
+
+  <li>
+    <strong>Duration:</strong>
+    <%= @episode.duration %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @episode.title %>
+  </li>
+
+  <li>
+    <strong>Shownotes:</strong>
+    <%= @episode.shownotes %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.episode_show_path(@socket, :edit, @episode), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.episode_index_path(@socket, :index) %></span>
