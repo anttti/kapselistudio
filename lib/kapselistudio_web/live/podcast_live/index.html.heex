@@ -1,5 +1,3 @@
-<h1>Listing Podcasts</h1>
-
 <%= if @live_action in [:new, :edit] do %>
   <%= live_modal KapselistudioWeb.PodcastLive.FormComponent,
     id: @podcast.id || :new,
@@ -9,27 +7,56 @@
     return_to: Routes.podcast_index_path(@socket, :index) %>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
+<div class="flex flex-col mb-8">
+  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Nimi
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Viim. jakso
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th scope="col" class="relative px-6 py-3">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <%= for podcast <- @podcasts do %>
+              <tr id={"podcast-#{podcast.id}"}>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-gray-900">
+                    <%= live_redirect podcast.name, to: Routes.podcast_show_path(@socket, :show, podcast) %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-500">12.6.2021</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    Active
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                    <%= live_patch "Edit", to: Routes.podcast_index_path(@socket, :edit, podcast) %>
+                    <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: podcast.id, data: [confirm: "Are you sure?"] %>
+                  </a>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="podcasts">
-    <%= for podcast <- @podcasts do %>
-      <tr id={"podcast-#{podcast.id}"}>
-        <td><%= podcast.name %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.podcast_show_path(@socket, :show, podcast) %></span>
-          <span><%= live_patch "Edit", to: Routes.podcast_index_path(@socket, :edit, podcast) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: podcast.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<span><%= live_patch "New Podcast", to: Routes.podcast_index_path(@socket, :new) %></span>
+<%= live_patch "New Podcast", to: Routes.podcast_index_path(@socket, :new), class: "btn-secondary" %>
