@@ -28,6 +28,10 @@
     <%= label f, :shownotes %>
     <%= text_input f, :shownotes %>
     <%= error_tag f, :shownotes %>
+
+    <%= label f, :podcast_id %>
+    <%= number_input f, :podcast_id %>
+    <%= error_tag f, :podcast_id %>
   
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>

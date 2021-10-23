@@ -16,7 +16,7 @@ defmodule Kapselistudio.Media.Episode do
   @doc false
   def changeset(episode, attrs) do
     episode
-    |> cast(attrs, [:number, :url, :duration, :title, :shownotes])
-    |> validate_required([:number, :url, :duration, :title, :shownotes])
+    |> cast(attrs, [:number, :url, :duration, :title, :shownotes, :podcast_id])
+    |> validate_required([:number, :url, :duration, :title, :shownotes, :podcast_id])
   end
 end
