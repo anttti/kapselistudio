@@ -57,7 +57,8 @@ for {title, index} <- titles,
         duration: 60,
         url: "http://jakso.com/jakso.mp3",
         shownotes: shownotes,
-        status: if(index == 5, do: "PUBLISHED", else: "DRAFT")
+        status: if(index != 5, do: "PUBLISHED", else: "DRAFT"),
+        published_at: if(index != 5, do: ~U[2021-05-18 21:25:06Z], else: nil)
       })
 
 Kapselistudio.Repo.insert!(%Kapselistudio.Accounts.User{

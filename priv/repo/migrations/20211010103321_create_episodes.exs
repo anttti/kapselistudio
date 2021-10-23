@@ -9,6 +9,7 @@ defmodule Kapselistudio.Repo.Migrations.CreateEpisodes do
       add :title, :text
       add :shownotes, :text
       add :status, :string
+      add :published_at, :utc_datetime
 
       timestamps()
     end

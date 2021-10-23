@@ -9,6 +9,7 @@ defmodule Kapselistudio.Media.Episode do
     field :title, :string
     field :url, :string
     field :status, :string
+    field :published_at, :utc_datetime
     belongs_to :podcast, Kapselistudio.Media.Podcast
 
     timestamps()
@@ -17,7 +18,16 @@ defmodule Kapselistudio.Media.Episode do
   @doc false
   def changeset(episode, attrs) do
     episode
-    |> cast(attrs, [:number, :url, :duration, :title, :shownotes, :status, :podcast_id])
+    |> cast(attrs, [
+      :number,
+      :url,
+      :duration,
+      :title,
+      :shownotes,
+      :status,
+      :published_at,
+      :podcast_id
+    ])
     |> validate_required([:number, :url, :duration, :title, :shownotes, :status, :podcast_id])
   end
 end
