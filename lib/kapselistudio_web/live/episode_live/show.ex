@@ -9,7 +9,8 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
 
     {:ok,
      assign(socket, %{
-       changeset: Media.change_episode(episode)
+       changeset: Media.change_episode(episode),
+       shownote_preview: Earmark.as_html!(episode.shownotes)
      })}
   end
 
@@ -37,7 +38,11 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
       |> Media.change_episode(episode_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, :changeset, changeset)}
+    {:noreply,
+     assign(socket, %{
+       changeset: changeset,
+       shownote_preview: Earmark.as_html!(Map.get(episode_params, "shownotes"))
+     })}
   end
 
   def handle_event("save", %{"episode" => episode_params}, socket) do
