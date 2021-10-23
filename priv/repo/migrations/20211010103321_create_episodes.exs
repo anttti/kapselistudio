@@ -8,6 +8,7 @@ defmodule Kapselistudio.Repo.Migrations.CreateEpisodes do
       add :duration, :integer
       add :title, :text
       add :shownotes, :text
+      add :status, :string
 
       timestamps()
     end
