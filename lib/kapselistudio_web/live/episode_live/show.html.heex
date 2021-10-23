@@ -6,7 +6,7 @@
     title: @page_title,
     action: @live_action,
     episode: @episode,
-    return_to: Routes.episode_show_path(@socket, :show, @episode) %>
+    return_to: Routes.podcast_show_path(@socket, :show, @episode.podcast_id) %>
 <% end %>
 
 <ul>
@@ -38,5 +38,4 @@
 
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.episode_show_path(@socket, :edit, @episode), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.episode_index_path(@socket, :index) %></span>
+<%= live_patch "Edit", to: Routes.podcast_show_path(@socket, :edit_episode, @episode.podcast_id, @episode.id), class: "btn-primary" %>

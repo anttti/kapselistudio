@@ -16,19 +16,55 @@
     return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
 <% end %>
 
-<strong>Name:</strong>
-<%= @podcast.name %>
+<h1 class="text-2xl mb-6"><%= @podcast.name %></h1>
 
-<ul>
-  <%= for episode <- @podcast.episodes do %>
-  <li>
-    <%= episode.number %>: 
-    <%= episode.title %>
-    <span><%= live_patch "Edit", to: Routes.podcast_show_path(@socket, :edit_episode, @podcast.id, episode.id), class: "btn-secondary" %></span>
-  </li>
-  <% end %>
-</ul>
+<div class="flex flex-col mb-8">
+  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Nimi
+              </th>
+              <th scope="col" class="relative px-6 py-3">
+                <span class="sr-only">Muokkaa</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <%= for episode <- @podcast.episodes do %>
+              <tr id={"episode-#{episode.id}"}>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    Julkaistu
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-gray-900">
+                    <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :show, episode) %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                    <%= live_patch "Muokkaa", to: Routes.podcast_show_path(@socket, :edit_episode, @podcast.id, episode.id), class: "btn-secondary" %>
+                    <%= link "Poista", to: "#", phx_click: "delete", phx_value_id: episode.id, data: [confirm: "Are you sure?"] %>
+                  </a>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="mt-8">
-  <span><%= live_patch "Edit", to: Routes.podcast_index_path(@socket, :edit, @podcast), class: "btn-secondary" %></span>
+  <%= live_patch "Uusi jakso", to: Routes.podcast_show_path(@socket, :new_episode, @podcast.id), class: "btn-primary" %>
+  <%= live_patch "Muokkaa podcastia", to: Routes.podcast_index_path(@socket, :edit, @podcast), class: "btn-secondary ml-5" %>
 </div>
