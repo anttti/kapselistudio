@@ -31,12 +31,6 @@ defmodule KapselistudioWeb.PodcastLive.Show do
     |> assign(:podcast, Media.get_podcast!(id))
   end
 
-  defp apply_action(socket, :edit_episode, %{"episode_id" => episode_id}) do
-    socket
-    |> assign(:page_title, "Muokkaa jaksoa")
-    |> assign(:episode, Media.get_episode!(episode_id))
-  end
-
   defp apply_action(socket, :new_episode, %{"podcast_id" => podcast_id}) do
     socket
     |> assign(:page_title, "Uusi jakso")

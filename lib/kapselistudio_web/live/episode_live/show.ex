@@ -9,13 +9,19 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:episode, Media.get_episode!(id))}
+  def handle_params(params, _, socket) do
+    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp page_title(:show), do: "Show Episode"
-  defp page_title(:edit), do: "Edit Episode"
+  defp apply_action(socket, :show, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Jakson tiedot")
+    |> assign(:episode, Media.get_episode!(id))
+  end
+
+  defp apply_action(socket, :edit_episode, %{"episode_id" => episode_id}) do
+    socket
+    |> assign(:page_title, "Muokkaa jaksoa")
+    |> assign(:episode, Media.get_episode!(episode_id))
+  end
 end

@@ -7,7 +7,7 @@
     return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
 <% end %>
 
-<%= if @live_action in [:new_episode, :edit_episode] do %>
+<%= if @live_action in [:new_episode] do %>
   <%= live_modal KapselistudioWeb.EpisodeLive.FormComponent,
     id: @episode.id || :new,
     title: @page_title,
@@ -31,9 +31,6 @@
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Nimi
               </th>
-              <th scope="col" class="relative px-6 py-3">
-                <span class="sr-only">Muokkaa</span>
-              </th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -48,12 +45,6 @@
                   <div class="text-sm font-medium text-gray-900">
                     <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :show, episode) %>
                   </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                    <%= live_patch "Muokkaa", to: Routes.podcast_show_path(@socket, :edit_episode, @podcast.id, episode.id), class: "btn-secondary" %>
-                    <%= link "Poista", to: "#", phx_click: "delete", phx_value_id: episode.id, data: [confirm: "Are you sure?"] %>
-                  </a>
                 </td>
               </tr>
             <% end %>
