@@ -4,6 +4,7 @@ defmodule Kapselistudio.Media.Podcast do
 
   schema "podcasts" do
     field :name, :string
+    has_many :episodes, Kapselistudio.Media.Episode
 
     timestamps()
   end

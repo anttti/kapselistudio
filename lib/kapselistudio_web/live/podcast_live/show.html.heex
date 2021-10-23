@@ -1,5 +1,3 @@
-<h1>Show Podcast</h1>
-
 <%= if @live_action in [:edit] do %>
   <%= live_modal KapselistudioWeb.PodcastLive.FormComponent,
     id: @podcast.id,
@@ -9,14 +7,28 @@
     return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
 <% end %>
 
+<%= if @live_action in [:new_episode, :edit_episode] do %>
+  <%= live_modal KapselistudioWeb.EpisodeLive.FormComponent,
+    id: @episode.id || :new,
+    title: @page_title,
+    action: @live_action,
+    episode: @episode,
+    return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
+<% end %>
+
+<strong>Name:</strong>
+<%= @podcast.name %>
+
 <ul>
-
+  <%= for episode <- @podcast.episodes do %>
   <li>
-    <strong>Name:</strong>
-    <%= @podcast.name %>
+    <%= episode.number %>: 
+    <%= episode.title %>
+    <span><%= live_patch "Edit", to: Routes.podcast_show_path(@socket, :edit_episode, @podcast.id, episode.id), class: "btn-secondary" %></span>
   </li>
-
+  <% end %>
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.podcast_index_path(@socket, :edit, @podcast), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.podcast_index_path(@socket, :index) %></span>
+<div class="mt-8">
+  <span><%= live_patch "Edit", to: Routes.podcast_index_path(@socket, :edit, @podcast), class: "btn-secondary" %></span>
+</div>

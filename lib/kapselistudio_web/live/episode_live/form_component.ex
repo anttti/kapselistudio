@@ -27,7 +27,7 @@ defmodule KapselistudioWeb.EpisodeLive.FormComponent do
     save_episode(socket, socket.assigns.action, episode_params)
   end
 
-  defp save_episode(socket, :edit, episode_params) do
+  defp save_episode(socket, :edit_episode, episode_params) do
     case Media.update_episode(socket.assigns.episode, episode_params) do
       {:ok, _episode} ->
         {:noreply,
