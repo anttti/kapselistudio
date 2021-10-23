@@ -4,10 +4,10 @@ defmodule Kapselistudio.Repo.Migrations.CreateEpisodes do
   def change do
     create table(:episodes) do
       add :number, :integer
-      add :url, :string
+      add :url, :text
       add :duration, :integer
-      add :title, :string
-      add :shownotes, :string
+      add :title, :text
+      add :shownotes, :text
 
       timestamps()
     end
