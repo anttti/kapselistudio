@@ -6,11 +6,15 @@ defmodule KapselistudioWeb.PodcastLive.Show do
 
   @impl true
   def mount(%{"id" => id}, _session, socket) do
-    {:ok, socket |> assign(:podcast, Media.get_podcast!(id))}
+    mount_with_id(id, socket)
   end
 
   def mount(%{"podcast_id" => id}, _session, socket) do
-    {:ok, socket |> assign(:podcast, Media.get_podcast!(id))}
+    mount_with_id(id, socket)
+  end
+
+  defp mount_with_id(id, socket) do
+    {:ok, assign(socket, :podcast, Media.get_podcast!(id))}
   end
 
   @impl true
