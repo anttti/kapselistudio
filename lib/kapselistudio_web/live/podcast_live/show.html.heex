@@ -16,52 +16,33 @@
     return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
 <% end %>
 
-<h1 class="text-2xl mb-6"><%= @podcast.name %></h1>
-
-<div class="flex flex-col mb-8">
-  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nimi
-              </th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <%= for episode <- @podcast.episodes do %>
-              <tr id={"episode-#{episode.id}"}>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <%= if episode.status == "PUBLISHED" do %>
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Julkaistu
-                    </span>
-                  <% else %>
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                      Luonnos
-                    </span>
-                  <% end %>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-gray-900">
-                    <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :show, episode) %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="flex flex-col gap-8">
+  <div class="flex gap-4">
+    <h1 class="text-2xl"><%= @podcast.name %></h1>
+    <%= live_patch "Uusi jakso", to: Routes.podcast_show_path(@socket, :new_episode, @podcast.id), class: "btn-primary self-start" %>
   </div>
-</div>
 
-<div class="mt-8">
-  <%= live_patch "Uusi jakso", to: Routes.podcast_show_path(@socket, :new_episode, @podcast.id), class: "btn-primary" %>
-  <%= live_patch "Muokkaa podcastia", to: Routes.podcast_index_path(@socket, :edit, @podcast), class: "btn-secondary ml-5" %>
+  <section class="shadow border-b border-gray-200 rounded-lg overflow-hidden">
+    <div class="divide-y divide-gray-300 bg-white text-sm font-medium text-gray-900">
+      <%= for episode <- @podcast.episodes do %>
+        <div class="flex">
+          <div class="px-6 py-4 flex-1">
+            <%= if episode.status == "PUBLISHED" do %>
+              <span class="w-3 h-3 mr-4 inline-flex rounded-full bg-green-400"></span>
+            <% else %>
+              <span class="w-3 h-3 mr-4 inline-flex rounded-full bg-yellow-500"></span>
+            <% end %>
+            <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :show, episode) %>
+          </div>
+          <div class="px-6 py-4 w-48 text-gray-400 text-right">
+            <%= if episode.published_at do %>
+              <%= Timex.format!(episode.published_at, "{D}.{M}.{YYYY} {h24}:{m}") %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <%= live_patch "Muokkaa podcastia", to: Routes.podcast_index_path(@socket, :edit, @podcast), class: "btn-secondary self-start" %>
 </div>
