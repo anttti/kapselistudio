@@ -50,32 +50,22 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   end
 
   def handle_event("publish", _params, socket) do
-    case Media.update_episode(socket.assigns.episode, %{
-           "published_at" => DateTime.now!("Etc/UTC"),
-           "status" => "PUBLISHED"
-         }) do
-      {:ok, episode} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Jakso julkaistu")
-         |> assign(%{
-           episode: episode
-         })}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign(socket, :changeset, changeset)}
-    end
+    change_publish_status(DateTime.now!("Etc/UTC"), "PUBLISHED", socket)
   end
 
   def handle_event("unpublish", _params, socket) do
+    change_publish_status(nil, "DRAFT", socket)
+  end
+
+  def change_publish_status(published_at, status, socket) do
     case Media.update_episode(socket.assigns.episode, %{
-           "published_at" => nil,
-           "status" => "DRAFT"
+           "published_at" => published_at,
+           "status" => status
          }) do
       {:ok, episode} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Jakson julkaisu peruttu")
+         |> put_flash(:info, "Muutokset tallennettu")
          |> assign(%{
            episode: episode
          })}
