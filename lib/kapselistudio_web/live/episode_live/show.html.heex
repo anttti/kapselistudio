@@ -1,5 +1,5 @@
 <div class="flex justify-between px-4 pb-4">
-  <%= live_redirect "Takaisin", to: Routes.podcast_show_path(@socket, :show, @episode.podcast_id) %>
+  <%= live_redirect "Takaisin", to: Routes.podcast_show_path(@socket, :show, @episode.podcast_id), class: "text-sm hover:underline text-gray-600" %>
 </div>
 <.form
   let={f}
@@ -30,7 +30,7 @@
         </div>
 
         <div class="col-span-6">
-          <%= label f, :shownotes, class: "label" %>
+          <label class="label">Shownotet</label>
           <%= textarea f, :shownotes, class: "input h-96" %>
           <%= error_tag f, :shownotes %>
         </div>
@@ -51,17 +51,6 @@
   </div>
 </.form>
 
-<div class="mt-10">
-  <div class="grid grid-cols-3 gap-6">
-    <div class="col-span-1">
-      <div class="px-4 sm:px-0">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Esikatselu</h3>
-      </div>
-    </div>
-    <div class="col-span-2">
-      <div class="p-4 prose bg-white rounded-md shadow">
-        <%= raw(@shownote_preview) %>
-      </div>
-    </div>
-  </div>
+<div class="p-4 mt-10 prose bg-white rounded-md shadow">
+  <%= raw(@shownote_preview) %>
 </div>
