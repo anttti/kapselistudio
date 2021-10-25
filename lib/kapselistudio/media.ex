@@ -35,7 +35,11 @@ defmodule Kapselistudio.Media do
       ** (Ecto.NoResultsError)
 
   """
-  def get_podcast!(id), do: Podcast |> Repo.get!(id) |> Repo.preload(:episodes)
+  def get_podcast!(id) do
+    Podcast
+    |> Repo.get!(id)
+    |> Repo.preload(:episodes)
+  end
 
   @doc """
   Creates a podcast.

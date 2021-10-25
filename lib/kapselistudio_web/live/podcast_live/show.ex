@@ -19,7 +19,6 @@ defmodule KapselistudioWeb.PodcastLive.Show do
 
   @impl true
   def handle_params(params, _, socket) do
-    IO.puts("action: #{socket.assigns.live_action}")
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 

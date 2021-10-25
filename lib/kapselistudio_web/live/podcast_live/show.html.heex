@@ -22,22 +22,20 @@
     <%= live_patch "Uusi jakso", to: Routes.podcast_show_path(@socket, :new_episode, @podcast.id), class: "btn-primary self-start" %>
   </div>
 
-  <section class="shadow border-b border-gray-200 rounded-lg overflow-hidden">
-    <div class="divide-y divide-gray-300 bg-white text-sm font-medium text-gray-900">
+  <section class="overflow-hidden border-b border-gray-200 rounded-lg shadow">
+    <div class="text-sm font-medium text-gray-900 bg-white divide-y divide-gray-300">
       <%= for episode <- @podcast.episodes do %>
         <div class="flex">
-          <div class="px-6 py-4 flex-1">
+          <div class="flex-1 px-6 py-4">
             <%= if episode.status == "PUBLISHED" do %>
-              <span class="w-3 h-3 mr-4 inline-flex rounded-full bg-green-400"></span>
+              <span class="inline-flex w-3 h-3 mr-4 bg-green-400 rounded-full"></span>
             <% else %>
-              <span class="w-3 h-3 mr-4 inline-flex rounded-full bg-yellow-500"></span>
+              <span class="inline-flex w-3 h-3 mr-4 bg-yellow-500 rounded-full"></span>
             <% end %>
             <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :show, episode) %>
           </div>
-          <div class="px-6 py-4 w-48 text-gray-400 text-right">
-            <%= if episode.published_at do %>
-              <%= Timex.format!(episode.published_at, "{D}.{M}.{YYYY} {h24}:{m}") %>
-            <% end %>
+          <div class="w-48 px-6 py-4 text-right text-gray-400">
+            <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
           </div>
         </div>
       <% end %>

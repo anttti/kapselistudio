@@ -4,7 +4,7 @@
       <div class="px-4 sm:px-0">
         <h3 class="text-lg font-medium leading-6 text-gray-900">Jakson tiedot</h3>
         <p class="mt-1 text-sm text-gray-600">
-          Viimeksi päivitetty: 23.10.2021 16:34
+          Viimeksi päivitetty: <%= KapselistudioWeb.DateHelpers.format_date(@episode.updated_at) %>
         </p>
       </div>
     </div>
@@ -15,15 +15,19 @@
         id="episode-form"
         phx-change="validate"
         phx-submit="save">
-        <div class="shadow overflow-hidden sm:rounded-md">
+        <div class="overflow-hidden shadow sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
-              <div class="col-span-6">
+              <div class="flex justify-between col-span-6">
                 <%= if @episode.status == "PUBLISHED" do %>
-                <label class="label">Julkaistu</label>
-                <p><%= @episode.published_at %></p>
+                  <label class="label">Julkaistu</label>
+                  <div class="flex flex-col items-end">
+                  <p class="text-sm"><%= KapselistudioWeb.DateHelpers.format_date(@episode.published_at) %></p>
+                  <button phx-click="unpublish" class="text-xs text-gray-400 border-0">Peru julkaisu</button>
+                  </div>
                 <% else %>
-                <label class="label">Luonnos</label>
+                  <label class="label">Luonnos</label>
+                  <button phx-click="publish" class="btn-primary">Julkaise</button>
                 <% end %>
               </div>
 
@@ -58,7 +62,7 @@
               </div>
             </div>
           </div>
-          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
           </div>
         </div>
@@ -75,7 +79,7 @@
       </div>
     </div>
     <div class="col-span-2">
-      <div class="prose shadow bg-white p-4 rounded-md">
+      <div class="p-4 prose bg-white rounded-md shadow">
         <%= raw(@shownote_preview) %>
       </div>
     </div>

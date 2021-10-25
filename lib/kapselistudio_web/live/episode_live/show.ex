@@ -49,10 +49,46 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
     save_episode(socket, :edit_episode, episode_params)
   end
 
+  def handle_event("publish", _params, socket) do
+    case Media.update_episode(socket.assigns.episode, %{
+           "published_at" => DateTime.now!("Etc/UTC"),
+           "status" => "PUBLISHED"
+         }) do
+      {:ok, episode} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Jakso julkaistu")
+         |> assign(%{
+           episode: episode
+         })}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, :changeset, changeset)}
+    end
+  end
+
+  def handle_event("unpublish", _params, socket) do
+    case Media.update_episode(socket.assigns.episode, %{
+           "published_at" => nil,
+           "status" => "DRAFT"
+         }) do
+      {:ok, episode} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Jakson julkaisu peruttu")
+         |> assign(%{
+           episode: episode
+         })}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, :changeset, changeset)}
+    end
+  end
+
   defp save_episode(socket, :edit_episode, episode_params) do
     case Media.update_episode(socket.assigns.episode, episode_params) do
       {:ok, _episode} ->
-        {:noreply, put_flash(socket, :info, "Episode updated successfully")}
+        {:noreply, put_flash(socket, :info, "Muutokset tallennettu")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
