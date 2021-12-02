@@ -51,7 +51,8 @@ defmodule Kapselistudio.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:earmark, "~> 1.4.16"},
-      {:timex, "~> 3.7.6"}
+      {:timex, "~> 3.7.6"},
+      {:calendar, "~> 1.0.0"}
     ]
   end
 
