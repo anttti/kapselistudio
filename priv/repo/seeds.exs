@@ -12,7 +12,18 @@
 
 import Ecto.Query, only: [from: 2]
 
-Kapselistudio.Repo.insert!(%Kapselistudio.Media.Podcast{name: "Webbidevaus.fi"})
+Kapselistudio.Repo.insert!(%Kapselistudio.Media.Podcast{
+  name: "Webbidevaus.fi",
+  slug: "webbidevaus",
+  url: "https://webbidevaus.fi",
+  description: "Devausta webistä ja webbisen devausta.",
+  author: "Antti Mattila",
+  type: "episodic",
+  keywords: "html, css, javascript",
+  owner_name: "Antti Mattila",
+  owner_email: "foo@bar.com",
+  main_category: "Technology"
+})
 
 podcast_1_id =
   Kapselistudio.Repo.one!(from p in "podcasts", where: p.name == "Webbidevaus.fi", select: p.id)
