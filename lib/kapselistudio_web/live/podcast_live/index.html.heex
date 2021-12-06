@@ -46,8 +46,8 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                    <%= live_patch "Edit", to: Routes.podcast_index_path(@socket, :edit, podcast) %>
-                    <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: podcast.id, data: [confirm: "Are you sure?"] %>
+                    <%= live_patch "Muokkaa", to: Routes.podcast_index_path(@socket, :edit, podcast) %>
+                    <%= link "Poista", to: "#", phx_click: "delete", phx_value_id: podcast.id, data: [confirm: "Are you sure?"] %>
                   </a>
                 </td>
               </tr>

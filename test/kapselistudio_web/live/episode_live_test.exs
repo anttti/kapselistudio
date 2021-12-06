@@ -4,8 +4,20 @@ defmodule KapselistudioWeb.EpisodeLiveTest do
   import Phoenix.LiveViewTest
   import Kapselistudio.MediaFixtures
 
-  @create_attrs %{duration: 42, number: 42, shownotes: "some shownotes", title: "some title", url: "some url"}
-  @update_attrs %{duration: 43, number: 43, shownotes: "some updated shownotes", title: "some updated title", url: "some updated url"}
+  @create_attrs %{
+    duration: 42,
+    number: 42,
+    shownotes: "some shownotes",
+    title: "some title",
+    url: "some url"
+  }
+  @update_attrs %{
+    duration: 43,
+    number: 43,
+    shownotes: "some updated shownotes",
+    title: "some updated title",
+    url: "some updated url"
+  }
   @invalid_attrs %{duration: nil, number: nil, shownotes: nil, title: nil, url: nil}
 
   defp create_episode(_) do

@@ -75,7 +75,13 @@ defmodule Kapselistudio.MediaTest do
     end
 
     test "create_episode/1 with valid data creates a episode" do
-      valid_attrs = %{duration: 42, number: 42, shownotes: "some shownotes", title: "some title", url: "some url"}
+      valid_attrs = %{
+        duration: 42,
+        number: 42,
+        shownotes: "some shownotes",
+        title: "some title",
+        url: "some url"
+      }
 
       assert {:ok, %Episode{} = episode} = Media.create_episode(valid_attrs)
       assert episode.duration == 42
@@ -91,7 +97,14 @@ defmodule Kapselistudio.MediaTest do
 
     test "update_episode/2 with valid data updates the episode" do
       episode = episode_fixture()
-      update_attrs = %{duration: 43, number: 43, shownotes: "some updated shownotes", title: "some updated title", url: "some updated url"}
+
+      update_attrs = %{
+        duration: 43,
+        number: 43,
+        shownotes: "some updated shownotes",
+        title: "some updated title",
+        url: "some updated url"
+      }
 
       assert {:ok, %Episode{} = episode} = Media.update_episode(episode, update_attrs)
       assert episode.duration == 43

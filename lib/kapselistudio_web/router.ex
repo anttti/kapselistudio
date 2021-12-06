@@ -87,7 +87,7 @@ defmodule KapselistudioWeb.Router do
   scope "/", KapselistudioWeb do
     pipe_through [:browser]
 
-    get "/feed.xml", FeedController, :index
+    get "/:podcast_id/feed.xml", FeedController, :index
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
