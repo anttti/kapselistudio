@@ -16,19 +16,19 @@ defmodule KapselistudioWeb.PodcastLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Podcast")
+    |> assign(:page_title, "Muokkaa podcastia")
     |> assign(:podcast, Media.get_podcast!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Podcast")
+    |> assign(:page_title, "Uusi podcast")
     |> assign(:podcast, %Podcast{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Podcasts")
+    |> assign(:page_title, "Kaikki podcastit")
     |> assign(:podcast, nil)
   end
 
