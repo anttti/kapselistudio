@@ -8,11 +8,78 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
-    <%= label f, :name %>
-    <%= text_input f, :name %>
-    <%= error_tag f, :name %>
-  
+
+    <p>
+      <%= label f, :name %>
+      <%= text_input f, :name %>
+      <%= error_tag f, :name %>
+    </p>
+    <p>
+      <%= label f, :slug %>
+      <%= text_input f, :slug %>
+      <%= error_tag f, :slug %>
+    </p>
+    <p>
+      <%= label f, :url %>
+      <%= text_input f, :url %>
+      <%= error_tag f, :url %>
+    </p>
+    <p>
+      <%= label f, :description %>
+      <%= text_input f, :description %>
+      <%= error_tag f, :description %>
+    </p>
+    <p>
+      <%= label f, :author %>
+      <%= text_input f, :author %>
+      <%= error_tag f, :author %>
+    </p>
+    <p>
+      <%= label f, :type %>
+      <%= text_input f, :type %>
+      <%= error_tag f, :type %>
+    </p>
+    <p>
+      <%= label f, :keywords %>
+      <%= text_input f, :keywords %>
+      <%= error_tag f, :keywords %>
+    </p>
+    <p>
+      <%= label f, :owner_name %>
+      <%= text_input f, :owner_name %>
+      <%= error_tag f, :owner_name %>
+    </p>
+    <p>
+      <%= label f, :owner_email %>
+      <%= text_input f, :owner_email %>
+      <%= error_tag f, :owner_email %>
+    </p>
+    <p>
+      <%= label f, :main_category %>
+      <%= text_input f, :main_category %>
+      <%= error_tag f, :main_category %>
+    </p>
+    <p>
+      <%= label f, :sub_category_1 %>
+      <%= text_input f, :sub_category_1 %>
+      <%= error_tag f, :sub_category_1 %>
+    </p>
+    <p>
+      <%= label f, :sub_category_2 %>
+      <%= text_input f, :sub_category_2 %>
+      <%= error_tag f, :sub_category_2 %>
+    </p>
+    <p>
+      <%= label f, :sub_category_3 %>
+      <%= text_input f, :sub_category_3 %>
+      <%= error_tag f, :sub_category_3 %>
+    </p>
+    <p>
+      <%= label f, :explicit %>
+      <%= checkbox f, :explicit %>
+      <%= error_tag f, :explicit %>
+    </p>
+
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

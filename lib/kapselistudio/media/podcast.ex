@@ -4,6 +4,19 @@ defmodule Kapselistudio.Media.Podcast do
 
   schema "podcasts" do
     field :name, :string
+    field :slug, :string
+    field :description, :string
+    field :url, :string
+    field :author, :string
+    field :type, :string
+    field :keywords, :string
+    field :owner_name, :string
+    field :owner_email, :string
+    field :main_category, :string
+    field :sub_category_1, :string
+    field :sub_category_2, :string
+    field :sub_category_3, :string
+    field :explicit, :boolean
     has_many :episodes, Kapselistudio.Media.Episode
 
     timestamps()
@@ -12,7 +25,31 @@ defmodule Kapselistudio.Media.Podcast do
   @doc false
   def changeset(podcast, attrs) do
     podcast
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [
+      :name,
+      :slug,
+      :description,
+      :url,
+      :author,
+      :type,
+      :keywords,
+      :owner_name,
+      :owner_email,
+      :main_category,
+      :sub_category_1,
+      :sub_category_2,
+      :sub_category_3,
+      :explicit
+    ])
+    |> validate_required([
+      :name,
+      :slug,
+      :url,
+      :author,
+      :type,
+      :owner_name,
+      :owner_email,
+      :explicit
+    ])
   end
 end
