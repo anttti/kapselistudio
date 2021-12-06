@@ -13,7 +13,7 @@ defmodule KapselistudioWeb.ModalComponent do
       phx-target={@myself}
       phx-page-loading>
 
-      <div class="phx-modal-content">
+      <div class="phx-modal-content rounded shadow-lg bg-white">
         <%= live_patch raw("&times;"), to: @return_to, class: "phx-modal-close" %>
         <%= live_component @component, @opts %>
       </div>
