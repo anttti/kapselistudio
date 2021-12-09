@@ -41,6 +41,8 @@ defmodule KapselistudioWeb.EpisodeLive.FormComponent do
   end
 
   defp save_episode(socket, :new_episode, episode_params) do
+    episode_params = Map.put(episode_params, "status", "DRAFT")
+
     case Media.create_episode(episode_params) do
       {:ok, _episode} ->
         {:noreply,
@@ -49,6 +51,7 @@ defmodule KapselistudioWeb.EpisodeLive.FormComponent do
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect(changeset)
         {:noreply, assign(socket, changeset: changeset)}
     end
   end

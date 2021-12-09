@@ -179,78 +179,22 @@ defmodule Kapselistudio.Media do
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a episode.
-
-  ## Examples
-
-      iex> delete_episode(episode)
-      {:ok, %Episode{}}
-
-      iex> delete_episode(episode)
-      {:error, %Ecto.Changeset{}}
-
-  """
   def delete_episode(%Episode{} = episode) do
     Repo.delete(episode)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking episode changes.
-
-  ## Examples
-
-      iex> change_episode(episode)
-      %Ecto.Changeset{data: %Episode{}}
-
-  """
   def change_episode(%Episode{} = episode, attrs \\ %{}) do
     Episode.changeset(episode, attrs)
   end
 
   alias Kapselistudio.Media.Tag
 
-  @doc """
-  Returns the list of tags.
-
-  ## Examples
-
-      iex> list_tags()
-      [%Tag{}, ...]
-
-  """
   def list_tags do
     Repo.all(Tag)
   end
 
-  @doc """
-  Gets a single tag.
-
-  Raises `Ecto.NoResultsError` if the Tag does not exist.
-
-  ## Examples
-
-      iex> get_tag!(123)
-      %Tag{}
-
-      iex> get_tag!(456)
-      ** (Ecto.NoResultsError)
-
-  """
   def get_tag!(id), do: Repo.get!(Tag, id)
 
-  @doc """
-  Creates a tag.
-
-  ## Examples
-
-      iex> create_tag(%{field: value})
-      {:ok, %Tag{}}
-
-      iex> create_tag(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_tag(attrs \\ %{}) do
     %Tag{}
     |> Tag.changeset(attrs)

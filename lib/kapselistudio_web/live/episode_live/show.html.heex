@@ -57,9 +57,12 @@
       </p>
       <%= if @episode.status == "PUBLISHED" do %>
         <p class="text-xs text-gray-400">Julkaistu: <%= KapselistudioWeb.DateHelpers.format_date(@episode.published_at) %></p>
-        <button phx-click="unpublish" class="text-xs text-gray-400 border-0 hover:underline">Peru julkaisu</button>
+        <button type="button" phx-click="unpublish" class="text-xs text-gray-400 border-0 hover:underline">Peru julkaisu</button>
       <% else %>
-        <button phx-click="publish" class="text-xs text-gray-400 border-0 hover:underline">Julkaise</button>
+        <div class="flex gap-4">
+          <button type="button" phx-click="publish" class="text-xs text-gray-400 border-0 hover:underline">Julkaise</button>
+          <button type="button" phx-click="delete" class="text-xs text-gray-400 border-0 hover:underline">Poista</button>
+        </div>
       <% end %>
       <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary" %>
     </div>

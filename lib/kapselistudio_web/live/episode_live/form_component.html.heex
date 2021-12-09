@@ -33,7 +33,8 @@
       <%= error_tag f, :shownotes %>
     </p>
 
-    <%= hidden_input f, :podcast_id, class: "input" %>
+    <%= number_input f, :podcast_id, class: "input" %>
+      <%= error_tag f, :podcast_id %>
 
     <div>
       <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary" %>

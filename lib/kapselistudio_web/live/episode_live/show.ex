@@ -58,6 +58,10 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
     change_publish_status(nil, "DRAFT", socket)
   end
 
+  def handle_event("delete", _params, socket) do
+    {:noreply, socket |> put_flash(:info, "TODO: Implement delete")}
+  end
+
   def change_publish_status(published_at, status, socket) do
     case Media.update_episode(socket.assigns.episode, %{
            "published_at" => published_at,
@@ -85,17 +89,4 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
         {:noreply, assign(socket, :changeset, changeset)}
     end
   end
-
-  # defp save_episode(socket, :new_episode, episode_params) do
-  #   case Media.create_episode(episode_params) do
-  #     {:ok, _episode} ->
-  #       {:noreply,
-  #        socket
-  #        |> put_flash(:info, "Episode created successfully")
-  #        |> push_redirect(to: socket.assigns.return_to)}
-
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       {:noreply, assign(socket, changeset: changeset)}
-  #   end
-  # end
 end
