@@ -1,6 +1,7 @@
 defmodule KapselistudioWeb.EpisodeLive.Show do
   use KapselistudioWeb, :live_view
 
+  alias Phoenix.LiveView.JS
   alias Kapselistudio.Media
 
   @impl true

@@ -18,35 +18,29 @@
   .label {
     @apply text-sm font-medium text-gray-700;
   }
+  .tab {
+    @apply border-t border-r border-l border-gray-300 px-3 py-2 rounded-t-md;
+  }
 }
 
 /* Alerts and form errors used by phx.new */
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  @apply px-3 py-2 mb-5 border border-transparent rounded-md text-sm;
 }
 .alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  @apply bg-blue-100 border-blue-200 text-blue-600;
 }
 .alert-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+  @apply bg-yellow-200 border-yellow-300 text-yellow-800;
 }
 .alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+  @apply bg-red-100 border-red-200 text-red-600;
 }
 .alert p {
-  margin-bottom: 0;
+  @apply mb-0;
 }
 .alert:empty {
-  display: none;
+  @apply hidden;
 }
 .invalid-feedback {
   color: #a94442;

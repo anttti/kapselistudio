@@ -30,9 +30,24 @@
         </div>
 
         <div class="col-span-6">
-          <label class="label">Shownotet</label>
-          <%= textarea f, :shownotes, class: "input h-96" %>
-          <%= error_tag f, :shownotes %>
+          <div class="flex justify-between mb-1">
+            <label class="label">Shownotet</label>
+            <label class="label">
+              <input type="checkbox" phx-update="ignore" phx-click={JS.toggle(to: "#markdown-preview") |> JS.toggle(to: "#markdown-editor")}>
+              Esikatselu
+            </label>
+          </div>
+
+          <div id="markdown-preview" class="hidden">
+            <div class="p-4 prose bg-white rounded-md border border-gray-300">
+              <%= raw(@shownote_preview) %>
+            </div>
+          </div>
+
+          <div id="markdown-editor">
+            <%= textarea f, :shownotes, class: "px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 border rounded-md h-96", phx_debounce: 1000 %>
+            <%= error_tag f, :shownotes %>
+          </div>
         </div>
       </div>
     </div>
@@ -46,11 +61,7 @@
       <% else %>
         <button phx-click="publish" class="text-xs text-gray-400 border-0 hover:underline">Julkaise</button>
       <% end %>
-      <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary" %>
     </div>
   </div>
 </.form>
-
-<div class="p-4 mt-10 prose bg-white rounded-md shadow">
-  <%= raw(@shownote_preview) %>
-</div>
