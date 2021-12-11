@@ -135,7 +135,7 @@ defmodule Kapselistudio.Media do
       ** (Ecto.NoResultsError)
 
   """
-  def get_episode!(id), do: Repo.get!(Episode, id)
+  def get_episode!(id), do: Repo.get!(Episode, id) |> Repo.preload(:podcast)
 
   def get_published_episodes!(id) do
     query = from e in Episode, where: e.podcast_id == ^id and not is_nil(e.published_at)

@@ -59,7 +59,19 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   end
 
   def handle_event("delete", _params, socket) do
-    {:noreply, socket |> put_flash(:info, "TODO: Implement delete")}
+    {:ok, _} = Media.delete_episode(socket.assigns.episode)
+
+    {:noreply,
+     socket
+     |> put_flash(:info, "Jakso poistettu")
+     |> push_redirect(
+       to:
+         Routes.podcast_show_path(
+           KapselistudioWeb.Endpoint,
+           :show,
+           socket.assigns.episode.podcast
+         )
+     )}
   end
 
   def change_publish_status(published_at, status, socket) do
