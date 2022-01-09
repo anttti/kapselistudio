@@ -90,7 +90,7 @@ defmodule KapselistudioWeb.FeedController do
       guid: "",
       enclosure_url: e.url,
       duration: e.duration,
-      description: Earmark.as_html!(e.shownotes),
+      description: e.description,
       long_description: Earmark.as_html!(e.shownotes),
       days_since_release: 0,
       audio_file: %{

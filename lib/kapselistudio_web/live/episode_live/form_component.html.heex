@@ -28,6 +28,11 @@
       <%= error_tag f, :title %>
     </p>
     <p class="mb-4">
+      <%= label f, :description, "Lyhyt kuvaus", class: "label" %>
+      <%= text_input f, :description, class: "input" %>
+      <%= error_tag f, :description %>
+    </p>
+    <p class="mb-4">
       <%= label f, :shownotes, "Shownotet", class: "label" %>
       <%= text_input f, :shownotes, class: "input" %>
       <%= error_tag f, :shownotes %>

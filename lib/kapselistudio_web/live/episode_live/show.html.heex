@@ -30,6 +30,12 @@
         </div>
 
         <div class="col-span-6">
+          <label class="label">Lyhyt kuvaus</label>
+          <%= textarea f, :description, class: "px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 border rounded-md h-24", phx_debounce: 1000 %>
+          <%= error_tag f, :description %>
+        </div>
+
+        <div class="col-span-6">
           <div class="flex justify-between mb-1">
             <label class="label">Shownotet</label>
             <label class="label">

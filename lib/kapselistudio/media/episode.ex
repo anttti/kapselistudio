@@ -5,6 +5,7 @@ defmodule Kapselistudio.Media.Episode do
   schema "episodes" do
     field :duration, :integer
     field :number, :integer
+    field :description, :string
     field :shownotes, :string
     field :title, :string
     field :url, :string
@@ -23,12 +24,22 @@ defmodule Kapselistudio.Media.Episode do
       :url,
       :duration,
       :title,
+      :description,
       :shownotes,
       :status,
       :published_at,
       :podcast_id
     ])
     # TODO: Validate that status is either DRAFT or PUBLISHED
-    |> validate_required([:number, :url, :duration, :title, :shownotes, :status, :podcast_id])
+    |> validate_required([
+      :number,
+      :url,
+      :duration,
+      :title,
+      :description,
+      :shownotes,
+      :status,
+      :podcast_id
+    ])
   end
 end
