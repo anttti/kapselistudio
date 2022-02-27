@@ -109,9 +109,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
           &upload_static_file(&1, entry.client_name, socket)
         )
 
-      IO.puts("Done and the path is #{path}")
-      # Persist info about uploaded file
-      # entry.client_size -- file size
+      save_episode(socket, :edit_episode, %{url: path})
 
       {:noreply, socket}
     else
