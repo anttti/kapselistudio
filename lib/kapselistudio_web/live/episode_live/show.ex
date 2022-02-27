@@ -3,6 +3,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
 
   alias Phoenix.LiveView.JS
   alias Kapselistudio.Media
+  alias Kapselistudio.MP3Stat
 
   @impl Phoenix.LiveView
   def mount(%{"id" => id}, _session, socket) do
@@ -102,14 +103,16 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   # Uploads
   defp handle_upload_progress(:audio_file, entry, socket) do
     if entry.done? do
-      path =
+      %{path: path, dest: dest} =
         consume_uploaded_entry(
           socket,
           entry,
           &upload_static_file(&1, entry.client_name, socket)
         )
 
-      save_episode(socket, :edit_episode, %{url: path})
+      # TODO: Perform this parsing asynchronously
+      {:ok, %{:duration => duration}} = MP3Stat.parse(dest)
+      save_episode(socket, :edit_episode, %{url: path, duration: duration})
 
       {:noreply, socket}
     else
@@ -123,7 +126,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
     # dest = Path.join("priv/static/audio-files", "#{Path.basename(path)}")
     dest = Path.join("priv/static/audio-files", "#{filename}")
     File.cp!(path, dest)
-    Routes.static_path(socket, "/audio-files/#{filename}")
+    %{path: Routes.static_path(socket, "/audio-files/#{filename}"), dest: dest}
   end
 
   def change_publish_status(published_at, status, socket) do
