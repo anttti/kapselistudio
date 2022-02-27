@@ -25,13 +25,6 @@
 
           <div class="w-full flex-none mt-4 sm:mt-0 sm:w-auto sm:ml-auto flex items-center gap-4">
             <%= if @current_user do %>
-              <a href="/" class="hover:text-gray-900">
-                Podcastit
-              </a>
-              <a href="/tags" class="hover:text-gray-900">
-                Tagit
-              </a>
-
               <%= link to: Routes.user_session_path(@conn, :delete), method: :delete, class: "pl-4 border-l border-gray-200 hover:text-teal-600 flex items-center" do %>
                 Kirjaudu ulos
               <% end %>
