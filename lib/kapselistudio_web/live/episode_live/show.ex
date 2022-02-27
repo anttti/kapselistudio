@@ -4,15 +4,23 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   alias Phoenix.LiveView.JS
   alias Kapselistudio.Media
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(%{"id" => id}, _session, socket) do
     episode = Media.get_episode!(id)
 
     {:ok,
-     assign(socket, %{
+     socket
+     |> assign(%{
        changeset: Media.change_episode(episode),
        shownote_preview: Earmark.as_html!(episode.shownotes)
-     })}
+     })
+     |> allow_upload(:audio_file,
+       accept: ~w(.mp3),
+       max_entries: 1,
+       max_file_size: 100_000_000,
+       auto_upload: true,
+       progress: &handle_upload_progress/3
+     )}
   end
 
   @impl true
@@ -47,6 +55,19 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   end
 
   def handle_event("save", %{"episode" => episode_params}, socket) do
+    uploaded_files =
+      consume_uploaded_entries(socket, :audio_file, fn %{path: path}, entry ->
+        # IO.inspect(entry)
+        # IO.inspect(path)
+
+        dest =
+          Path.join([:code.priv_dir(:kapselistudio), "static", "uploads", Path.basename(path)])
+
+        IO.puts(dest)
+        File.cp!(path, dest)
+        Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
+      end)
+
     save_episode(socket, :edit_episode, episode_params)
   end
 
@@ -72,6 +93,39 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
            socket.assigns.episode.podcast
          )
      )}
+  end
+
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :audio_file, ref)}
+  end
+
+  # Uploads
+  defp handle_upload_progress(:audio_file, entry, socket) do
+    if entry.done? do
+      path =
+        consume_uploaded_entry(
+          socket,
+          entry,
+          &upload_static_file(&1, entry.client_name, socket)
+        )
+
+      IO.puts("Done and the path is #{path}")
+      # Persist info about uploaded file
+      # entry.client_size -- file size
+
+      {:noreply, socket}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  defp upload_static_file(%{path: path}, client_name, socket) do
+    # Copy the uploaded file to disk
+    filename = "#{Ecto.UUID.generate()}_#{client_name}"
+    # dest = Path.join("priv/static/audio-files", "#{Path.basename(path)}")
+    dest = Path.join("priv/static/audio-files", "#{filename}")
+    File.cp!(path, dest)
+    Routes.static_path(socket, "/audio-files/#{filename}")
   end
 
   def change_publish_status(published_at, status, socket) do
@@ -101,4 +155,8 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
         {:noreply, assign(socket, :changeset, changeset)}
     end
   end
+
+  def error_to_string(:too_large), do: "Too large"
+  def error_to_string(:too_many_files), do: "You have selected too many files"
+  def error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end

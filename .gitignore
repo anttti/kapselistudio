@@ -32,3 +32,6 @@ kapselistudio-*.tar
 npm-debug.log
 /assets/node_modules/
 
+/priv/static/audio-files/*.mp3
+
+.DS_Store

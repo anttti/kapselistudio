@@ -23,6 +23,25 @@
           <%= error_tag f, :url %>
         </div>
 
+        <div class="col-span-5">
+          <label class="label">Äänitiedosto</label>
+          <div phx-drop-target={@uploads.audio_file.ref}>
+            <%= live_file_input @uploads.audio_file %>
+          </div>
+        </div>
+
+        <section phx-drop-target={@uploads.audio_file.ref}>
+          <%= for entry <- @uploads.audio_file.entries do %>
+            <article class="upload-entry">
+              <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
+              <button phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">&times;</button>
+              <%= for err <- upload_errors(@uploads.audio_file, entry) do %>
+                <p class="alert alert-danger"><%= error_to_string(err) %></p>
+              <% end %>
+            </article>
+          <% end %>
+        </section>
+
         <div class="col-span-1">
           <label class="label">Kesto</label>
           <%= number_input f, :duration, class: "input" %>
