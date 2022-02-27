@@ -74,6 +74,6 @@ for {title, index} <- titles,
 
 Kapselistudio.Repo.insert!(%Kapselistudio.Accounts.User{
   email: "test@test.com",
-  hashed_password: Bcrypt.hash_pwd_salt("testtesttest"),
+  hashed_password: Bcrypt.hash_pwd_salt("test"),
   confirmed_at: ~N[2021-01-01 00:00:00]
 })
