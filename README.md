@@ -8,3 +8,12 @@ To start:
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+## Deploying to Gigalixir
+
+- `git remote add gigalixir https://git.gigalixir.com/kapselistudio.git/`
+- `git push gigalixir`
+
+### Running migrations in Gigalixir
+
+- `gigalixir run mix ecto.migrate`
