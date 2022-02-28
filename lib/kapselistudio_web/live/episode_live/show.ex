@@ -57,10 +57,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
 
   def handle_event("save", %{"episode" => episode_params}, socket) do
     uploaded_files =
-      consume_uploaded_entries(socket, :audio_file, fn %{path: path}, entry ->
-        # IO.inspect(entry)
-        # IO.inspect(path)
-
+      consume_uploaded_entries(socket, :audio_file, fn %{path: path}, _entry ->
         dest =
           Path.join([:code.priv_dir(:kapselistudio), "static", "uploads", Path.basename(path)])
 
