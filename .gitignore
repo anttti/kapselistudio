@@ -35,3 +35,8 @@ npm-debug.log
 /priv/static/audio-files/*.mp3
 
 .DS_Store
+
+# SQLite
+kapselistudio
+kapselistudio-shm
+kapselistudio-wal
