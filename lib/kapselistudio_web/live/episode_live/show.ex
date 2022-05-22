@@ -164,18 +164,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   defp save_episode(socket, _, :new_episode, episode_params) do
     case Media.create_episode(episode_params) do
       {:ok, episode} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Jakso luotu")
-         |> push_redirect(
-           to:
-             Routes.episode_show_path(
-               KapselistudioWeb.Endpoint,
-               :edit,
-               episode.podcast_id,
-               episode
-             )
-         )}
+        redirect_to_episode(socket, "Jakso luotu", episode)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
@@ -185,22 +174,26 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   defp save_episode(socket, episode, :edit_episode, episode_params) do
     case Media.update_episode(episode, episode_params) do
       {:ok, episode} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Muutokset tallennettu")
-         |> push_redirect(
-           to:
-             Routes.episode_show_path(
-               KapselistudioWeb.Endpoint,
-               :edit,
-               episode.podcast_id,
-               episode
-             )
-         )}
+        redirect_to_episode(socket, "Muutokset tallennettu", episode)
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
+  end
+
+  defp redirect_to_episode(socket, info, episode) do
+    {:noreply,
+     socket
+     |> put_flash(:info, info)
+     |> push_redirect(
+       to:
+         Routes.episode_show_path(
+           KapselistudioWeb.Endpoint,
+           :edit,
+           episode.podcast_id,
+           episode
+         )
+     )}
   end
 
   def error_to_string(:too_large), do: "Too large"
