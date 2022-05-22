@@ -71,8 +71,7 @@ defmodule KapselistudioWeb.Router do
     live "/podcasts/:id/edit", PodcastLive.Index, :edit
     live "/podcasts/:id", PodcastLive.Show, :show
     live "/episodes/:podcast_id/edit/:id", EpisodeLive.Show, :edit
-    live "/episodes/:podcast_id/new", PodcastLive.Show, :new_episode
-    live "/episodes/:id", EpisodeLive.Show, :show
+    live "/episodes/:podcast_id/new", EpisodeLive.Show, :new
 
     live "/tags", TagLive.Index, :index
     live "/tags/new", TagLive.Index, :new

@@ -3,22 +3,37 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
 
   alias Phoenix.LiveView.JS
   alias Kapselistudio.Media
+  alias Kapselistudio.Media.Episode
   alias Kapselistudio.MP3Stat
 
   @impl Phoenix.LiveView
-  def mount(%{"id" => id}, _session, socket) do
+  def mount(%{"id" => id, "podcast_id" => podcast_id}, _session, socket) do
     episode = Media.get_episode!(id)
 
+    mount_reply(socket, %{
+      changeset: Media.change_episode(episode),
+      shownote_preview: Earmark.as_html!(episode.shownotes),
+      podcast_id: podcast_id
+    })
+  end
+
+  def mount(%{"podcast_id" => podcast_id}, _session, socket) do
+    mount_reply(socket, %{
+      changeset: Media.change_episode(%Episode{}),
+      shownote_preview: "",
+      podcast_id: podcast_id
+    })
+  end
+
+  defp mount_reply(socket, changes) do
     {:ok,
      socket
-     |> assign(%{
-       changeset: Media.change_episode(episode),
-       shownote_preview: Earmark.as_html!(episode.shownotes)
-     })
+     |> assign(changes)
      |> allow_upload(:audio_file,
        accept: ~w(.mp3),
        max_entries: 1,
        max_file_size: 100_000_000
+       # TODO: Show upload progress
        #  progress: &handle_upload_progress/3
      )}
   end
@@ -28,16 +43,16 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :show, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Jakson tiedot")
-    |> assign(:episode, Media.get_episode!(id))
-  end
-
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Muokkaa jaksoa")
     |> assign(:episode, Media.get_episode!(id))
+  end
+
+  defp apply_action(socket, :new, _) do
+    socket
+    |> assign(:page_title, "Uusi jakso")
+    |> assign(:episode, %Episode{})
   end
 
   @impl true
@@ -115,7 +130,17 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
       |> add_param("url", url)
       |> add_param("duration", duration)
 
-    save_episode(socket, socket.assigns.episode, :edit_episode, changes)
+    if socket.assigns.episode.id do
+      save_episode(socket, socket.assigns.episode, :edit_episode, changes)
+    else
+      save_episode(
+        socket,
+        %Episode{},
+        :new_episode,
+        changes
+        |> Map.put("podcast_id", socket.assigns.podcast_id)
+      )
+    end
   end
 
   def change_publish_status(published_at, status, socket) do
@@ -136,6 +161,27 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
     end
   end
 
+  defp save_episode(socket, _, :new_episode, episode_params) do
+    case Media.create_episode(episode_params) do
+      {:ok, episode} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Jakso luotu")
+         |> push_redirect(
+           to:
+             Routes.episode_show_path(
+               KapselistudioWeb.Endpoint,
+               :edit,
+               episode.podcast_id,
+               episode
+             )
+         )}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, :changeset, changeset)}
+    end
+  end
+
   defp save_episode(socket, episode, :edit_episode, episode_params) do
     case Media.update_episode(episode, episode_params) do
       {:ok, episode} ->
@@ -146,7 +192,8 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
            to:
              Routes.episode_show_path(
                KapselistudioWeb.Endpoint,
-               :show,
+               :edit,
+               episode.podcast_id,
                episode
              )
          )}

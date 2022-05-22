@@ -1,5 +1,9 @@
 <div class="flex justify-between px-4 pb-4">
+  <%= if @episode.podcast_id do %>
   <%= live_redirect "Takaisin", to: Routes.podcast_show_path(@socket, :show, @episode.podcast_id), class: "text-sm hover:underline text-gray-600" %>
+  <% else %>
+  <%= live_redirect "Takaisin", to: Routes.podcast_index_path(@socket, :index), class: "text-sm hover:underline text-gray-600" %>
+  <% end %>
 </div>
 <.form
   let={f}
@@ -72,7 +76,9 @@
 
           <div id="markdown-preview" class="hidden">
             <div class="p-4 prose bg-white rounded-md border border-gray-300">
+              <%= if @shownote_preview do %>
               <%= raw(@shownote_preview) %>
+              <% end %>
             </div>
           </div>
 
@@ -84,13 +90,16 @@
       </div>
     </div>
     <div class="flex items-center justify-end gap-6 px-4 py-3 text-right bg-gray-50 sm:px-6">
+      <%= if @episode.updated_at do %>
       <p class="text-xs text-gray-400">
         Viimeksi päivitetty: <%= KapselistudioWeb.DateHelpers.format_date(@episode.updated_at) %>
       </p>
-      <%= if @episode.status == "PUBLISHED" do %>
+      <% end %>
+      <%= if @episode && @episode.status == "PUBLISHED" do %>
         <p class="text-xs text-gray-400">Julkaistu: <%= KapselistudioWeb.DateHelpers.format_date(@episode.published_at) %></p>
         <button type="button" phx-click="unpublish" class="text-xs text-gray-400 border-0 hover:underline">Peru julkaisu</button>
-      <% else %>
+      <% end %>
+      <%= if @episode && @episode.id && @episode.status == "DRAFT" do %>
         <div class="flex gap-4">
           <button type="button" phx-click="publish" class="text-xs text-gray-400 border-0 hover:underline">Julkaise</button>
           <button type="button" phx-click="delete" class="text-xs text-gray-400 border-0 hover:underline">Poista</button>

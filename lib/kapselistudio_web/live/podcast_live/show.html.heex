@@ -7,19 +7,10 @@
     return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
 <% end %>
 
-<%= if @live_action in [:new_episode] do %>
-  <%= live_modal KapselistudioWeb.EpisodeLive.FormComponent,
-    id: @episode.id || :new,
-    title: @page_title,
-    action: @live_action,
-    episode: @episode,
-    return_to: Routes.podcast_show_path(@socket, :show, @podcast) %>
-<% end %>
-
 <div class="flex flex-col gap-8">
   <div class="flex gap-4">
     <h1 class="text-2xl"><%= @podcast.name %></h1>
-    <%= live_patch "Uusi jakso", to: Routes.podcast_show_path(@socket, :new_episode, @podcast.id), class: "btn-primary self-start" %>
+    <%= live_patch "Uusi jakso", to: Routes.episode_show_path(@socket, :new, @podcast.id), class: "btn-primary self-start" %>
   </div>
 
   <section class="overflow-hidden border-b border-gray-200 rounded-lg shadow">
@@ -32,7 +23,7 @@
             <% else %>
               <span class="inline-flex w-3 h-3 mr-4 bg-yellow-500 rounded-full"></span>
             <% end %>
-            <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :show, episode) %>
+            <%= live_redirect episode.title, to: Routes.episode_show_path(@socket, :edit, episode.podcast_id, episode) %>
           </div>
           <div class="w-48 px-6 py-4 text-right text-gray-400">
             <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>

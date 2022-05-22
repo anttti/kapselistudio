@@ -5,11 +5,11 @@ defmodule Kapselistudio.Media.Episode do
   schema "episodes" do
     field :duration, :integer
     field :number, :integer
-    field :description, :string
-    field :shownotes, :string
+    field :description, :string, default: ""
+    field :shownotes, :string, default: ""
     field :title, :string
     field :url, :string
-    field :status, :string
+    field :status, :string, default: "DRAFT"
     field :published_at, :utc_datetime
     belongs_to :podcast, Kapselistudio.Media.Podcast
 
