@@ -7,6 +7,8 @@ defmodule Kapselistudio.Media do
   alias Kapselistudio.Repo
 
   alias Kapselistudio.Media.Podcast
+  alias Kapselistudio.Media.Episode
+  alias Kapselistudio.Media.Tag
 
   @doc """
   Returns the list of podcasts.
@@ -36,9 +38,16 @@ defmodule Kapselistudio.Media do
 
   """
   def get_podcast!(id) do
-    Podcast
-    |> Repo.get!(id)
-    |> Repo.preload(:episodes)
+    Repo.one!(
+      from(
+        p in Podcast,
+        where: p.id == ^id,
+        select: p,
+        preload: [
+          episodes: ^from(e in Episode, order_by: [desc: e.number])
+        ]
+      )
+    )
   end
 
   @doc """
@@ -106,21 +115,6 @@ defmodule Kapselistudio.Media do
     Podcast.changeset(podcast, attrs)
   end
 
-  alias Kapselistudio.Media.Episode
-
-  @doc """
-  Returns the list of episodes.
-
-  ## Examples
-
-      iex> list_episodes()
-      [%Episode{}, ...]
-
-  """
-  def list_episodes do
-    Repo.all(Episode)
-  end
-
   @doc """
   Gets a single episode.
 
@@ -186,8 +180,6 @@ defmodule Kapselistudio.Media do
   def change_episode(%Episode{} = episode, attrs \\ %{}) do
     Episode.changeset(episode, attrs)
   end
-
-  alias Kapselistudio.Media.Tag
 
   def list_tags do
     Repo.all(Tag)
