@@ -33,11 +33,7 @@ defmodule Kapselistudio.Media.Episode do
     # TODO: Validate that status is either DRAFT or PUBLISHED
     |> validate_required([
       :number,
-      :url,
-      :duration,
       :title,
-      :description,
-      :shownotes,
       :status,
       :podcast_id
     ])

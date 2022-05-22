@@ -17,18 +17,23 @@
           <%= error_tag f, :title %>
         </div>
 
-        <div class="col-span-5">
-          <label class="label">URL</label>
-          <%= text_input f, :url, class: "input" %>
-          <%= error_tag f, :url %>
-        </div>
-
-        <div class="col-span-5">
-          <label class="label">Äänitiedosto</label>
-          <div phx-drop-target={@uploads.audio_file.ref}>
-            <%= live_file_input @uploads.audio_file %>
+        <%= if @episode.url do %>
+          <div class="col-span-4">
+            <label class="label">URL</label>
+            <%= text_input f, :url, class: "input" %>
+            <%= error_tag f, :url %>
           </div>
-        </div>
+          <div class="col-span-2">
+            <button type="button" phx-click="delete_audio_file" class="text-xs text-gray-400 border-0 hover:underline">Poista</button>
+          </div>
+        <% else %>
+          <div class="col-span-5">
+            <label class="label">Äänitiedosto</label>
+            <div phx-drop-target={@uploads.audio_file.ref}>
+              <%= live_file_input @uploads.audio_file %>
+            </div>
+          </div>
+        <% end %>
 
         <section phx-drop-target={@uploads.audio_file.ref}>
           <%= for entry <- @uploads.audio_file.entries do %>
@@ -42,11 +47,13 @@
           <% end %>
         </section>
 
+        <%= if @episode.duration do %>
         <div class="col-span-1">
           <label class="label">Kesto</label>
           <%= number_input f, :duration, class: "input" %>
           <%= error_tag f, :duration %>
         </div>
+        <% end %>
 
         <div class="col-span-6">
           <label class="label">Lyhyt kuvaus</label>
