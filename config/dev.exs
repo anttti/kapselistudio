@@ -2,11 +2,11 @@ import Config
 
 # Configure your database
 config :kapselistudio, Kapselistudio.Repo,
-  username: "postgres",
-  password: "LongPasswordCatIsLong",
+  username: "kapselistudio",
+  password: "kapselistudio",
   database: "kapselistudio",
   hostname: "localhost",
-  port: 7432,
+  port: 5432,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

@@ -10,8 +10,6 @@ import Config
 config :kapselistudio,
   ecto_repos: [Kapselistudio.Repo]
 
-config :kapselistudio, Kapselistudio.Repo, database: "kapselistudio.db"
-
 # Configures the endpoint
 config :kapselistudio, KapselistudioWeb.Endpoint,
   url: [host: "localhost"],
