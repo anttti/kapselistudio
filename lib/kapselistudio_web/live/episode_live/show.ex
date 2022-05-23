@@ -118,9 +118,10 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
         dest = Path.join([:code.priv_dir(:kapselistudio), "static", "audio-files", filename])
         File.cp!(file.path, dest)
         {:ok, %{:duration => duration}} = MP3Stat.parse(dest)
-        Routes.static_path(socket, "/uploads/#{Path.basename(dest)}")
+        path = "/audio-files/" <> filename
+        Routes.static_path(socket, path)
 
-        %{:path => dest, :duration => duration}
+        %{:path => path, :duration => duration}
       end)
 
     %{path: url, duration: duration} = get_file_info(Enum.at(audio_files, 0))
