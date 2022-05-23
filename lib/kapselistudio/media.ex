@@ -138,6 +138,23 @@ defmodule Kapselistudio.Media do
   end
 
   @doc """
+  Returns a new, empty Episode with `number` set to currently largest episode
+  number + 1.
+  """
+  def new_episode() do
+    largest_number =
+      Kapselistudio.Repo.one(
+        from e in Episode,
+          where: e.podcast_id == 1,
+          select: e.number,
+          order_by: [desc: :number],
+          limit: 1
+      )
+
+    %Episode{number: largest_number + 1}
+  end
+
+  @doc """
   Creates a episode.
 
   ## Examples

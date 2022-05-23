@@ -19,7 +19,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
 
   def mount(%{"podcast_id" => podcast_id}, _session, socket) do
     mount_reply(socket, %{
-      changeset: Media.change_episode(%Episode{}),
+      changeset: Media.new_episode() |> Media.change_episode(),
       shownote_preview: "",
       podcast_id: podcast_id
     })
