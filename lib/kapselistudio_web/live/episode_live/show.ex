@@ -197,6 +197,15 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
      )}
   end
 
+  def format_duration(secs) do
+    minutes = div(secs, 60)
+    seconds = rem(secs, 60)
+    "#{format_time_number(minutes)}:#{format_time_number(seconds)}"
+  end
+
+  def format_time_number(num) when num < 10, do: "0#{num}"
+  def format_time_number(num), do: "#{num}"
+
   def error_to_string(:too_large), do: "Too large"
   def error_to_string(:too_many_files), do: "You have selected too many files"
   def error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
