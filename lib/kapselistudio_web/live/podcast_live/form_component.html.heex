@@ -5,81 +5,81 @@
     id="podcast-form"
     phx-target={@myself}
     phx-change="validate"
-    phx-submit="save">
-
+    phx-submit="save"
+  >
     <p class="mb-4">
-      <%= label f, :name, "Nimi", class: "label" %>
-      <%= text_input f, :name, class: "input" %>
-      <%= error_tag f, :name %>
+      <%= label(f, :name, "Nimi", class: "label") %>
+      <%= text_input(f, :name, class: "input") %>
+      <%= error_tag(f, :name) %>
     </p>
     <p class="mb-4">
-      <%= label f, :slug, "Tunniste", class: "label" %>
-      <%= text_input f, :slug, class: "input" %>
-      <%= error_tag f, :slug %>
+      <%= label(f, :slug, "Tunniste", class: "label") %>
+      <%= text_input(f, :slug, class: "input") %>
+      <%= error_tag(f, :slug) %>
     </p>
     <p class="mb-4">
-      <%= label f, :url, "URL", class: "label" %>
-      <%= text_input f, :url, class: "input" %>
-      <%= error_tag f, :url %>
+      <%= label(f, :url, "URL", class: "label") %>
+      <%= text_input(f, :url, class: "input") %>
+      <%= error_tag(f, :url) %>
     </p>
     <p class="mb-4">
-      <%= label f, :description, "Kuvaus", class: "label" %>
-      <%= text_input f, :description, class: "input" %>
-      <%= error_tag f, :description %>
+      <%= label(f, :description, "Kuvaus", class: "label") %>
+      <%= text_input(f, :description, class: "input") %>
+      <%= error_tag(f, :description) %>
     </p>
     <p class="mb-4">
-      <%= label f, :author, "Tekijä", class: "label" %>
-      <%= text_input f, :author, class: "input" %>
-      <%= error_tag f, :author %>
+      <%= label(f, :author, "Tekijä", class: "label") %>
+      <%= text_input(f, :author, class: "input") %>
+      <%= error_tag(f, :author) %>
     </p>
     <p class="mb-4">
-      <%= label f, :type, "Tyyppi", class: "label" %>
-      <%= text_input f, :type, class: "input" %>
-      <%= error_tag f, :type %>
+      <%= label(f, :type, "Tyyppi", class: "label") %>
+      <%= text_input(f, :type, class: "input") %>
+      <%= error_tag(f, :type) %>
     </p>
     <p class="mb-4">
-      <%= label f, :keywords, "Avainsanat", class: "label" %>
-      <%= text_input f, :keywords, class: "input" %>
-      <%= error_tag f, :keywords %>
+      <%= label(f, :keywords, "Avainsanat", class: "label") %>
+      <%= text_input(f, :keywords, class: "input") %>
+      <%= error_tag(f, :keywords) %>
     </p>
     <p class="mb-4">
-      <%= label f, :owner_name, "Omistajan nimi", class: "label" %>
-      <%= text_input f, :owner_name, class: "input" %>
-      <%= error_tag f, :owner_name %>
+      <%= label(f, :owner_name, "Omistajan nimi", class: "label") %>
+      <%= text_input(f, :owner_name, class: "input") %>
+      <%= error_tag(f, :owner_name) %>
     </p>
     <p class="mb-4">
-      <%= label f, :owner_email, "Omistajan sähköpostiosoite", class: "label" %>
-      <%= text_input f, :owner_email, class: "input" %>
-      <%= error_tag f, :owner_email %>
+      <%= label(f, :owner_email, "Omistajan sähköpostiosoite", class: "label") %>
+      <%= text_input(f, :owner_email, class: "input") %>
+      <%= error_tag(f, :owner_email) %>
     </p>
     <p class="mb-4">
-      <%= label f, :main_category, "Pääkategoria", class: "label" %>
-      <%= text_input f, :main_category, class: "input" %>
-      <%= error_tag f, :main_category %>
+      <%= label(f, :main_category, "Pääkategoria", class: "label") %>
+      <%= text_input(f, :main_category, class: "input") %>
+      <%= error_tag(f, :main_category) %>
     </p>
     <p class="mb-4">
-      <%= label f, :sub_category_1, "Alikategoria 1", class: "label" %>
-      <%= text_input f, :sub_category_1, class: "input" %>
-      <%= error_tag f, :sub_category_1 %>
+      <%= label(f, :sub_category_1, "Alikategoria 1", class: "label") %>
+      <%= text_input(f, :sub_category_1, class: "input") %>
+      <%= error_tag(f, :sub_category_1) %>
     </p>
     <p class="mb-4">
-      <%= label f, :sub_category_2, "Alikategoria 2", class: "label" %>
-      <%= text_input f, :sub_category_2, class: "input" %>
-      <%= error_tag f, :sub_category_2 %>
+      <%= label(f, :sub_category_2, "Alikategoria 2", class: "label") %>
+      <%= text_input(f, :sub_category_2, class: "input") %>
+      <%= error_tag(f, :sub_category_2) %>
     </p>
     <p class="mb-4">
-      <%= label f, :sub_category_3, "Alikategoria 3", class: "label" %>
-      <%= text_input f, :sub_category_3, class: "input" %>
-      <%= error_tag f, :sub_category_3 %>
+      <%= label(f, :sub_category_3, "Alikategoria 3", class: "label") %>
+      <%= text_input(f, :sub_category_3, class: "input") %>
+      <%= error_tag(f, :sub_category_3) %>
     </p>
     <p class="mb-4">
-      <%= label f, :explicit, "Kielletty alaikäisiltä", class: "label" %>
-      <%= checkbox f, :explicit %>
-      <%= error_tag f, :explicit %>
+      <%= label(f, :explicit, "Kielletty alaikäisiltä", class: "label") %>
+      <%= checkbox(f, :explicit) %>
+      <%= error_tag(f, :explicit) %>
     </p>
 
     <div>
-      <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary" %>
+      <%= submit("Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary") %>
     </div>
   </.form>
 </div>

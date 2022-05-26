@@ -7,27 +7,30 @@
     </div>
   <% end %>
 
-  <%= label f, :email, class: "label" %>
-  <%= email_input f, :email, required: true, class: "input mb-2" %>
+  <%= label(f, :email, class: "label") %>
+  <%= email_input(f, :email, required: true, class: "input mb-2") %>
 
-  <%= label f, :password, class: "label" %>
-  <%= password_input f, :password, required: true, class: "input mb-2"  %>
+  <%= label(f, :password, class: "label") %>
+  <%= password_input(f, :password, required: true, class: "input mb-2") %>
 
   <div class="flex items-start mb-4">
     <div class="flex items-center h-5">
-      <%= checkbox f, :remember_me, class: "checkbox" %>
+      <%= checkbox(f, :remember_me, class: "checkbox") %>
     </div>
     <div class="ml-3 text-sm">
-      <%= label f, :remember_me, "Keep me logged in for 60 days", class: "label" %>
+      <%= label(f, :remember_me, "Keep me logged in for 60 days", class: "label") %>
     </div>
   </div>
 
   <div class="mb-12">
-    <%= submit "Log in", class: "btn-primary" %>
+    <%= submit("Log in", class: "btn-primary") %>
   </div>
 </.form>
 
 <p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "btn-secondary" %>
-  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "ml-5 btn-secondary" %>
+  <%= link("Register", to: Routes.user_registration_path(@conn, :new), class: "btn-secondary") %>
+  <%= link("Forgot your password?",
+    to: Routes.user_reset_password_path(@conn, :new),
+    class: "ml-5 btn-secondary"
+  ) %>
 </p>

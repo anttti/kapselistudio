@@ -1,24 +1,33 @@
 <div class="flex justify-between px-4 pb-4">
   <%= if @episode.podcast_id do %>
-    <%= live_redirect "Takaisin", to: Routes.podcast_show_path(@socket, :show, @episode.podcast_id), class: "text-sm hover:underline text-gray-600" %>
+    <%= live_redirect("Takaisin",
+      to: Routes.podcast_show_path(@socket, :show, @episode.podcast_id),
+      class: "text-sm hover:underline text-gray-600"
+    ) %>
   <% else %>
-    <%= live_redirect "Takaisin", to: Routes.podcast_index_path(@socket, :index), class: "text-sm hover:underline text-gray-600" %>
+    <%= live_redirect("Takaisin",
+      to: Routes.podcast_index_path(@socket, :index),
+      class: "text-sm hover:underline text-gray-600"
+    ) %>
   <% end %>
 </div>
 
-<.form
-  let={f}
-  for={@changeset}
-  id="episode-form"
-  phx-change="validate"
-  phx-submit="save">
+<.form let={f} for={@changeset} id="episode-form" phx-change="validate" phx-submit="save">
   <div class="overflow-hidden rounded-md shadow">
-    <div class={"px-4 py-5 flex flex-col gap-4 bg-white #{if @episode.status != "PUBLISHED", do: "border-t-8 border-yellow-300", else: ""}"}>
+    <div class={
+      "px-4 py-5 flex flex-col gap-4 bg-white #{if @episode.status != "PUBLISHED", do: "border-t-8 border-yellow-300", else: ""}"
+    }>
       <header class="flex">
-        <%= text_input f, :number, class: "text-3xl w-16 border-b-2 border-transparent focus:outline-none focus:border-gray-300 hover:border-gray-200" %>
-        <%= text_input f, :title, class: "text-3xl w-full border-b-2 border-transparent focus:outline-none focus:border-gray-300 hover:border-gray-200" %>
-        <%= error_tag f, :number %>
-        <%= error_tag f, :title %>
+        <%= text_input(f, :number,
+          class:
+            "text-3xl w-16 border-b-2 border-transparent focus:outline-none focus:border-gray-300 hover:border-gray-200"
+        ) %>
+        <%= text_input(f, :title,
+          class:
+            "text-3xl w-full border-b-2 border-transparent focus:outline-none focus:border-gray-300 hover:border-gray-200"
+        ) %>
+        <%= error_tag(f, :number) %>
+        <%= error_tag(f, :title) %>
       </header>
 
       <div class="grid grid-cols-6 gap-6">
@@ -31,23 +40,42 @@
               </div>
               <div class="flex flex-col gap-2">
                 <label class="label">Kesto</label>
-                <span><%= format_duration(@episode.duration) %></span>
+                <span class="text-sm"><%= format_duration(@episode.duration) %></span>
               </div>
-              <button type="button" phx-click="delete_audio_file" class="text-xs text-gray-400 border-0 hover:underline">Poista</button>
+              <button
+                type="button"
+                data-confirm="Oletko varma, että haluat poistaa äänitiedoston?"
+                phx-click="delete_audio_file"
+              >
+                <svg
+                  class="w-8 h-8 fill-gray-600"
+                  viewBox="0 0 50 50"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M20 18h2v16h-2z" /><path d="M24 18h2v16h-2z" /><path d="M28 18h2v16h-2z" /><path d="M12 12h26v2H12z" /><path d="M30 12h-2v-1c0-.6-.4-1-1-1h-4c-.6 0-1 .4-1 1v1h-2v-1c0-1.7 1.3-3 3-3h4c1.7 0 3 1.3 3 3v1z" /><path d="M31 40H19c-1.6 0-3-1.3-3.2-2.9l-1.8-24 2-.2 1.8 24c0 .6.6 1.1 1.2 1.1h12c.6 0 1.1-.5 1.2-1.1l1.8-24 2 .2-1.8 24C34 38.7 32.6 40 31 40z" />
+                </svg>
+              </button>
             </div>
           <% else %>
             <div class="flex gap-2 items-end">
               <div class="flex-1">
                 <label class="label">Äänitiedosto</label>
                 <div phx-drop-target={@uploads.audio_file.ref}>
-                  <%= live_file_input @uploads.audio_file, class: "input" %>
+                  <%= live_file_input(@uploads.audio_file, class: "input") %>
                 </div>
               </div>
               <section phx-drop-target={@uploads.audio_file.ref}>
                 <%= for entry <- @uploads.audio_file.entries do %>
                   <div class="flex gap-4 items-center">
-                    <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
-                    <button type="button" phx-click="cancel-upload" phx-value-ref={entry.ref} aria-label="cancel">&times;</button>
+                    <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
+                    <button
+                      type="button"
+                      phx-click="cancel-upload"
+                      phx-value-ref={entry.ref}
+                      aria-label="cancel"
+                    >
+                      &times;
+                    </button>
                     <%= for err <- upload_errors(@uploads.audio_file, entry) do %>
                       <p class="alert alert-danger"><%= error_to_string(err) %></p>
                     <% end %>
@@ -59,8 +87,12 @@
 
           <div class="flex flex-col gap-2">
             <label class="label">Lyhyt kuvaus</label>
-            <%= textarea f, :description, class: "px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 border rounded-md h-24", phx_debounce: 1000 %>
-            <%= error_tag f, :description %>
+            <%= textarea(f, :description,
+              class:
+                "px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 border rounded-md h-24",
+              phx_debounce: 1000
+            ) %>
+            <%= error_tag(f, :description) %>
           </div>
         </div>
 
@@ -68,22 +100,32 @@
           <div class="flex justify-between mb-1">
             <label class="label">Shownotet</label>
             <label class="label">
-              <input type="checkbox" phx-update="ignore" phx-click={JS.toggle(to: "#markdown-preview") |> JS.toggle(to: "#markdown-editor")}>
-              Esikatselu
+              <input
+                type="checkbox"
+                id="toggle-preview"
+                phx-update="ignore"
+                phx-click={
+                  JS.toggle(to: "#markdown-preview") |> JS.toggle(to: "#markdown-editor")
+                }
+              /> Esikatselu
             </label>
           </div>
 
           <div id="markdown-preview" class="hidden">
             <div class="p-4 prose bg-white rounded-md border border-gray-300">
               <%= if @shownote_preview do %>
-              <%= raw(@shownote_preview) %>
+                <%= raw(@shownote_preview) %>
               <% end %>
             </div>
           </div>
 
           <div id="markdown-editor">
-            <%= textarea f, :shownotes, class: "px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 border rounded-md h-96", phx_debounce: 1000 %>
-            <%= error_tag f, :shownotes %>
+            <%= textarea(f, :shownotes,
+              class:
+                "px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 border rounded-md h-96",
+              phx_debounce: 1000
+            ) %>
+            <%= error_tag(f, :shownotes) %>
           </div>
         </div>
       </div>
@@ -91,21 +133,43 @@
 
     <footer class="flex items-center justify-end gap-6 px-4 py-3 text-right bg-gray-50 sm:px-6">
       <%= if @episode.updated_at do %>
-      <p class="text-xs text-gray-400">
-        Viimeksi päivitetty: <%= KapselistudioWeb.DateHelpers.format_date(@episode.updated_at) %>
-      </p>
+        <p class="text-xs text-gray-400">
+          Viimeksi päivitetty: <%= KapselistudioWeb.DateHelpers.format_date(@episode.updated_at) %>
+        </p>
       <% end %>
       <%= if @episode && @episode.status == "PUBLISHED" do %>
-        <p class="text-xs text-gray-400">Julkaistu: <%= KapselistudioWeb.DateHelpers.format_date(@episode.published_at) %></p>
-        <button type="button" phx-click="unpublish" class="text-xs text-gray-400 border-0 hover:underline">Peru julkaisu</button>
+        <p class="text-xs text-gray-400">
+          Julkaistu: <%= KapselistudioWeb.DateHelpers.format_date(@episode.published_at) %>
+        </p>
+        <button
+          type="button"
+          phx-click="unpublish"
+          class="text-xs text-gray-400 border-0 hover:underline"
+        >
+          Peru julkaisu
+        </button>
       <% end %>
       <%= if @episode && @episode.id && @episode.status == "DRAFT" do %>
         <div class="flex gap-4">
-          <button type="button" data-confirm="Oletko varma, että haluat julkaista jakson?" phx-click="publish" class="text-xs text-gray-400 border-0 hover:underline">Julkaise</button>
-          <button type="button" data-confirm="Oletko varma, että haluat poistaa jakson?" phx-click="delete" class="text-xs text-gray-400 border-0 hover:underline">Poista</button>
+          <button
+            type="button"
+            data-confirm="Oletko varma, että haluat julkaista jakson?"
+            phx-click="publish"
+            class="text-xs text-gray-400 border-0 hover:underline"
+          >
+            Julkaise
+          </button>
+          <button
+            type="button"
+            data-confirm="Oletko varma, että haluat poistaa jakson?"
+            phx-click="delete"
+            class="text-xs text-gray-400 border-0 hover:underline"
+          >
+            Poista
+          </button>
         </div>
       <% end %>
-      <%= submit "Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary" %>
+      <%= submit("Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary") %>
     </footer>
   </div>
 </.form>
