@@ -35,3 +35,5 @@ npm-debug.log
 /priv/static/audio-files/*.mp3
 
 .DS_Store
+
+.env.prod
