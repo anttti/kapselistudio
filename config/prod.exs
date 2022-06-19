@@ -11,7 +11,7 @@ import Config
 # before starting your production server.
 config :kapselistudio, KapselistudioWeb.Endpoint,
   http: [:inet6, port: System.get_env("PORT")],
-  url: [host: System.get_env("WEB_HOST"), port: 80],
+  url: [host: System.get_env("WEB_HOST"), port: 80]
 
 # Do not print debug messages in production
 config :logger, level: :info
