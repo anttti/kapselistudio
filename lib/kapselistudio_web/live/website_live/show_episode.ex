@@ -3,6 +3,8 @@ defmodule KapselistudioWeb.WebsiteLive.ShowEpisode do
 
   alias Kapselistudio.Media
 
+  import KapselistudioWeb.WebsiteLive.HeaderComponent
+
   @impl true
   def mount(%{"podcast_id" => podcast_id, "episode_id" => episode_id}, _session, socket) do
     with episode <- Media.get_published_episode!(podcast_id, episode_id),

@@ -3,6 +3,8 @@ defmodule KapselistudioWeb.WebsiteLive.Show do
 
   alias Kapselistudio.Media
 
+  import KapselistudioWeb.WebsiteLive.HeaderComponent
+
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     mount_with_id(id, socket)
@@ -13,7 +15,6 @@ defmodule KapselistudioWeb.WebsiteLive.Show do
   end
 
   defp mount_with_id(id, socket) do
-    IO.puts('HERE')
     {:ok, assign(socket, :podcast, Media.get_podcast_with_published_episodes!(id))}
   end
 end
