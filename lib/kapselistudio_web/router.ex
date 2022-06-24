@@ -13,6 +13,16 @@ defmodule KapselistudioWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :public_browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {KapselistudioWeb.LayoutView, :public_root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :fetch_current_user
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -84,7 +94,7 @@ defmodule KapselistudioWeb.Router do
   end
 
   scope "/", KapselistudioWeb do
-    pipe_through [:browser]
+    pipe_through [:public_browser]
 
     get "/:podcast_id/feed.xml", FeedController, :index
     get "/api/podcast/:podcast_id/episodes", FeedController, :episodes
@@ -95,5 +105,8 @@ defmodule KapselistudioWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    live "/website/:id", WebsiteLive.Show, :show
+    live "/website/:podcast_id/episode/:episode_id", WebsiteLive.ShowEpisode, :show_episode
   end
 end

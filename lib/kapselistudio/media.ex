@@ -51,6 +51,48 @@ defmodule Kapselistudio.Media do
   end
 
   @doc """
+  Gets a single podcast with only published episodes.
+
+  Raises `Ecto.NoResultsError` if the Podcast does not exist.
+
+  ## Examples
+
+      iex> get_podcast!(123)
+      %Podcast{}
+
+      iex> get_podcast!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_podcast_with_published_episodes!(id) do
+    Repo.one!(
+      from(
+        p in Podcast,
+        where: p.id == ^id,
+        select: p,
+        preload: [
+          episodes:
+            ^from(e in Episode, where: e.status == "PUBLISHED", order_by: [desc: e.number])
+        ]
+      )
+    )
+  end
+
+  @doc """
+  Gets a single published podcast episode.
+
+  Raises `Ecto.NoResultsError` if the Episode does not exist.
+  """
+  def get_published_episode!(podcast_id, episode_id) do
+    Repo.one!(
+      from(
+        e in Episode,
+        where: e.id == ^episode_id and e.status == "PUBLISHED" and e.podcast_id == ^podcast_id
+      )
+    )
+  end
+
+  @doc """
   Creates a podcast.
 
   ## Examples
@@ -132,7 +174,7 @@ defmodule Kapselistudio.Media do
   def get_episode!(id), do: Repo.get!(Episode, id) |> Repo.preload(:podcast)
 
   def get_published_episodes!(id) do
-    query = from e in Episode, where: e.podcast_id == ^id and not is_nil(e.published_at)
+    query = from e in Episode, where: e.podcast_id == ^id and e.status == "PUBLISHED"
 
     Repo.all(query)
   end
