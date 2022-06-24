@@ -1,5 +1,5 @@
 <div class="flex flex-col lg:flex-row">
-  <div class="flex flex-col gap-8 w-80 p-8 min-h-screen bg-gray-100">
+  <div class="flex flex-col gap-8 p-8 lg:w-80 lg:min-h-screen bg-gray-100 lg:fixed items-center lg:items-start">
     <%= live_redirect to: Routes.website_show_path(@socket, :show, @podcast.id) do %>
       <div class="w-64 h-64 bg-white rounded shadow"></div>
     <% end %>
@@ -8,7 +8,7 @@
     <p class=""><%= @podcast.author %></p>
   </div>
 
-  <section class="flex-1 p-8">
+  <section class="flex-1 p-8 lg:ml-80">
     <div class="text-sm font-medium text-gray-900 bg-white divide-y divide-gray-300">
       <%= for episode <- @podcast.episodes do %>
         <div class="flex">
