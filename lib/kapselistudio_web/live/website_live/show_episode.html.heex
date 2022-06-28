@@ -13,6 +13,8 @@
 
     <audio class="w-full" controls src={@episode.url} />
 
-    <div class="prose"><%= raw(@shownotes) %></div>
+    <div class="prose prose-sm prose-li:m-0 prose-h2:mt-4 prose-h2:mb-2 prose-h3:mt-3 prose-h3:mb-2">
+      <%= raw(@shownotes) %>
+    </div>
   </section>
 </div>

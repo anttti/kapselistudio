@@ -17,6 +17,8 @@ defmodule Kapselistudio.Media.Podcast do
     field :sub_category_2, :string
     field :sub_category_3, :string
     field :explicit, :boolean
+    field :copyright, :string
+    field :image, :string
     has_many :episodes, Kapselistudio.Media.Episode
 
     timestamps()
@@ -39,7 +41,9 @@ defmodule Kapselistudio.Media.Podcast do
       :sub_category_1,
       :sub_category_2,
       :sub_category_3,
-      :explicit
+      :explicit,
+      :copyright,
+      :image
     ])
     |> validate_required([
       :name,

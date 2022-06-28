@@ -11,6 +11,12 @@ defmodule Kapselistudio.Media.Episode do
     field :url, :string
     field :status, :string, default: "DRAFT"
     field :published_at, :utc_datetime
+    field :image, :string
+    field :explicit, :boolean
+    field :episode_type, :string
+    field :author, :string
+    field :filesize, :integer
+
     belongs_to :podcast, Kapselistudio.Media.Podcast
 
     timestamps()
@@ -28,7 +34,12 @@ defmodule Kapselistudio.Media.Episode do
       :shownotes,
       :status,
       :published_at,
-      :podcast_id
+      :podcast_id,
+      :image,
+      :explicit,
+      :episode_type,
+      :author,
+      :filesize
     ])
     # TODO: Validate that status is either DRAFT or PUBLISHED
     |> validate_required([

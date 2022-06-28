@@ -77,6 +77,11 @@
       <%= checkbox(f, :explicit) %>
       <%= error_tag(f, :explicit) %>
     </p>
+    <p class="mb-4">
+      <%= label(f, :copyright, "Copyright", class: "label") %>
+      <%= text_input(f, :copyright, class: "input") %>
+      <%= error_tag(f, :copyright) %>
+    </p>
 
     <div>
       <%= submit("Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary") %>

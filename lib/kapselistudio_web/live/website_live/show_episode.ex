@@ -10,6 +10,8 @@ defmodule KapselistudioWeb.WebsiteLive.ShowEpisode do
     with episode <- Media.get_published_episode!(podcast_id, episode_id),
          podcast <- Media.get_podcast_with_published_episodes!(podcast_id),
          shownotes <- Earmark.as_html!(episode.shownotes) do
+      IO.puts(episode.shownotes)
+
       {:ok,
        socket
        |> assign(:podcast, podcast)
