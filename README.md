@@ -9,15 +9,6 @@ To start:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Deploying to Gigalixir
-
-- `git remote add gigalixir https://git.gigalixir.com/kapselistudio.git/`
-- `git push gigalixir`
-
-### Running migrations in Gigalixir
-
-- `gigalixir run mix ecto.migrate`
-
 ### Erlang & Elixir versions
 
 Set in `.tool-versions` file, currently Elixir 1.13 and Erlang 25.
