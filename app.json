@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "postdeploy": "mix ecto.setup",
+    "dokku": {
+      "postdeploy": "mix ecto.migrate"
+    }
+  }
+}
