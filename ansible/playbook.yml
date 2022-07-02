@@ -1,0 +1,107 @@
+---
+# Prerequisites: an Ubuntu 20.04 VPS with a root user that has
+# ~/.ssh/id_rsa.pub in authorized_keys
+
+- name: Setup Kapselistudio VPS
+  hosts: all
+  become: true
+  roles:
+    - dokku_bot.ansible_dokku
+
+  vars:
+    dokku_plugins:
+      - name: postgres
+        url: https://github.com/dokku/dokku-postgres.git
+      - name: letsencrypt
+        url: https://github.com/dokku/dokku-letsencrypt.git
+
+  pre_tasks:
+    - name: Update apt
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        force_apt_get: true
+
+  tasks:
+    - name: dokku apps:create kapselistudio
+      dokku_app:
+        app: &kapselistudio kapselistudio
+    - name: postgres:create kapselistudio
+      dokku_service_create:
+        name: *kapselistudio
+        service: postgres
+    - name: postgres:link kapselistudio kapselistudio
+      dokku_service_link:
+        app: *kapselistudio
+        name: *kapselistudio
+        service: postgres
+    - name: dokku config
+      dokku_config:
+        app: *kapselistudio
+        config:
+          MIX_ENV: prod
+          # TODO: Extract into a variable
+          SECRET_KEY_BASE: "{{ secret_key_base }}"
+          DOKKU_LETSENCRYPT_EMAIL: me@rarelyneeded.com
+          PORT: "5000"
+    # Not sure why this "dokku.me" global domain is added by default, but it needs to go
+    - name: dokku disable global domain
+      dokku_domains:
+        app: *kapselistudio
+        global: true
+        state: clear
+        domains:
+          - dokku.me
+    - name: dokku domain
+      dokku_domains:
+        app: *kapselistudio
+        domains:
+          - kapselistudio.net
+    - name: Enable the letsencrypt plugin
+      dokku_letsencrypt:
+        app: *kapselistudio
+    # TODO: There probably is a better way to add my key to dokku's authorized_keys...
+    - name: create .ssh dir for dokku
+      file:
+        path: "/home/dokku/.ssh"
+        state: directory
+    - name: create empty authorized_keys file
+      file:
+        path: "/home/dokku/.ssh/authorized_keys"
+        state: touch
+    - name: add public key to authorized_keys
+      lineinfile:
+        path: "/home/dokku/.ssh/authorized_keys"
+        line: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    - name: install psql client
+      ansible.builtin.apt:
+        name: postgresql-client
+    - name: add OpenSSH to ufw
+      ufw:
+        rule: allow
+        name: OpenSSH
+    - name: add HTTP to ufw
+      ufw:
+        rule: allow
+        port: "80"
+    - name: add HTTPS to ufw
+      ufw:
+        rule: allow
+        port: "443"
+    - name: enable ufw
+      ufw:
+        state: enabled
+
+    # TODO: Clone the app
+    # TODO: Run `dokku run mix ecto`create` (maybe not needed if the below works?)
+    # TODO: Setup migration scripts to run in postdeploy
+    # (app.json in repo root and the following in it:)
+    # {
+    #   "scripts": {
+    #     "postdeploy": "mix ecto.setup",
+    #     "dokku": {
+    #       "postdeploy": "mix ecto.migrate"
+    #     }
+    #   }
+    # }
+    # TODO: Setup automatic updates
