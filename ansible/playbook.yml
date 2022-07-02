@@ -23,10 +23,28 @@
         force_apt_get: true
 
   tasks:
+    - name: add OpenSSH to ufw
+      ufw:
+        rule: allow
+        name: OpenSSH
+    - name: add HTTP to ufw
+      ufw:
+        rule: allow
+        port: "80"
+    - name: add HTTPS to ufw
+      ufw:
+        rule: allow
+        port: "443"
+    - name: enable ufw
+      ufw:
+        state: enabled
     - name: dokku apps:create kapselistudio
       dokku_app:
         app: &kapselistudio kapselistudio
     - name: postgres:create kapselistudio
+      environment:
+        POSTGRES_IMAGE: postgres
+        POSTGRES_IMAGE_VERSION: 14.4
       dokku_service_create:
         name: *kapselistudio
         service: postgres
@@ -75,21 +93,5 @@
     - name: install psql client
       ansible.builtin.apt:
         name: postgresql-client
-    - name: add OpenSSH to ufw
-      ufw:
-        rule: allow
-        name: OpenSSH
-    - name: add HTTP to ufw
-      ufw:
-        rule: allow
-        port: "80"
-    - name: add HTTPS to ufw
-      ufw:
-        rule: allow
-        port: "443"
-    - name: enable ufw
-      ufw:
-        state: enabled
 
     # TODO: Setup automatic updates
-    # TODO: Use a fixed PostgreSQL version
