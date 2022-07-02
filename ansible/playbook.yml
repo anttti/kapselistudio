@@ -40,7 +40,6 @@
         app: *kapselistudio
         config:
           MIX_ENV: prod
-          # TODO: Extract into a variable
           SECRET_KEY_BASE: "{{ secret_key_base }}"
           DOKKU_LETSENCRYPT_EMAIL: me@rarelyneeded.com
           PORT: "5000"
@@ -92,16 +91,5 @@
       ufw:
         state: enabled
 
-    # TODO: Clone the app
-    # TODO: Run `dokku run mix ecto`create` (maybe not needed if the below works?)
-    # TODO: Setup migration scripts to run in postdeploy
-    # (app.json in repo root and the following in it:)
-    # {
-    #   "scripts": {
-    #     "postdeploy": "mix ecto.setup",
-    #     "dokku": {
-    #       "postdeploy": "mix ecto.migrate"
-    #     }
-    #   }
-    # }
     # TODO: Setup automatic updates
+    # TODO: Use a fixed PostgreSQL version
