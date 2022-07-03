@@ -7,7 +7,10 @@
   become: true
   roles:
     - dokku_bot.ansible_dokku
+    - geerlingguy.security
 
+  vars_files:
+    - vars/security.yml
   vars:
     dokku_plugins:
       - name: postgres
