@@ -77,14 +77,13 @@
         app: *kapselistudio
         domains:
           - kapselistudio.net
-    # TODO: Enable 10.7.
-    # - name: enable the letsencrypt plugin
-    #   dokku_letsencrypt:
-    #     app: *kapselistudio
-    # - name: enable letsencrypt cron job
-    #   ansible.builtin.shell: dokku letsencrypt:cron-job --add
-    # - name: enable automatic letsencrypt renewals
-    #   ansible.builtin.shell: dokku letsencrypt:auto-renew
+    - name: enable the letsencrypt plugin
+      dokku_letsencrypt:
+        app: *kapselistudio
+    - name: enable letsencrypt cron job
+      ansible.builtin.shell: dokku letsencrypt:cron-job --add
+    - name: enable automatic letsencrypt renewals
+      ansible.builtin.shell: dokku letsencrypt:auto-renew
     # TODO: There probably is a better way to add my key to dokku's authorized_keys...
     - name: create .ssh dir for dokku
       file:

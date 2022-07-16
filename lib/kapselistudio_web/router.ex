@@ -83,11 +83,6 @@ defmodule KapselistudioWeb.Router do
     live "/episodes/:podcast_id/edit/:id", EpisodeLive.Show, :edit
     live "/episodes/:podcast_id/new", EpisodeLive.Show, :new
 
-    live "/tags", TagLive.Index, :index
-    live "/tags/new", TagLive.Index, :new
-    live "/tags/:id/edit", TagLive.Index, :edit
-    live "/tags/:id", TagLive.Show, :show
-
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
