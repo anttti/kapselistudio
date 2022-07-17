@@ -104,7 +104,7 @@ defmodule KapselistudioWeb.Router do
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
 
-    live "/website/:id", WebsiteLive.Show, :show
-    live "/website/:podcast_id/episode/:episode_id", WebsiteLive.ShowEpisode, :show_episode
+    # live "/website/:id", WebsiteLive.Show, :show
+    # live "/website/:podcast_id/episode/:episode_id", WebsiteLive.ShowEpisode, :show_episode
   end
 end

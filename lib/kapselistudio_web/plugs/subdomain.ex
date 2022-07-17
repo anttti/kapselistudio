@@ -4,8 +4,11 @@ defmodule KapselistudioWeb.Plugs.Subdomain do
   def init(default), do: default
 
   def call(conn, router) do
-    case get_subdomain(conn.host) do
+    case Kapselistudio.Origin.get_subdomain(conn.host) do
       subdomain when byte_size(subdomain) > 0 ->
+        podcast = Kapselistudio.Media.get_podcast_for_slug(subdomain)
+        if podcast == nil, do: halt(conn)
+
         conn
         |> put_private(:subdomain, subdomain)
         |> router.call(router.init({}))
@@ -14,10 +17,5 @@ defmodule KapselistudioWeb.Plugs.Subdomain do
       _ ->
         conn
     end
-  end
-
-  defp get_subdomain(host) do
-    root_host = KapselistudioWeb.Endpoint.config(:url)[:host]
-    String.replace(host, ~r/.?#{root_host}/, "")
   end
 end
