@@ -33,7 +33,8 @@ defmodule Kapselistudio.Media do
         where: p.slug == ^slug,
         select: p,
         preload: [
-          episodes: ^from(e in Episode, order_by: [desc: e.number])
+          episodes:
+            ^from(e in Episode, where: e.status == "PUBLISHED", order_by: [desc: e.number])
         ]
       )
     )
