@@ -63,8 +63,8 @@ defmodule KapselistudioWeb.Router do
   scope "/", KapselistudioWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
+    # get "/users/register", UserRegistrationController, :new
+    # post "/users/register", UserRegistrationController, :create
     get "/users/log_in", UserSessionController, :new
     post "/users/log_in", UserSessionController, :create
     get "/users/reset_password", UserResetPasswordController, :new
@@ -77,6 +77,7 @@ defmodule KapselistudioWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live "/admin", AdminLive.Index, :index
+    live "/admin/new", AdminLive.Index, :new
 
     live "/", PodcastLive.Index, :index
     live "/podcasts/new", PodcastLive.Index, :new
