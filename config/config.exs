@@ -12,7 +12,7 @@ config :kapselistudio,
 
 # Configures the endpoint
 config :kapselistudio, KapselistudioWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "kapselistudio.local"],
   render_errors: [view: KapselistudioWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Kapselistudio.PubSub,
   live_view: [signing_salt: "byzkiaCS"]
