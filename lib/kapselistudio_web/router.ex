@@ -27,11 +27,6 @@ defmodule KapselistudioWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", KapselistudioWeb do
-  #   pipe_through :api
-  # end
-
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -63,6 +58,7 @@ defmodule KapselistudioWeb.Router do
   scope "/", KapselistudioWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
+    # Disable new user registration for now
     # get "/users/register", UserRegistrationController, :new
     # post "/users/register", UserRegistrationController, :create
     get "/users/log_in", UserSessionController, :new
@@ -91,20 +87,23 @@ defmodule KapselistudioWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
+  scope "/api", KapselistudioWeb do
+    pipe_through :api
+
+    # API endpoints for Simplecast compatibility
+    get "/podcast/:podcast_id/episodes", FeedController, :episodes
+    get "/episode/:episode_id", FeedController, :episode
+  end
+
   scope "/", KapselistudioWeb do
     pipe_through [:public_browser]
 
     get "/:podcast_id/feed.xml", FeedController, :index
-    get "/api/podcast/:podcast_id/episodes", FeedController, :episodes
-    get "/api/episode/:episode_id", FeedController, :episode
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
-
-    # live "/website/:id", WebsiteLive.Show, :show
-    # live "/website/:podcast_id/episode/:episode_id", WebsiteLive.ShowEpisode, :show_episode
   end
 end
