@@ -3,19 +3,20 @@ defmodule KapselistudioWeb.FeedController do
   alias Calendar.DateTime
   alias Kapselistudio.Media
 
-  def format_xml_episode(episode) do
+  def format_xml_episode(episode, podcast) do
     %{
       number: episode.number,
       title: episode.title,
       shownotes: episode.shownotes,
       link: "https://webbidevaus.fi/" <> to_string(episode.number),
       publishDate: episode.published_at |> DateTime.Format.httpdate(),
-      author: "Antti",
+      # TODO: How to pass podcast in this function?
+      author: if(episode.author, do: episode.author, else: podcast.author),
       contentUrl: episode.url,
       fileSize: "1234",
-      duration: "45",
-      summary: "Summary",
-      explicit: "false",
+      duration: episode.duration,
+      summary: episode.description,
+      explicit: if(episode.explicit, do: "true", else: "false"),
       episodeType: "full",
       image: "https://webbidevaus.fi/artwork.jpg"
     }
@@ -30,23 +31,23 @@ defmodule KapselistudioWeb.FeedController do
 
     feed = %{
       title: podcast.name,
-      url: "https://webbidevaus.fi",
+      url: podcast.url,
       feedPath: "/feed.xml",
       imagePath: "",
       language: "fi",
       currentYear: "2021",
-      author: "Antti Mattila & Tommi Pääkkö",
+      author: podcast.author,
       lastEpisodeDate: publishDate,
-      description: "Webbidevaus desc",
-      explicit: "false",
+      description: podcast.description,
+      explicit: if(podcast.explicit, do: "true", else: "false"),
       type: "episodic",
       keywords: "react",
-      ownerName: "Antti Mattila & Tommi Pääkkö",
-      ownerEmail: "me@rarelyneeded.com",
-      mainCategory: "Tech",
-      subCategory1: "",
-      subCategory2: "",
-      subCategory3: "",
+      ownerName: podcast.owner_name,
+      ownerEmail: podcast.owner_email,
+      mainCategory: podcast.main_category,
+      subCategory1: if(podcast.sub_category_1, do: podcast.sub_category_1, else: ""),
+      subCategory2: if(podcast.sub_category_2, do: podcast.sub_category_2, else: ""),
+      subCategory3: if(podcast.sub_category_3, do: podcast.sub_category_3, else: ""),
       episodes: episodes
     }
 
