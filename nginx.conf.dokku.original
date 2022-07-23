@@ -4,7 +4,26 @@ server {
   server_name kapselistudio.net;
   access_log  /var/log/nginx/kapselistudio-access.log;
   error_log   /var/log/nginx/kapselistudio-error.log;
-  
+
+  include /home/dokku/kapselistudio/nginx.conf.d/*.conf;
+  location / {
+    return 301 https://$host:443$request_uri;
+  }
+}
+
+server {
+  listen      [::]:443 ssl http2;
+  listen      443 ssl http2;
+
+  server_name kapselistudio.net;
+  access_log  /var/log/nginx/kapselistudio-access.log;
+  error_log   /var/log/nginx/kapselistudio-error.log;
+
+  ssl_certificate           /home/dokku/kapselistudio/tls/server.crt;
+  ssl_certificate_key       /home/dokku/kapselistudio/tls/server.key;
+  ssl_protocols             TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers off;
+
   keepalive_timeout   70;
 
   location    / {
