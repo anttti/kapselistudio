@@ -4,6 +4,8 @@ defmodule KapselistudioWeb.Plugs.Subdomain do
   def init(default), do: default
 
   def call(conn, router) do
+    IO.inspect("Subdomain Plug: #{conn.host}")
+
     case Kapselistudio.Origin.get_subdomain(conn.host) do
       subdomain when byte_size(subdomain) > 0 ->
         podcast = Kapselistudio.Media.get_podcast_for_slug(subdomain)
