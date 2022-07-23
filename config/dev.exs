@@ -20,7 +20,7 @@ config :kapselistudio, KapselistudioWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  check_origin: false,
+  check_origin: {Kapselistudio.Origin, :check_origin, []},
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "0tvFqzrj9g/WqzjgBmaA7/cPcSEIihuW3mMluw2/tAl43WhaVcptbvXl/pWJBCMv",

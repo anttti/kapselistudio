@@ -46,5 +46,6 @@ defmodule KapselistudioWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug KapselistudioWeb.Plugs.Subdomain, KapselistudioWeb.SubdomainRouter
   plug KapselistudioWeb.Router
 end

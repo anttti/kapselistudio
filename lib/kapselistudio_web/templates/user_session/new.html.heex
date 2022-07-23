@@ -28,7 +28,6 @@
 </.form>
 
 <p>
-  <%= link("Register", to: Routes.user_registration_path(@conn, :new), class: "btn-secondary") %>
   <%= link("Forgot your password?",
     to: Routes.user_reset_password_path(@conn, :new),
     class: "ml-5 btn-secondary"

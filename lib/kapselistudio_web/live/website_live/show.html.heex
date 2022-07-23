@@ -1,6 +1,6 @@
 <div class="flex flex-col lg:flex-row">
   <.header
-    home_page_url={Routes.website_show_path(@socket, :show, @podcast.id)}
+    home_page_url={KapselistudioWeb.SubdomainRouter.Helpers.website_show_path(@socket, :show)}
     name={@podcast.name}
     description={@podcast.description}
     author={@podcast.author}
@@ -14,10 +14,9 @@
             <div class="flex-1">
               <%= live_redirect(Integer.to_string(episode.number) <> ". " <> episode.title,
                 to:
-                  Routes.website_show_episode_path(
+                  KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                     @socket,
                     :show_episode,
-                    @podcast.id,
                     episode.id
                   )
               ) %>
