@@ -10,7 +10,6 @@ defmodule KapselistudioWeb.FeedController do
       shownotes: episode.shownotes,
       link: "https://webbidevaus.fi/" <> to_string(episode.number),
       publishDate: episode.published_at |> DateTime.Format.httpdate(),
-      # TODO: How to pass podcast in this function?
       author: if(episode.author, do: episode.author, else: podcast.author),
       contentUrl: episode.url,
       fileSize: "1234",
@@ -27,7 +26,9 @@ defmodule KapselistudioWeb.FeedController do
     publishDate = DateTime.now!("Europe/Copenhagen") |> DateTime.Format.httpdate()
 
     podcast = Media.get_podcast!(podcast_id)
-    episodes = podcast_id |> Media.get_published_episodes!() |> Enum.map(&format_xml_episode/1)
+
+    episodes =
+      podcast_id |> Media.get_published_episodes!() |> Enum.map(&format_xml_episode(&1, podcast))
 
     feed = %{
       title: podcast.name,
