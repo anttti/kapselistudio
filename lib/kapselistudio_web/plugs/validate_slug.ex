@@ -9,6 +9,7 @@ defmodule KapselistudioWeb.Plugs.ValidateSlug do
 
   def call(conn, _) do
     subdomain = Kapselistudio.Origin.get_subdomain(conn.host)
+    IO.inspect("Validating slug: #{subdomain}")
 
     case Kapselistudio.Media.get_podcast_for_slug(subdomain) do
       %Podcast{} ->

@@ -8,7 +8,9 @@ defmodule KapselistudioWeb.Plugs.Subdomain do
 
     case Kapselistudio.Origin.get_subdomain(conn.host) do
       subdomain when byte_size(subdomain) > 0 ->
+        IO.inspect("Detected subdomain: #{subdomain}")
         podcast = Kapselistudio.Media.get_podcast_for_slug(subdomain)
+        IO.inspect("Got podcast: #{podcast}")
         if podcast == nil, do: halt(conn)
 
         conn
