@@ -83,7 +83,12 @@ server {
   }
 }
 
-upstream kapselistudio-5000 {
-
-  server 172.17.0.4:5000;
+{{ if $.DOKKU_APP_WEB_LISTENERS }}
+{{ range $upstream_port := $.PROXY_UPSTREAM_PORTS | split " " }}
+upstream {{ $.APP }}-{{ $upstream_port }} {
+{{ range $listeners := $.DOKKU_APP_WEB_LISTENERS | split " " }}
+{{ $listener_list := $listeners | split ":" }}
+{{ $listener_ip := index $listener_list 0 }}
+  server {{ $listener_ip }}:{{ $upstream_port }};{{ end }}
 }
+{{ end }}
