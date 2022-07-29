@@ -1,9 +1,12 @@
+portmap: {{ $.PROXY_PORT_MAP }}
+
 {{ range $port_map := .PROXY_PORT_MAP | split " " }}
 {{ $port_map_list := $port_map | split ":" }}
 {{ $scheme := index $port_map_list 0 }}
 {{ $listen_port := index $port_map_list 1 }}
 {{ $upstream_port := index $port_map_list 2 }}
 
+{{ if eq $scheme "http" }}
 server {
   listen      [::]:80;
   listen      80;
@@ -15,9 +18,9 @@ server {
   location / {
     return 301 https://$host:443$request_uri;
   }
-
 }
 
+{{ else if eq $scheme "https"}}
 server {
   listen      [::]:443 ssl http2;
   listen      443 ssl http2;
@@ -33,9 +36,7 @@ server {
 
   keepalive_timeout   70;
 
-
   location    / {
-
     gzip on;
     gzip_min_length  1100;
     gzip_buffers  4 32k;
@@ -58,9 +59,7 @@ server {
     proxy_set_header X-Forwarded-Port $server_port;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header X-Request-Start $msec;
-
   }
-
 
   include /home/dokku/kapselistudio/nginx.conf.d/*.conf;
 
@@ -88,11 +87,13 @@ server {
     internal;
   }
 }
+{{ end }}
 
 upstream {{ $.APP }}-{{ $upstream_port }} {
-{{ range $listeners := $.DOKKU_APP_WEB_LISTENERS | split " " }}
-{{ $listener_list := $listeners | split ":" }}
-{{ $listener_ip := index $listener_list 0 }}
-  server {{ $listener_ip }}:{{ $upstream_port }};{{ end }}
+  {{ range $listeners := $.DOKKU_APP_WEB_LISTENERS | split " " }}
+  {{ $listener_list := $listeners | split ":" }}
+  {{ $listener_ip := index $listener_list 0 }}
+  server {{ $listener_ip }}:{{ $upstream_port }};
+  {{ end }}
 }
 {{ end }}
