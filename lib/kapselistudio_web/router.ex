@@ -74,6 +74,7 @@ defmodule KapselistudioWeb.Router do
 
     live "/admin", AdminLive.Index, :index
     live "/admin/new", AdminLive.Index, :new
+    live "/admin/:id", AdminLive.Show, :show
 
     live "/", PodcastLive.Index, :index
     live "/podcasts/new", PodcastLive.Index, :new

@@ -3,6 +3,7 @@ defmodule KapselistudioWeb.AdminLive.Index do
 
   alias Kapselistudio.Accounts
   alias Kapselistudio.Accounts.User
+  import KapselistudioWeb.UI
 
   @impl true
   def mount(_params, _session, socket) do
@@ -22,7 +23,7 @@ defmodule KapselistudioWeb.AdminLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Kaikki podcastit")
+    |> assign(:page_title, "Kaikki käyttäjät")
     |> assign(:user, nil)
   end
 
