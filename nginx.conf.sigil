@@ -1,10 +1,8 @@
-{{ range $port_map := .PROXY_PORT_MAP | split " " }}
-{{ $port_map_list := $port_map | split ":" }}
-{{ $scheme := index $port_map_list 0 }}
-{{ $listen_port := index $port_map_list 1 }}
-{{ $upstream_port := index $port_map_list 2 }}
+{{ $port_maps := .PROXY_PORT_MAP | split " " }}
+{{ $https_port_map := index $port_maps 1 }}
+{{ $https_port_map_list := $https_port_map | split ":" }}
+{{ $https_upstream_port := index $https_port_map_list 2 }}
 
-{{ if eq $scheme "http" }}
 server {
   listen      [::]:80;
   listen      80;
@@ -18,7 +16,6 @@ server {
   }
 }
 
-{{ else if eq $scheme "https"}}
 server {
   listen      [::]:443 ssl http2;
   listen      443 ssl http2;
@@ -42,7 +39,7 @@ server {
     gzip_vary on;
     gzip_comp_level  6;
 
-    proxy_pass  http://{{ $.APP }}-{{ $upstream_port }};
+    proxy_pass  http://{{ $.APP }}-{{ $https_upstream_port }};
     http2_push_preload on;
     proxy_http_version 1.1;
     proxy_read_timeout 60s;
@@ -85,16 +82,13 @@ server {
     internal;
   }
 }
-{{ end }}
 
 {{ if $.DOKKU_APP_WEB_LISTENERS }}
-upstream {{ $.APP }}-{{ $upstream_port }} {
+upstream {{ $.APP }}-{{ $https_upstream_port }} {
   {{ range $listeners := $.DOKKU_APP_WEB_LISTENERS | split " " }}
   {{ $listener_list := $listeners | split ":" }}
   {{ $listener_ip := index $listener_list 0 }}
-  server {{ $listener_ip }}:{{ $upstream_port }};
+  server {{ $listener_ip }}:{{ $https_upstream_port }};
   {{ end }}
 }
-{{ end }}
-
 {{ end }}
