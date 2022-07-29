@@ -87,8 +87,7 @@ server {
 }
 {{ end }}
 
-{{ end }}
-
+{{ if $.DOKKU_APP_WEB_LISTENERS }}
 upstream {{ $.APP }}-{{ $upstream_port }} {
   {{ range $listeners := $.DOKKU_APP_WEB_LISTENERS | split " " }}
   {{ $listener_list := $listeners | split ":" }}
@@ -96,3 +95,6 @@ upstream {{ $.APP }}-{{ $upstream_port }} {
   server {{ $listener_ip }}:{{ $upstream_port }};
   {{ end }}
 }
+{{ end }}
+
+{{ end }}
