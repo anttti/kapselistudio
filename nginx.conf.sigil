@@ -1,5 +1,3 @@
-portmap: {{ $.PROXY_PORT_MAP }}
-
 {{ range $port_map := .PROXY_PORT_MAP | split " " }}
 {{ $port_map_list := $port_map | split ":" }}
 {{ $scheme := index $port_map_list 0 }}
@@ -89,6 +87,8 @@ server {
 }
 {{ end }}
 
+{{ end }}
+
 upstream {{ $.APP }}-{{ $upstream_port }} {
   {{ range $listeners := $.DOKKU_APP_WEB_LISTENERS | split " " }}
   {{ $listener_list := $listeners | split ":" }}
@@ -96,4 +96,3 @@ upstream {{ $.APP }}-{{ $upstream_port }} {
   server {{ $listener_ip }}:{{ $upstream_port }};
   {{ end }}
 }
-{{ end }}
