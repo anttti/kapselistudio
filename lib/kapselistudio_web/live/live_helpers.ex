@@ -1,4 +1,5 @@
 defmodule KapselistudioWeb.LiveHelpers do
+  import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 
   @doc """
@@ -19,5 +20,15 @@ defmodule KapselistudioWeb.LiveHelpers do
     path = Keyword.fetch!(opts, :return_to)
     modal_opts = [id: :modal, return_to: path, component: component, opts: opts]
     live_component(KapselistudioWeb.ModalComponent, modal_opts)
+  end
+
+  def link(%{navigate: _to} = assigns) do
+    assigns = assign_new(assigns, :class, fn -> nil end)
+
+    ~H"""
+    <a href={@navigate} data-phx-link="redirect" data-phx-link-state="push" class={@class}>
+      <%= render_slot(@inner_block) %>
+    </a>
+    """
   end
 end
