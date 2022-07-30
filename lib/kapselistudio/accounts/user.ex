@@ -109,6 +109,12 @@ defmodule Kapselistudio.Accounts.User do
     |> validate_password(opts)
   end
 
+  def admin_password_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:password])
+    |> validate_password(hash_password: true)
+  end
+
   @doc """
   Confirms the account by setting `confirmed_at`.
   """

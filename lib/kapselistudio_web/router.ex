@@ -72,9 +72,9 @@ defmodule KapselistudioWeb.Router do
   scope "/", KapselistudioWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    live "/admin", AdminLive.Index, :index
-    live "/admin/new", AdminLive.Index, :new
-    live "/admin/:id", AdminLive.Show, :show
+    live "/admin/users", AdminLive.Index, :index
+    live "/admin/users/new", AdminLive.Index, :new
+    live "/admin/users/:id", AdminLive.Show, :show
 
     live "/", PodcastLive.Index, :index
     live "/podcasts/new", PodcastLive.Index, :new

@@ -5,8 +5,34 @@
 
   <.panel>
     <.form let={f} for={@changeset} id="user-form" phx-change="validate" phx-submit="save">
-      <%= text_input(f, :email, class: "input") %>
-      <%= error_tag(f, :email) %>
+      <p class="mb-4">
+        <%= label(f, :email, class: "label") %>
+        <%= email_input(f, :email, required: true, class: "input") %>
+        <%= error_tag(f, :email) %>
+      </p>
+
+      <div>
+        <%= submit("Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary") %>
+      </div>
+    </.form>
+  </.panel>
+  <.panel>
+    <.form
+      let={f}
+      for={@password_changeset}
+      id="password-form"
+      phx-change="password_validate"
+      phx-submit="password_save"
+    >
+      <p class="mb-4">
+        <label class="label">Salasana</label>
+        <%= text_input(f, :password, required: true, class: "input") %>
+        <%= error_tag(f, :password) %>
+      </p>
+
+      <div>
+        <%= submit("Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary") %>
+      </div>
     </.form>
   </.panel>
 </div>
