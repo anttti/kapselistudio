@@ -10,7 +10,11 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
           <li class="py-4 px-6 flex flex-col gap-2">
             <div class="flex text-sm font-medium text-gray-900">
               <div class="flex-1">
-                <a phx-capture-click="show-episode" phx-value-episode={episode.id}>
+                <a
+                  href={"/#{episode.id}"}
+                  phx-capture-click="show-episode"
+                  phx-value-episode={episode.id}
+                >
                   <%= Integer.to_string(episode.number) <> ". " <> episode.title %>
                 </a>
               </div>
