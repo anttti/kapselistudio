@@ -15,6 +15,6 @@ defmodule KapselistudioWeb.SubdomainRouter do
     pipe_through :browser
 
     live "/", WebsiteLive.Show, :show
-    live "/:episode_id", WebsiteLive.ShowEpisode, :show_episode
+    live "/:episode_id", WebsiteLive.Show, :show_episode
   end
 end

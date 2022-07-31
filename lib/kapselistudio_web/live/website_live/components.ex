@@ -7,10 +7,10 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
     <section class="flex-1 p-8 lg:ml-80">
       <ol class="divide-y divide-gray-300">
         <%= for episode <- @podcast.episodes do %>
-          <li class="pb-4">
-            <div class="flex px-6 pt-4 pb-2 text-sm font-medium text-gray-900">
+          <li class="py-4 px-6 flex flex-col gap-2">
+            <div class="flex text-sm font-medium text-gray-900">
               <div class="flex-1">
-                <a phx-click="show-episode" phx-value-episode={episode.id}>
+                <a phx-capture-click="show-episode" phx-value-episode={episode.id}>
                   <%= Integer.to_string(episode.number) <> ". " <> episode.title %>
                 </a>
               </div>
@@ -18,7 +18,14 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
                 <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
               </div>
             </div>
-            <p class="px-6 text-sm text-gray-800"><%= episode.description %></p>
+            <p class="text-sm text-gray-800"><%= episode.description %></p>
+            <button
+              class="text-sm border border-gray-400 px-4 py-2"
+              phx-click="play-episode"
+              phx-value-url={episode.url}
+            >
+              Kuuntele jakso
+            </button>
           </li>
         <% end %>
       </ol>
@@ -33,7 +40,9 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
         <%= @title %>
       </h1>
 
-      <audio class="w-full" controls src={@url} />
+      <button phx-click="play-episode" phx-value-url={@url}>
+        Toista <%= @url %>
+      </button>
 
       <div class="prose prose-sm prose-li:m-0 prose-h2:mt-4 prose-h2:mb-2 prose-h3:mt-3 prose-h3:mb-2">
         <%= raw(@shownotes) %>

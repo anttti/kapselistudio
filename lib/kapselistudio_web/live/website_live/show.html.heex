@@ -1,20 +1,18 @@
-<%= if @playing_episode? do %>
-  <%= live_render(
-    @socket,
-    KapselistudioWeb.Live.PlayerLive,
-    id: "player",
-    session: %{},
-    sticky: true
-  ) %>
+<%= if @playing_url do %>
+  <div class="p-4 bg-gray-200 h-16 flex justify-center fixed left-0 right-0">
+    <audio class="w-full" controls src={@playing_url} />
+  </div>
 <% end %>
 
-<div class="flex flex-col lg:flex-row">
-  <.header
-    home_page_url={KapselistudioWeb.SubdomainRouter.Helpers.website_show_path(@socket, :show)}
-    name={@podcast.name}
-    description={@podcast.description}
-    author={@podcast.author}
-  />
+<div class={"flex flex-col lg:flex-row #{if @playing_url, do: "pt-16"}"}>
+  <div class="flex flex-col gap-8 p-8 lg:w-80 lg:min-h-screen bg-gray-100 lg:fixed items-center lg:items-start">
+    <a phx-click="show-podcast">
+      <img src="/images/webbidevaus-logo.jpg" class="block w-64 h-64 bg-white rounded shadow" />
+    </a>
+    <h1 class="text-2xl"><%= @podcast.name %></h1>
+    <p class=""><%= @podcast.description %></p>
+    <p class=""><%= @podcast.author %></p>
+  </div>
 
   <%= if @page == :episode do %>
     <.episode title={@episode.title} url={@episode.url} shownotes={@shownotes} />
