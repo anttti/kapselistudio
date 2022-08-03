@@ -5,6 +5,8 @@ module.exports = {
     "../lib/*_web/**/*.eex",
     "../lib/*_web/**/*.heex",
     "../lib/*_web/**/*_component.ex",
+    "../lib/*_web/**/*_live.ex",
+    "../lib/*_web/**/components.ex",
   ],
   darkMode: "media",
   theme: {

@@ -43,9 +43,7 @@ defmodule KapselistudioWeb.WebsiteLive.Show do
         id
       )
 
-    {:noreply,
-     socket
-     |> push_patch(to: url)}
+    {:noreply, push_patch(socket, to: url)}
   end
 
   @impl true
@@ -56,11 +54,7 @@ defmodule KapselistudioWeb.WebsiteLive.Show do
         :show
       )
 
-    IO.inspect(url)
-
-    {:noreply,
-     socket
-     |> push_patch(to: url)}
+    {:noreply, push_patch(socket, to: url)}
   end
 
   @impl true

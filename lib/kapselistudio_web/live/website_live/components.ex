@@ -1,13 +1,38 @@
 defmodule KapselistudioWeb.WebsiteLive.Components do
   import Phoenix.HTML
   import Phoenix.LiveView.Helpers
+  alias Phoenix.LiveView.JS
 
   def podcast(assigns) do
     ~H"""
-    <section class="flex-1 p-8 lg:ml-80">
+    <section class="flex flex-col gap-4 flex-1 p-8 lg:ml-80">
+      <div class="flex flex-col gap-2 p-4 bg-gray-700 text-white">
+        <h2>Uusin jakso</h2>
+        <h1>
+          <%= Integer.to_string(@latest_episode.number) <> ". " <> @latest_episode.title %>
+        </h1>
+        <p class="text-sm"><%= @latest_episode.description %></p>
+        <button
+          class="text-sm border border-gray-400 px-4 py-2"
+          phx-click={
+            JS.push(
+              "set_url",
+              value: %{url: @latest_episode.url},
+              target: "#player"
+            )
+            |> JS.push(
+              "play-episode",
+              value: %{url: @latest_episode.url}
+            )
+          }
+        >
+          Kuuntele jakso
+        </button>
+      </div>
+      <h2>Aiemmat jaksot</h2>
       <ol class="divide-y divide-gray-300">
-        <%= for episode <- @podcast.episodes do %>
-          <li class="py-4 px-6 flex flex-col gap-2">
+        <%= for episode <- @rest_episodes do %>
+          <li class="py-4 flex flex-col gap-2">
             <div class="flex text-sm font-medium text-gray-900">
               <div class="flex-1">
                 <a
@@ -25,8 +50,17 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
             <p class="text-sm text-gray-800"><%= episode.description %></p>
             <button
               class="text-sm border border-gray-400 px-4 py-2"
-              phx-click="play-episode"
-              phx-value-url={episode.url}
+              phx-click={
+                JS.push(
+                  "set_url",
+                  value: %{url: episode.url},
+                  target: "#player"
+                )
+                |> JS.push(
+                  "play-episode",
+                  value: %{url: episode.url}
+                )
+              }
             >
               Kuuntele jakso
             </button>
@@ -39,13 +73,26 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
 
   def episode(assigns) do
     ~H"""
-    <section class="flex-1 p-8 flex flex-col gap-8 lg:ml-80">
+    <section class="flex-1 p-8 flex flex-col gap-4 lg:ml-80">
       <h1 class="text-3xl font-medium text-gray-900">
         <%= @title %>
       </h1>
 
-      <button phx-click="play-episode" phx-value-url={@url}>
-        Toista <%= @url %>
+      <button
+        class="text-sm border border-gray-400 px-4 py-2"
+        phx-click={
+          JS.push(
+            "set_url",
+            value: %{url: @url},
+            target: "#player"
+          )
+          |> JS.push(
+            "play-episode",
+            value: %{url: @url}
+          )
+        }
+      >
+        Kuuntele jakso
       </button>
 
       <div class="prose prose-sm prose-li:m-0 prose-h2:mt-4 prose-h2:mb-2 prose-h3:mt-3 prose-h3:mb-2">
