@@ -1,7 +1,35 @@
 <%= live_render(@socket, KapselistudioWeb.PlayerLive, id: "player", session: %{}, sticky: true) %>
 
 <main id="live-container relative">
-  <div class="">
+  <div id="web-root">
     <%= @inner_content %>
   </div>
 </main>
+
+<script>
+  const on = (evtName, delegator, ...args) => {
+    if (typeof args[0] === "string") {
+      delegator.addEventListener(evtName, (evt) => {
+        if (evt.target.closest(args[0])) {
+          args[1](evt);
+        }
+      });
+    } else {
+      delegator.addEventListener(evtName, ...args);
+    }
+  };
+
+  on("click", document.querySelector("#web-root"), ".play-button", (evt) => {
+    playEpisode(evt.target.dataset);
+  });
+
+  const playEpisode = ({ url, title, number }) => {
+    const player = document.querySelector("#podcast-player")
+    if (player.getSrc() !== url) {
+      player.setEpisode({ url, title, number })
+    }
+    if (player.isPaused()) {
+      player.play()
+    }
+  }
+</script>

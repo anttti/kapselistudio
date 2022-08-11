@@ -1,7 +1,6 @@
 defmodule KapselistudioWeb.WebsiteLive.Components do
   import Phoenix.HTML
   import Phoenix.LiveView.Helpers
-  alias Phoenix.LiveView.JS
 
   def podcast(assigns) do
     ~H"""
@@ -13,18 +12,10 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
         </h1>
         <p class="text-sm"><%= @latest_episode.description %></p>
         <button
-          class="text-sm border border-gray-400 px-4 py-2"
-          phx-click={
-            JS.push(
-              "set_url",
-              value: %{url: @latest_episode.url},
-              target: "#player"
-            )
-            |> JS.push(
-              "play-episode",
-              value: %{url: @latest_episode.url}
-            )
-          }
+          class="text-sm border border-gray-400 px-4 py-2 play-button"
+          data-url={@latest_episode.url}
+          data-title={@latest_episode.title}
+          data-number={@latest_episode.number}
         >
           Kuuntele jakso
         </button>
@@ -49,18 +40,10 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
             </div>
             <p class="text-sm text-gray-800"><%= episode.description %></p>
             <button
-              class="text-sm border border-gray-400 px-4 py-2"
-              phx-click={
-                JS.push(
-                  "set_url",
-                  value: %{url: episode.url},
-                  target: "#player"
-                )
-                |> JS.push(
-                  "play-episode",
-                  value: %{url: episode.url}
-                )
-              }
+              class="text-sm border border-gray-400 px-4 py-2 play-button"
+              data-url={episode.url}
+              data-title={episode.title}
+              data-number={episode.number}
             >
               Kuuntele jakso
             </button>
@@ -79,18 +62,10 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
       </h1>
 
       <button
-        class="text-sm border border-gray-400 px-4 py-2"
-        phx-click={
-          JS.push(
-            "set_url",
-            value: %{url: @url},
-            target: "#player"
-          )
-          |> JS.push(
-            "play-episode",
-            value: %{url: @url}
-          )
-        }
+        class="text-sm border border-gray-400 px-4 py-2 play-button"
+        data-url={@url}
+        data-title={@title}
+        data-number={@number}
       >
         Kuuntele jakso
       </button>

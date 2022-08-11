@@ -9,7 +9,12 @@
   </div>
 
   <%= if @page == :episode do %>
-    <.episode title={@episode.title} url={@episode.url} shownotes={@shownotes} />
+    <.episode
+      title={@episode.title}
+      url={@episode.url}
+      number={@episode.number}
+      shownotes={@shownotes}
+    />
   <% else %>
     <.podcast
       podcast={@podcast}
