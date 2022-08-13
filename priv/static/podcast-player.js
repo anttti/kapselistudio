@@ -17,22 +17,6 @@ class PodcastPlayer extends LitElement {
 
   static get styles() {
     return css`
-      .podcast-player {
-        background: var(--player-background, rgb(255 255 255 / 0.2));
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.5rem 1rem;
-        width: 100%;
-        padding: 1rem;
-        box-sizing: border-box;
-        border-radius: 3px;
-      }
-      @media (min-width: 500px) {
-        .podcast-player {
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-template-rows: 3rem 1.5rem 3rem;
-        }
-      }
       .sr-only {
         position: absolute;
         width: 1px;
@@ -43,16 +27,36 @@ class PodcastPlayer extends LitElement {
         clip: rect(0, 0, 0, 0);
         border: 0;
       }
-      button,
-      span {
-        padding: 0.5rem;
-        display: block;
-        line-height: 1;
-        font-size: 1.5rem;
-        text-shadow: 1px 1px var(--text-shadow);
+
+      .podcast-player {
+        --player-highlight: rgba(0, 0, 0, 0.3);
+        --player-focus: rgba(0, 0, 0, 0.3);
+
+        display: flex;
+        gap: 12px;
+        align-items: center;
+
+        width: 100%;
+        padding: 4px 16px;
+        box-sizing: border-box;
+        border-radius: 3px;
       }
-      span {
-        align-self: center;
+      h1 {
+        width: 320px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
+      .number {
+        display: block;
+        margin-bottom: 4px;
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: bold;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .controls {
+        display: flex;
       }
       :focus-visible {
         outline: none;
@@ -61,20 +65,28 @@ class PodcastPlayer extends LitElement {
       button {
         -webkit-appearance: none;
         font-family: inherit;
-        min-width: 26px;
         border: 1px solid transparent;
         background-color: transparent;
         border-radius: 3px;
         cursor: pointer;
         color: currentColor;
       }
-      button svg {
-        width: 2rem;
-        height: 2rem;
-      }
       .button-play {
-        background: var(--player-highlight);
-        height: 50px;
+        background: white;
+        height: 42px;
+        width: 42px;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .button-play .play {
+        position: relative;
+        left: 2px;
+      }
+      .button-play svg {
+        width: 16px;
+        height: 16px;
       }
       .button-secondary {
         border-color: var(--player-highlight);
@@ -82,11 +94,23 @@ class PodcastPlayer extends LitElement {
       .button-secondary:focus-visible {
         border-color: var(--player-focus);
       }
-      @media (min-width: 500px) {
-        .progress-meter {
-          grid-row: 2;
-          grid-column: 1 / -1;
-        }
+      .timeline {
+        flex: 1;
+      }
+      .times {
+        display: flex;
+        justify-content: space-between;
+      }
+      .time {
+        font-size: 10px;
+      }
+      .speed-controls {
+        display: flex;
+        gap: 8px;
+      }
+      .speed-controls button {
+        width: 48px;
+        height: 36px;
       }
       input[type="range"] {
         -webkit-appearance: none;
@@ -95,10 +119,10 @@ class PodcastPlayer extends LitElement {
       }
       input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
-        height: 0.5rem;
+        height: 6px;
         cursor: pointer;
         animate: 0.2s;
-        border: 1px solid var(--player-highlight);
+        background: rgba(0, 0, 0, 0.1);
         border-radius: 3px;
       }
       /* This is super weird, but combining this selector with the one
@@ -106,57 +130,37 @@ class PodcastPlayer extends LitElement {
          case with the slider thumb below. */
       input[type="range"]::-moz-range-track {
         width: 100%;
-        height: 0.5rem;
+        height: 6px;
         cursor: pointer;
         animate: 0.2s;
-        border: 1px solid var(--player-highlight);
+        background: rgba(0, 0, 0, 0.1);
         border-radius: 3px;
       }
       input[type="range"]::-webkit-slider-thumb {
         border: none;
-        height: 15px;
-        width: 15px;
-        border-radius: 3px;
-        background: var(--player-highlight);
+        height: 25px;
+        width: 25px;
+        border-radius: 13px;
+        background: black;
         cursor: pointer;
         -webkit-appearance: none;
-        margin-top: -0.25rem;
+        margin-top: -9px;
       }
       input[type="range"]::-moz-range-thumb {
         border: none;
-        height: 15px;
-        width: 15px;
-        border-radius: 3px;
-        background: var(--player-highlight);
+        height: 25px;
+        width: 12px;
+        border-radius: 13px;
+        background: black;
         cursor: pointer;
         -webkit-appearance: none;
-        margin-top: -0.25rem;
+        margin-top: -9px;
       }
       input[type="range"]::-ms-fill-lower {
         background: var(--player-highlight);
       }
       input[type="range"]::-ms-fill-upper {
         background: white;
-      }
-      .time {
-        text-align: center;
-      }
-      @media (min-width: 500px) {
-        .button-play {
-          height: auto;
-        }
-        .time {
-          text-align: left;
-        }
-        .duration {
-          grid-column: 3;
-          justify-self: end;
-        }
-        .button-speed {
-          min-width: 3em;
-          grid-column: 2;
-          grid-row: 3;
-        }
       }
       .button-speed:after {
         content: "x";
@@ -261,57 +265,80 @@ class PodcastPlayer extends LitElement {
 
   render() {
     return html`
-      <h1>${this.number}: ${this.title}</h1>
       <svg style="display: none;">
-        <symbol id="icon-play" viewBox="0 0 15 27">
+        <symbol id="icon-play" viewBox="0 0 39 46">
           <path
-            fill="var(--player-focus)"
-            d="M3 0H0V27H3V24H6V21H9V18H12V15H15V12H12V9H9V6H6V3H3V0Z"
+            d="M-2.5034e-06 0.483337L39 23L-2.31961e-06 45.5167L-2.5034e-06 0.483337Z"
+            fill="black"
           />
         </symbol>
         <symbol id="icon-pause" viewBox="0 0 15 21">
-          <path fill="var(--player-focus)" d="M0 21V0H6V21H0Z" />
-          <path fill="var(--player-focus)" d="M15 0H9V21H15V0Z" />
+          <path fill="black" d="M0 21V0H6V21H0Z" />
+          <path fill="black" d="M15 0H9V21H15V0Z" />
         </symbol>
       </svg>
+
       <div class="podcast-player">
-        <button class="button-play" aria-label="Toista" @click="${this.play}">
+        <h1><span class="number">Jakso ${this.number}</span>${this.title}</h1>
+        <button
+          type="button"
+          class="button-play"
+          aria-label="Toista"
+          @click="${this.play}"
+        >
           <svg class="play"><use xlink:href="#icon-play"></use></svg>
           <svg class="pause"><use xlink:href="#icon-pause"></use></svg>
         </button>
-        <button
-          class="button-secondary"
-          aria-label="30 sekuntia taaksepäin"
-          @click="${this.rewind}"
-        >
-          -30s
-        </button>
-        <button
-          class="button-secondary"
-          aria-label="30 sekuntia eteenpäin"
-          @click="${this.ff}"
-        >
-          +30s
-        </button>
-        <span class="sr-only">Toistettu</span>
-        <span class="time">${this.toDurationString(this.currentTime)}</span>
-        <input
-          type="range"
-          class="progress-meter"
-          value="${this.currentTime}"
-          max="${this.duration}"
-          @click="${this.seek}"
-        />
-        <span class="sr-only">Kesto</span>
-        <span class="duration time"
-          >${this.toDurationString(this.duration)}</span
-        >
-        <button
-          class="button-speed button-secondary"
-          @click="${this.changeSpeed}"
-        >
-          ${this.speeds[this.currentSpeedIdx]}
-        </button>
+
+        <div class="timeline">
+          <div class="times">
+            <div>
+              <span class="sr-only">Toistettu</span>
+              <span class="time"
+                >${this.toDurationString(this.currentTime)}</span
+              >
+            </div>
+            <div>
+              <span class="sr-only">Kesto</span>
+              <span class="duration time"
+                >${this.toDurationString(this.duration)}</span
+              >
+            </div>
+          </div>
+          <input
+            type="range"
+            class="progress-meter"
+            value="${this.currentTime}"
+            max="${this.duration}"
+            @click="${this.seek}"
+          />
+        </div>
+
+        <div class="speed-controls">
+          <button
+            type="button"
+            class="button-speed button-secondary"
+            @click="${this.changeSpeed}"
+          >
+            ${this.speeds[this.currentSpeedIdx]}
+          </button>
+          <button
+            type="button"
+            class="button-secondary"
+            aria-label="30 sekuntia taaksepäin"
+            @click="${this.rewind}"
+          >
+            -30s
+          </button>
+          <button
+            type="button"
+            class="button-secondary"
+            aria-label="30 sekuntia eteenpäin"
+            @click="${this.ff}"
+          >
+            +30s
+          </button>
+        </div>
       </div>
     `;
   }
