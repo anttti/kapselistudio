@@ -3,7 +3,7 @@ import {
   html,
   css,
 } from "https://unpkg.com/lit-element@3.2.0/lit-element.js?module";
-console.log("asdf");
+
 class PodcastPlayer extends LitElement {
   static get properties() {
     return {
