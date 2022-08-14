@@ -26,7 +26,7 @@ defmodule Kapselistudio.Media do
     )
   end
 
-  def get_podcast_for_slug_with_episodes!(slug) do
+  def get_podcast_for_slug_with_episodes!(slug, offset, limit) do
     Repo.one!(
       from(
         p in Podcast,
@@ -34,7 +34,33 @@ defmodule Kapselistudio.Media do
         select: p,
         preload: [
           episodes:
-            ^from(e in Episode, where: e.status == "PUBLISHED", order_by: [desc: e.number])
+            ^from(e in Episode,
+              where: e.status == "PUBLISHED",
+              order_by: [desc: e.number],
+              offset: ^offset,
+              limit: ^limit
+            )
+        ]
+      )
+    )
+  end
+
+  def get_podcast_for_slug_with_episodes!(slug) do
+    get_podcast_for_slug_with_episodes!(slug, 0, 10)
+  end
+
+  def get_podcast_for_slug_with_all_episodes!(slug) do
+    Repo.one!(
+      from(
+        p in Podcast,
+        where: p.slug == ^slug,
+        select: p,
+        preload: [
+          episodes:
+            ^from(e in Episode,
+              where: e.status == "PUBLISHED",
+              order_by: [desc: e.number]
+            )
         ]
       )
     )

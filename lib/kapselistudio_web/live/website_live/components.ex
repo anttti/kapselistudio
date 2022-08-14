@@ -4,7 +4,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
 
   def podcast(assigns) do
     ~H"""
-    <section class="flex flex-col gap-4 flex-1 p-8 lg:ml-80">
+    <section class="flex flex-col gap-4 flex-1 px-8 pt-8 pb-24 lg:ml-80">
       <div class="flex flex-col gap-2 p-4 bg-gray-700 text-white">
         <h2>Uusin jakso</h2>
         <h1>
@@ -50,6 +50,16 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
           </li>
         <% end %>
       </ol>
+
+      <%= if @has_more? do %>
+        <%= live_patch("Näytä lisää",
+          to:
+            KapselistudioWeb.SubdomainRouter.Helpers.website_show_all_path(
+              KapselistudioWeb.Endpoint,
+              :show_all_episodes
+            )
+        ) %>
+      <% end %>
     </section>
     """
   end
@@ -74,6 +84,26 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
         <%= raw(@shownotes) %>
       </div>
     </section>
+    """
+  end
+
+  def sidebar(assigns) do
+    ~H"""
+    <div class="flex flex-col gap-8 p-8 lg:w-80 lg:min-h-screen bg-gray-100 lg:fixed items-center lg:items-start">
+      <%= live_patch("Etusivu",
+        to:
+          KapselistudioWeb.SubdomainRouter.Helpers.website_show_path(
+            KapselistudioWeb.Endpoint,
+            :show
+          )
+      ) %>
+      <a href="/" phx-click="show-podcast" onclick="return false">
+        <img src="/images/webbidevaus-logo.jpg" class="block w-64 h-64 bg-white rounded shadow" />
+      </a>
+      <h1 class="text-2xl"><%= @name %></h1>
+      <p class=""><%= @description %></p>
+      <p class=""><%= @author %></p>
+    </div>
     """
   end
 end

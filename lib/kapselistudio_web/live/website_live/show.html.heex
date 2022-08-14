@@ -1,12 +1,5 @@
-<div class={"flex flex-col lg:flex-row #{if @playing_url, do: "pb-16"}"}>
-  <div class="flex flex-col gap-8 p-8 lg:w-80 lg:min-h-screen bg-gray-100 lg:fixed items-center lg:items-start">
-    <a href="/" phx-click="show-podcast" onclick="return false">
-      <img src="/images/webbidevaus-logo.jpg" class="block w-64 h-64 bg-white rounded shadow" />
-    </a>
-    <h1 class="text-2xl"><%= @podcast.name %></h1>
-    <p class=""><%= @podcast.description %></p>
-    <p class=""><%= @podcast.author %></p>
-  </div>
+<div class="flex flex-col lg:flex-row">
+  <.sidebar name={@podcast.name} description={@podcast.description} author={@podcast.author} />
 
   <%= if @page == :episode do %>
     <.episode
@@ -15,12 +8,15 @@
       number={@episode.number}
       shownotes={@shownotes}
     />
-  <% else %>
+  <% end %>
+
+  <%= if @page == :podcast do %>
     <.podcast
       podcast={@podcast}
       socket={@socket}
       latest_episode={List.first(@podcast.episodes)}
       rest_episodes={Enum.drop(@podcast.episodes, 1)}
+      has_more?={@has_more?}
     />
   <% end %>
 </div>
