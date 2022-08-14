@@ -13,6 +13,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
     limit = 11
     podcast = Media.get_podcast_for_slug_with_episodes!(subdomain, 0, limit)
     episodes = Enum.take(podcast.episodes, limit - 1)
+    latest_episode = List.first(episodes)
     has_more? = Enum.count(podcast.episodes) == limit
 
     {:ok,
@@ -20,8 +21,16 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
      |> assign(:podcast, podcast)
      |> assign(:episodes, episodes)
      |> assign(:has_more?, has_more?)
-     |> assign(:latest_episode, List.first(episodes))
-     |> assign(:rest_episodes, Enum.drop(episodes, 1))}
+     |> assign(:latest_episode, latest_episode)
+     |> assign(:rest_episodes, Enum.drop(episodes, 1))
+     |> assign(
+       :latest_episode_title,
+       episode_title(latest_episode)
+     )}
+  end
+
+  defp episode_title(%{number: number, title: title}) do
+    Integer.to_string(number) <> ". " <> title
   end
 
   @impl true
@@ -32,7 +41,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
         <div class="flex flex-col gap-2 p-4 bg-gray-700 text-white">
           <h2>Uusin jakso</h2>
           <h1>
-            <%= Integer.to_string(@latest_episode.number) <> ". " <> @latest_episode.title %>
+            <%= @latest_episode_title %>
           </h1>
           <p class="text-sm"><%= @latest_episode.description %></p>
           <button
@@ -50,7 +59,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
             <li class="py-4 flex flex-col gap-2">
               <div class="flex text-sm font-medium text-gray-900">
                 <div class="flex-1">
-                  <%= live_patch(Integer.to_string(episode.number) <> ". " <> episode.title,
+                  <%= live_patch(episode_title(episode),
                     to:
                       KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                         KapselistudioWeb.Endpoint,
