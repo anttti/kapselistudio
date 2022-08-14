@@ -34,7 +34,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
                       KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                         KapselistudioWeb.Endpoint,
                         :show_episode,
-                        episode.id
+                        episode.number
                       )
                   ) %>
                 </div>

@@ -7,6 +7,7 @@ module.exports = {
     "../lib/*_web/**/*_component.ex",
     "../lib/*_web/**/*_live.ex",
     "../lib/*_web/**/components.ex",
+    "../lib/*_web/live/*_live/*.ex",
   ],
   darkMode: "media",
   theme: {

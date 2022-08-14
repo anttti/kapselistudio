@@ -93,11 +93,12 @@ defmodule Kapselistudio.Media do
     )
   end
 
-  def get_published_episode!(podcast_id, episode_id) do
+  def get_published_episode!(podcast_id, episode_number) do
     Repo.one!(
       from(
         e in Episode,
-        where: e.id == ^episode_id and e.status == "PUBLISHED" and e.podcast_id == ^podcast_id
+        where:
+          e.number == ^episode_number and e.status == "PUBLISHED" and e.podcast_id == ^podcast_id
       )
     )
   end
