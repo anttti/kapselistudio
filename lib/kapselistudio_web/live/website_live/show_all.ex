@@ -21,8 +21,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="flex flex-col lg:flex-row">
-      <.sidebar name={@podcast.name} description={@podcast.description} author={@podcast.author} />
+    <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
       <section class="flex-1 p-8 flex flex-col gap-4 lg:ml-80">
         <h2>Aiemmat jaksot</h2>
         <ol>
@@ -32,7 +31,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
                 <div class="flex-1">
                   <%= live_patch(Integer.to_string(episode.number) <> ". " <> episode.title,
                     to:
-                      KapselistudioWeb.SubdomainRouter.Helpers.website_show_path(
+                      KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                         KapselistudioWeb.Endpoint,
                         :show_episode,
                         episode.id
@@ -47,7 +46,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
           <% end %>
         </ol>
       </section>
-    </div>
+    </.page>
     """
   end
 end
