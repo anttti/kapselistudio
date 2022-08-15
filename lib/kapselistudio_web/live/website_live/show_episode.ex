@@ -9,7 +9,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowEpisode do
   def mount(%{"episode_number" => episode_number}, _session, socket) do
     with %URI{host: host} = socket.host_uri,
          subdomain = Kapselistudio.Origin.get_subdomain(host),
-         podcast = Media.get_podcast_for_slug_with_all_episodes!(subdomain),
+         podcast = Media.get_podcast_for_slug!(subdomain),
          episode <- Media.get_published_episode!(podcast.id, episode_number),
          shownotes <- Earmark.as_html!(episode.shownotes) do
       {:ok,

@@ -3,6 +3,16 @@ defmodule KapselistudioWeb.PlayerLive do
 
   alias Kapselistudio.Media
 
+  def mount(_params, _session, socket) do
+    %URI{host: host} = socket.host_uri
+    subdomain = Kapselistudio.Origin.get_subdomain(host)
+
+    podcast = Media.get_podcast_for_slug_with_episodes!(subdomain, 0, 1)
+    newest_episode = List.first(podcast.episodes)
+
+    {:ok, assign(socket, :episode, newest_episode), layout: false}
+  end
+
   def render(assigns) do
     ~H"""
     <div class="bg-gray-200 fixed z-50 left-0 right-0 bottom-0">
@@ -17,15 +27,5 @@ defmodule KapselistudioWeb.PlayerLive do
       </podcast-player>
     </div>
     """
-  end
-
-  def mount(_params, _session, socket) do
-    %URI{host: host} = socket.host_uri
-    subdomain = Kapselistudio.Origin.get_subdomain(host)
-
-    podcast = Media.get_podcast_for_slug_with_episodes!(subdomain)
-    newest_episode = List.first(podcast.episodes)
-
-    {:ok, assign(socket, :episode, newest_episode), layout: false}
   end
 end

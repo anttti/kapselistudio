@@ -10,7 +10,7 @@ defmodule KapselistudioWeb.Plugs.ValidateSlug do
   def call(conn, _) do
     subdomain = Kapselistudio.Origin.get_subdomain(conn.host)
 
-    case Kapselistudio.Media.get_podcast_for_slug(subdomain) do
+    case Kapselistudio.Media.get_podcast_for_slug!(subdomain) do
       %Podcast{} ->
         conn
 

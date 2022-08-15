@@ -10,7 +10,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
     %URI{host: host} = socket.host_uri
     subdomain = Kapselistudio.Origin.get_subdomain(host)
 
-    podcast = Media.get_podcast_for_slug_with_all_episodes!(subdomain)
+    podcast = Media.get_podcast_for_slug_with_episodes!(subdomain, nil, nil)
 
     {:ok,
      socket

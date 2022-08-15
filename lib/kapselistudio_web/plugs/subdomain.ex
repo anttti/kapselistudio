@@ -6,7 +6,7 @@ defmodule KapselistudioWeb.Plugs.Subdomain do
   def call(conn, router) do
     case Kapselistudio.Origin.get_subdomain(conn.host) do
       subdomain when byte_size(subdomain) > 0 ->
-        podcast = Kapselistudio.Media.get_podcast_for_slug(subdomain)
+        podcast = Kapselistudio.Media.get_podcast_for_slug!(subdomain)
         if podcast == nil, do: halt(conn)
 
         conn

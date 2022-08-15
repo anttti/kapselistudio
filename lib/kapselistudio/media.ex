@@ -16,7 +16,7 @@ defmodule Kapselistudio.Media do
 
   # TODO: Implement and rename this to just do existance checking, as this is used when
   # verifying if the podcast exists in the subdomain resolving
-  def get_podcast_for_slug(slug) do
+  def get_podcast_for_slug!(slug) do
     Repo.one(
       from(
         p in Podcast,
@@ -26,41 +26,42 @@ defmodule Kapselistudio.Media do
     )
   end
 
+  def with_offset(query, nil) do
+    query
+  end
+
+  def with_offset(query, offset) do
+    from e in query, offset: ^offset
+  end
+
+  def with_limit(query, nil) do
+    query
+  end
+
+  def with_limit(query, limit) do
+    from e in query, limit: ^limit
+  end
+
   def get_podcast_for_slug_with_episodes!(slug, offset, limit) do
-    Repo.one!(
-      from(
-        p in Podcast,
-        where: p.slug == ^slug,
-        select: p,
-        preload: [
-          episodes:
-            ^from(e in Episode,
-              where: e.status == "PUBLISHED",
-              order_by: [desc: e.number],
-              offset: ^offset,
-              limit: ^limit
-            )
-        ]
+    episode_query =
+      from(e in Episode,
+        where: e.status == "PUBLISHED",
+        order_by: [desc: e.number]
       )
-    )
-  end
+      |> with_offset(offset)
+      |> with_limit(limit)
 
-  def get_podcast_for_slug_with_episodes!(slug) do
-    get_podcast_for_slug_with_episodes!(slug, 0, 10)
-  end
+    IO.inspect(offset)
+    IO.inspect(limit)
+    IO.inspect(episode_query)
 
-  def get_podcast_for_slug_with_all_episodes!(slug) do
     Repo.one!(
       from(
         p in Podcast,
         where: p.slug == ^slug,
         select: p,
         preload: [
-          episodes:
-            ^from(e in Episode,
-              where: e.status == "PUBLISHED",
-              order_by: [desc: e.number]
-            )
+          episodes: ^episode_query
         ]
       )
     )
