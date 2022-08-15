@@ -22,14 +22,14 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="flex-1 p-8 flex flex-col gap-4 lg:ml-80">
+      <section class="flex-1 px-8 pt-8 pb-24 flex flex-col gap-4 lg:ml-80">
         <h2>Aiemmat jaksot</h2>
         <ol>
           <%= for episode <- @episodes do %>
             <li class="py-2">
               <div class="flex text-sm font-medium text-gray-900">
                 <div class="flex-1">
-                  <%= live_patch(Integer.to_string(episode.number) <> ". " <> episode.title,
+                  <%= live_redirect(Integer.to_string(episode.number) <> ". " <> episode.title,
                     to:
                       KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                         KapselistudioWeb.Endpoint,

@@ -5,7 +5,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
     ~H"""
     <div class="flex flex-col lg:flex-row">
       <div class="flex flex-col gap-8 p-8 lg:w-80 lg:min-h-screen bg-gray-100 lg:fixed items-center lg:items-start">
-        <%= live_patch(
+        <%= live_redirect(
           to:
             KapselistudioWeb.SubdomainRouter.Helpers.website_show_podcast_path(
               KapselistudioWeb.Endpoint,

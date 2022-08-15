@@ -24,7 +24,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowEpisode do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="flex-1 p-8 flex flex-col gap-4 lg:ml-80">
+      <section class="flex-1 px-8 pt-8 pb-24 flex flex-col gap-4 lg:ml-80">
         <h1 class="text-3xl font-medium text-gray-900">
           <%= @episode.title %>
         </h1>

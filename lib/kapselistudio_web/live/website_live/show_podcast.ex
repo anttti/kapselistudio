@@ -59,7 +59,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
             <li class="py-4 flex flex-col gap-2">
               <div class="flex text-sm font-medium text-gray-900">
                 <div class="flex-1">
-                  <%= live_patch(episode_title(episode),
+                  <%= live_redirect(episode_title(episode),
                     to:
                       KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                         KapselistudioWeb.Endpoint,
@@ -86,7 +86,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
         </ol>
 
         <%= if @has_more? do %>
-          <%= live_patch("Näytä lisää",
+          <%= live_redirect("Näytä lisää",
             to:
               KapselistudioWeb.SubdomainRouter.Helpers.website_show_all_path(
                 KapselistudioWeb.Endpoint,
