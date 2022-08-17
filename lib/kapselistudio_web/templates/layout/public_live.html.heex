@@ -1,10 +1,11 @@
-<%= live_render(@socket, KapselistudioWeb.PlayerLive, id: "player", session: %{}, sticky: true) %>
-
-<main id="live-container relative">
-  <div id="web-root">
-    <%= @inner_content %>
-  </div>
-</main>
+<div id="web-root" class="wrapper">
+  <%= @inner_content %>
+  <%= live_render(@socket, KapselistudioWeb.PlayerLive,
+    id: "player",
+    session: %{},
+    sticky: true
+  ) %>
+</div>
 
 <script>
   const on = (evtName, delegator, ...args) => {

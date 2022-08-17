@@ -22,7 +22,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="flex-1 px-8 pt-8 pb-24 flex flex-col gap-4 lg:ml-80">
+      <section class="p-8 flex flex-col gap-4">
         <h2>Aiemmat jaksot</h2>
         <ol>
           <%= for episode <- @episodes do %>

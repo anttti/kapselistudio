@@ -139,7 +139,7 @@ class PodcastPlayer extends LitElement {
       input[type="range"]::-webkit-slider-thumb {
         border: none;
         height: 25px;
-        width: 25px;
+        width: 12px;
         border-radius: 13px;
         background: black;
         cursor: pointer;

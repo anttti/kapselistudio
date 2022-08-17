@@ -37,22 +37,25 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="flex flex-col gap-4 flex-1 px-8 pt-8 pb-24 lg:ml-80">
+      <section class="flex flex-col gap-4 p-8">
         <div class="flex flex-col gap-2 p-4 bg-gray-700 text-white">
           <h2>Uusin jakso</h2>
           <h1>
             <%= @latest_episode_title %>
           </h1>
           <p class="text-sm"><%= @latest_episode.description %></p>
-          <button
-            class="text-sm border border-gray-400 px-4 py-2 play-button"
-            data-url={@latest_episode.url}
-            data-title={@latest_episode.title}
-            data-number={@latest_episode.number}
-          >
-            Kuuntele jakso
-          </button>
+          <div class="flex gap-2">
+            <.play_button
+              url={@latest_episode.url}
+              title={@latest_episode.title}
+              number={@latest_episode.number}
+            >
+              Kuuntele jakso
+            </.play_button>
+            <.show_notes_button />
+          </div>
         </div>
+
         <h2>Aiemmat jaksot</h2>
         <ol class="divide-y divide-gray-300">
           <%= for episode <- @rest_episodes do %>
@@ -73,14 +76,12 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                 </div>
               </div>
               <p class="text-sm text-gray-800"><%= episode.description %></p>
-              <button
-                class="text-sm border border-gray-400 px-4 py-2 play-button"
-                data-url={episode.url}
-                data-title={episode.title}
-                data-number={episode.number}
-              >
-                Kuuntele jakso
-              </button>
+              <div class="flex gap-2">
+                <.play_button url={episode.url} title={episode.title} number={episode.number}>
+                  Kuuntele jakso
+                </.play_button>
+                <.show_notes_button />
+              </div>
             </li>
           <% end %>
         </ol>
