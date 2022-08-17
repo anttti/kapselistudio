@@ -34,6 +34,14 @@ config :kapselistudio, KapselistudioWeb.Endpoint,
       "--postcss",
       "--watch",
       cd: Path.expand("../assets", __DIR__)
+    ],
+    npx: [
+      "tailwindcss",
+      "--input=css/public.css",
+      "--output=../priv/static/assets/public.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
     ]
   ]
 

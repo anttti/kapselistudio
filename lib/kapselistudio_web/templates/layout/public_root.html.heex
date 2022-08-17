@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tag() %>
     <%= live_title_tag(assigns[:page_title] || "Etusivu", suffix: " · Kapselistudio") %>
-    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <link
+      phx-track-static
+      rel="stylesheet"
+      href={Routes.static_path(@conn, "/assets/public.css")}
+    />
     <script
       defer
       phx-track-static
@@ -21,6 +25,11 @@
       src={Routes.static_path(@conn, "/podcast-player.js")}
     >
     </script>
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+    </style>
   </head>
   <body>
     <%= @inner_content %>
