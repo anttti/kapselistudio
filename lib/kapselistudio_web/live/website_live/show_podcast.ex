@@ -37,64 +37,73 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="flex flex-col gap-4 p-8">
-        <div class="flex flex-col gap-2 p-4 bg-gray-700 text-white">
-          <h2>Uusin jakso</h2>
-          <h1>
-            <%= @latest_episode_title %>
-          </h1>
-          <p class="text-sm"><%= @latest_episode.description %></p>
-          <div class="flex gap-2">
-            <.play_button
-              url={@latest_episode.url}
-              title={@latest_episode.title}
-              number={@latest_episode.number}
-            >
-              Kuuntele jakso
-            </.play_button>
-            <.show_notes_button />
-          </div>
-        </div>
-
-        <h2>Aiemmat jaksot</h2>
-        <ol class="divide-y divide-gray-300">
-          <%= for episode <- @rest_episodes do %>
-            <li class="py-4 flex flex-col gap-2">
-              <div class="flex text-sm font-medium text-gray-900">
-                <div class="flex-1">
-                  <%= live_redirect(episode_title(episode),
-                    to:
-                      KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
-                        KapselistudioWeb.Endpoint,
-                        :show_episode,
-                        episode.number
-                      )
-                  ) %>
-                </div>
-                <div class="w-48 text-right text-gray-400">
-                  <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
-                </div>
-              </div>
-              <p class="text-sm text-gray-800"><%= episode.description %></p>
+      <section class="flex flex-col gap-8 p-8">
+        <div class="flex flex-col gap-4 p-8 bg-gray-700 text-white rounded-xl">
+          <h2 class="uppercase font-bold text-sm tracking-widest">Uusin jakso</h2>
+          <div class="flex gap-8">
+            <div class="text-6xl font-extrabold mt-[-2px] text-gray-400">
+              <%= @latest_episode.number %>
+            </div>
+            <div class="flex flex-col gap-2">
+              <h1 class="text-xl font-bold">
+                <%= @latest_episode.title %>
+              </h1>
+              <p class="text-sm"><%= @latest_episode.description %></p>
               <div class="flex gap-2">
-                <.play_button url={episode.url} title={episode.title} number={episode.number}>
+                <.play_button
+                  url={@latest_episode.url}
+                  title={@latest_episode.title}
+                  number={@latest_episode.number}
+                >
                   Kuuntele jakso
                 </.play_button>
                 <.show_notes_button />
               </div>
-            </li>
-          <% end %>
-        </ol>
+            </div>
+          </div>
+        </div>
 
-        <%= if @has_more? do %>
-          <%= live_redirect("Näytä lisää",
-            to:
-              KapselistudioWeb.SubdomainRouter.Helpers.website_show_all_path(
-                KapselistudioWeb.Endpoint,
-                :show_all_episodes
-              )
-          ) %>
-        <% end %>
+        <div>
+          <h2 class="uppercase font-bold text-sm tracking-widest">Aiemmat jaksot</h2>
+          <ol class="divide-y divide-gray-300">
+            <%= for episode <- @rest_episodes do %>
+              <li class="py-4 flex flex-col gap-2">
+                <div class="flex text-sm font-medium text-gray-900">
+                  <div class="flex-1">
+                    <%= live_redirect(episode_title(episode),
+                      to:
+                        KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
+                          KapselistudioWeb.Endpoint,
+                          :show_episode,
+                          episode.number
+                        )
+                    ) %>
+                  </div>
+                  <div class="w-48 text-right text-gray-400">
+                    <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-800"><%= episode.description %></p>
+                <div class="flex gap-2">
+                  <.play_button url={episode.url} title={episode.title} number={episode.number}>
+                    Kuuntele jakso
+                  </.play_button>
+                  <.show_notes_button />
+                </div>
+              </li>
+            <% end %>
+          </ol>
+
+          <%= if @has_more? do %>
+            <%= live_redirect("Näytä lisää",
+              to:
+                KapselistudioWeb.SubdomainRouter.Helpers.website_show_all_path(
+                  KapselistudioWeb.Endpoint,
+                  :show_all_episodes
+                )
+            ) %>
+          <% end %>
+        </div>
       </section>
     </.page>
     """

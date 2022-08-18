@@ -30,7 +30,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
   def play_button(assigns) do
     ~H"""
     <button
-      class="text-sm px-4 py-2 play-button flex gap-4"
+      class="text-sm py-2 play-button flex gap-4"
       data-url={@url}
       data-title={@title}
       data-number={@number}
