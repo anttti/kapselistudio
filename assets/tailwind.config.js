@@ -11,7 +11,18 @@ module.exports = {
   ],
   darkMode: "media",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "var(--primary)",
+        "primary-dark": "var(--primary-dark)",
+        "primary-start": "var(--primary-start)",
+        "primary-end": "var(--primary-end)",
+        secondary: "var(--secondary)",
+        "secondary-start": "var(--secondary-start)",
+        "secondary-end": "var(--secondary-end)",
+        "body-bg": "var(--body-bg)",
+      },
+    },
   },
   variants: {
     extend: {},

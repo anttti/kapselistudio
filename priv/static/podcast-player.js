@@ -40,6 +40,7 @@ class PodcastPlayer extends LitElement {
         padding: 4px 16px;
         box-sizing: border-box;
         border-radius: 3px;
+        color: white;
       }
       h1 {
         width: 320px;
@@ -52,7 +53,7 @@ class PodcastPlayer extends LitElement {
       .number {
         display: block;
         margin-bottom: 4px;
-        color: rgba(0, 0, 0, 0.5);
+        color: rgba(255, 255, 255, 0.5);
         font-weight: bold;
         font-size: 10px;
         text-transform: uppercase;
@@ -125,7 +126,7 @@ class PodcastPlayer extends LitElement {
         height: 6px;
         cursor: pointer;
         animate: 0.2s;
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 3px;
       }
       /* This is super weird, but combining this selector with the one
@@ -136,7 +137,7 @@ class PodcastPlayer extends LitElement {
         height: 6px;
         cursor: pointer;
         animate: 0.2s;
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 3px;
       }
       input[type="range"]::-webkit-slider-thumb {
@@ -144,7 +145,7 @@ class PodcastPlayer extends LitElement {
         height: 25px;
         width: 12px;
         border-radius: 13px;
-        background: black;
+        background: white;
         cursor: pointer;
         -webkit-appearance: none;
         margin-top: -9px;
@@ -154,7 +155,7 @@ class PodcastPlayer extends LitElement {
         height: 25px;
         width: 12px;
         border-radius: 13px;
-        background: black;
+        background: white;
         cursor: pointer;
         -webkit-appearance: none;
         margin-top: -9px;

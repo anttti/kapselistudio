@@ -15,6 +15,16 @@
 
 body {
   overflow: hidden;
+  --body-bg: rgba(55,56,104,.12);
+  --body-invert: white;
+  --body: #2d2d2d;
+  --primary: #bb1155;
+  --primary-dark: #650026;
+  --primary-start: #d63169;
+  --primary-end: #b2004e;
+  --secondary: #1b0043;
+  --secondary-start: #41427b;
+  --secondary-end: #41427b;
 }
 
 .wrapper {

@@ -15,7 +15,7 @@ defmodule KapselistudioWeb.PlayerLive do
 
   def render(assigns) do
     ~H"""
-    <div class="bg-gray-200">
+    <div class="bg-secondary">
       <podcast-player
         id="podcast-player"
         phx-update="ignore"
