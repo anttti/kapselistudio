@@ -38,7 +38,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
       <section class="flex flex-col gap-8 p-8">
-        <div class="flex flex-col gap-4 p-8 bg-primary text-white rounded-xl">
+        <div class="flex flex-col gap-4 p-8 bg-primary text-white rounded-xl max-w-4xl mx-auto">
           <h2 class="uppercase font-bold text-sm tracking-widest">Uusin jakso</h2>
           <div class="flex gap-8">
             <div class="text-6xl font-extrabold mt-[-2px] text-primary-dark">
@@ -63,7 +63,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
           </div>
         </div>
 
-        <div>
+        <div class="max-w-3xl mx-auto">
           <h2 class="uppercase font-bold text-sm tracking-widest">Aiemmat jaksot</h2>
           <ol class="divide-y divide-gray-300">
             <%= for episode <- @rest_episodes do %>
