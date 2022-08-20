@@ -45,6 +45,9 @@ class PodcastPlayer extends LitElement {
         width: 320px;
         font-size: 14px;
         line-height: 1.2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .number {
         display: block;
@@ -223,10 +226,10 @@ class PodcastPlayer extends LitElement {
     return this.audio.src;
   }
 
-  setEpisode({ src, number, title }) {
+  setEpisode({ url, number, title }) {
     this.number = number;
     this.title = title;
-    this.audio.src = src;
+    this.audio.src = url;
   }
 
   changeSpeed() {

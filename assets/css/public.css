@@ -34,3 +34,14 @@ body {
 .content, .sidebar {
   overflow-y: scroll;
 }
+
+/* Custom scrollbars */
+.content::-webkit-scrollbar, .sidebar::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
