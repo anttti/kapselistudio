@@ -79,7 +79,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                         )
                     ) %>
                   </div>
-                  <div class="w-48 text-right text-gray-400">
+                  <div class="text-right text-gray-400">
                     <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
                   </div>
                 </div>

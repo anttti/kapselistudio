@@ -1,10 +1,10 @@
 <div id="web-root" class="wrapper">
-  <%= @inner_content %>
   <%= live_render(@socket, KapselistudioWeb.PlayerLive,
     id: "player",
     session: %{},
     sticky: true
   ) %>
+  <%= @inner_content %>
 </div>
 
 <script>

@@ -30,7 +30,7 @@ body {
   max-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 110px;
+  grid-template-rows: 110px 1fr;
 }
 
 .body {
@@ -45,7 +45,7 @@ body {
   .wrapper {
     height: 100vh;
     width: 100vw;
-    grid-template-rows: 1fr 60px;
+    grid-template-rows: 60px 1fr;
   }
 
   .body {
