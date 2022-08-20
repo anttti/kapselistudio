@@ -3,19 +3,18 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Montserrat';
-  font-style: 'normal';
+  font-family: "Montserrat";
+  font-style: "normal";
   font-weight: 100 900;
-  src: url(../fonts/montserrat.woff2) format('woff2');
+  src: url(../fonts/montserrat.woff2) format("woff2");
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-  overflow: hidden;
-  --body-bg: rgba(55,56,104,.12);
+  --body-bg: rgba(55, 56, 104, 0.12);
   --body-invert: white;
   --body: #2d2d2d;
   --primary: #bb1155;
@@ -28,30 +27,48 @@ body {
 }
 
 .wrapper {
-  height: 100vh;
-  width: 100vw;
+  max-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 60px;
+  grid-template-rows: 1fr 110px;
 }
 
 .body {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  overflow: hidden;
-}
-
-.content, .sidebar {
   overflow-y: scroll;
 }
 
+@media screen and (min-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+
+  .wrapper {
+    height: 100vh;
+    width: 100vw;
+    grid-template-rows: 1fr 60px;
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    overflow: hidden;
+  }
+
+  .content,
+  .sidebar {
+    overflow-y: scroll;
+  }
+}
+
 /* Custom scrollbars */
-.content::-webkit-scrollbar, .sidebar::-webkit-scrollbar {
+.content::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
   background-color: transparent;
   width: 8px;
 }
 
-.content::-webkit-scrollbar-thumb, .sidebar::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
+.content::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }

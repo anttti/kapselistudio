@@ -37,11 +37,11 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="flex flex-col gap-8 p-8">
-        <div class="flex flex-col gap-4 p-8 bg-primary text-white rounded-xl max-w-4xl mx-auto">
+      <section class="flex flex-col gap-4 md:gap-8 p-4 md:p-8">
+        <div class="flex flex-col gap-2 md:gap-4 p-4 md:p-8 bg-primary text-white rounded-xl max-w-4xl mx-auto">
           <h2 class="uppercase font-bold text-sm tracking-widest">Uusin jakso</h2>
-          <div class="flex gap-8">
-            <div class="text-6xl font-extrabold mt-[-2px] text-primary-dark">
+          <div class="flex gap-4 md:gap-8">
+            <div class="text-4xl md:text-6xl font-extrabold mt-[-2px] text-primary-dark">
               <%= @latest_episode.number %>
             </div>
             <div class="flex flex-col gap-2">

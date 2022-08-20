@@ -29,12 +29,11 @@ class PodcastPlayer extends LitElement {
       }
 
       .podcast-player {
-        --player-highlight: rgba(0, 0, 0, 0.3);
-        --player-focus: rgba(0, 0, 0, 0.3);
+        --player-highlight: rgba(255, 255, 255, 0.3);
+        --player-focus: rgba(255, 255, 255, 0.3);
 
         display: flex;
-        gap: 12px;
-        align-items: center;
+        flex-direction: column;
 
         width: 100%;
         padding: 4px 16px;
@@ -42,8 +41,23 @@ class PodcastPlayer extends LitElement {
         border-radius: 3px;
         color: white;
       }
+      .podcast-controls {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      @media screen and (min-width: 768px) {
+        h1 {
+          width: 320px;
+        }
+        .podcast-player {
+          align-items: center;
+          flex-direction: row;
+        }
+      }
       h1 {
-        width: 320px;
         font-size: 14px;
         line-height: 1.2;
         overflow: hidden;
@@ -284,64 +298,66 @@ class PodcastPlayer extends LitElement {
 
       <div class="podcast-player">
         <h1><span class="number">Jakso ${this.number}</span>${this.title}</h1>
-        <button
-          type="button"
-          class="button-play"
-          aria-label="Toista"
-          @click="${this.play}"
-        >
-          <svg class="play"><use xlink:href="#icon-play"></use></svg>
-          <svg class="pause"><use xlink:href="#icon-pause"></use></svg>
-        </button>
+        <div class="podcast-controls">
+          <button
+            type="button"
+            class="button-play"
+            aria-label="Toista"
+            @click="${this.play}"
+          >
+            <svg class="play"><use xlink:href="#icon-play"></use></svg>
+            <svg class="pause"><use xlink:href="#icon-pause"></use></svg>
+          </button>
 
-        <div class="timeline">
-          <div class="times">
-            <div>
-              <span class="sr-only">Toistettu</span>
-              <span class="time"
-                >${this.toDurationString(this.currentTime)}</span
-              >
+          <div class="timeline">
+            <div class="times">
+              <div>
+                <span class="sr-only">Toistettu</span>
+                <span class="time"
+                  >${this.toDurationString(this.currentTime)}</span
+                >
+              </div>
+              <div>
+                <span class="sr-only">Kesto</span>
+                <span class="duration time"
+                  >${this.toDurationString(this.duration)}</span
+                >
+              </div>
             </div>
-            <div>
-              <span class="sr-only">Kesto</span>
-              <span class="duration time"
-                >${this.toDurationString(this.duration)}</span
-              >
-            </div>
+            <input
+              type="range"
+              class="progress-meter"
+              value="${this.currentTime}"
+              max="${this.duration}"
+              @click="${this.seek}"
+            />
           </div>
-          <input
-            type="range"
-            class="progress-meter"
-            value="${this.currentTime}"
-            max="${this.duration}"
-            @click="${this.seek}"
-          />
-        </div>
 
-        <div class="speed-controls">
-          <button
-            type="button"
-            class="button-speed button-secondary"
-            @click="${this.changeSpeed}"
-          >
-            ${this.speeds[this.currentSpeedIdx]}
-          </button>
-          <button
-            type="button"
-            class="button-secondary"
-            aria-label="30 sekuntia taaksepäin"
-            @click="${this.rewind}"
-          >
-            -30s
-          </button>
-          <button
-            type="button"
-            class="button-secondary"
-            aria-label="30 sekuntia eteenpäin"
-            @click="${this.ff}"
-          >
-            +30s
-          </button>
+          <div class="speed-controls">
+            <button
+              type="button"
+              class="button-speed button-secondary"
+              @click="${this.changeSpeed}"
+            >
+              ${this.speeds[this.currentSpeedIdx]}
+            </button>
+            <button
+              type="button"
+              class="button-secondary"
+              aria-label="30 sekuntia taaksepäin"
+              @click="${this.rewind}"
+            >
+              -30s
+            </button>
+            <button
+              type="button"
+              class="button-secondary"
+              aria-label="30 sekuntia eteenpäin"
+              @click="${this.ff}"
+            >
+              +30s
+            </button>
+          </div>
         </div>
       </div>
     `;
