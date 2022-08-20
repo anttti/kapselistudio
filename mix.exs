@@ -70,6 +70,7 @@ defmodule Kapselistudio.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": [
         "cmd --cd assets npm run build-styles",
+        "cmd --cd assets npm run build-public-styles",
         "esbuild default --minify",
         "phx.digest"
       ]
