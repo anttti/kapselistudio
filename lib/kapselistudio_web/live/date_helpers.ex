@@ -12,6 +12,6 @@ defmodule KapselistudioWeb.DateHelpers do
   end
 
   defp date_to_str(date) do
-    Timex.format!(date, "{D}.{M}.{YYYY} {h24}:{m}")
+    Timex.format!(date, "{D}.{M}.{YYYY}")
   end
 end

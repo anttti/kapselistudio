@@ -47,7 +47,14 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
             </div>
             <div class="flex flex-col gap-2">
               <h1 class="text-xl font-bold">
-                <%= @latest_episode.title %>
+                <%= live_redirect(@latest_episode.title,
+                  to:
+                    KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
+                      KapselistudioWeb.Endpoint,
+                      :show_episode,
+                      @latest_episode.number
+                    )
+                ) %>
               </h1>
               <p class="text-sm"><%= @latest_episode.description %></p>
               <div class="flex gap-2">
@@ -64,12 +71,16 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
           </div>
         </div>
 
-        <div class="max-w-3xl mx-auto">
-          <h2 class="uppercase font-bold text-sm tracking-widest">Aiemmat jaksot</h2>
-          <ol class="divide-y divide-gray-300">
+        <div class="max-w-4xl mx-auto px-8">
+          <div class="flex items-center">
+            <hr class="h-[1px] bg-gray-200 flex-1" />
+            <h2 class="px-4 uppercase font-bold text-sm tracking-widest">Aiemmat jaksot</h2>
+            <hr class="h-[1px] bg-gray-200 flex-1" />
+          </div>
+          <ol class="divide-y divide-gray-200">
             <%= for episode <- @rest_episodes do %>
               <li class="py-4 flex flex-col gap-2">
-                <div class="flex text-sm font-medium text-gray-900">
+                <div class="flex text-md font-medium text-gray-900">
                   <div class="flex-1">
                     <%= live_redirect(episode_title(episode),
                       to:
