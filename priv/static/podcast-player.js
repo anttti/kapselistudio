@@ -156,7 +156,7 @@ class PodcastPlayer extends LitElement {
       }
       input[type="range"]::-webkit-slider-thumb {
         border: none;
-        height: 25px;
+        height: 20px;
         width: 12px;
         border-radius: 13px;
         background: white;
@@ -166,7 +166,7 @@ class PodcastPlayer extends LitElement {
       }
       input[type="range"]::-moz-range-thumb {
         border: none;
-        height: 25px;
+        height: 20px;
         width: 12px;
         border-radius: 13px;
         background: white;
