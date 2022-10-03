@@ -8,20 +8,10 @@
 </div>
 
 <script>
-  const on = (evtName, delegator, selector, callback) => {
-    delegator.addEventListener(evtName, (evt) => {
-      if (evt.target.closest(selector)) {
-        callback(evt);
-      }
-    });
-  };
-
-  on("click", document.querySelector("#web-root"), ".play-button", (evt) => {
-    playEpisode(evt.target.dataset);
-  });
-
-  const playEpisode = ({ url, title, number }) => {
+  // Receive the custom event dispatched via LiveView's JS.dispatch
+  // and start the podcast episode playback
+  window.addEventListener("kapselistudio:play_episode", (event) => {
     const player = document.querySelector("#podcast-player")
-    player.setEpisodeAndPlay({ url, title, number })
-  }
+    player.setEpisodeAndPlay(event.target.dataset)
+  });
 </script>
