@@ -10,6 +10,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
     %URI{host: host} = socket.host_uri
     subdomain = Kapselistudio.Origin.get_subdomain(host)
 
+    # @TODO: Move to Media
     limit = 11
     podcast = Media.get_podcast_for_slug_with_episodes!(subdomain, 0, limit)
     episodes = Enum.take(podcast.episodes, limit - 1)
