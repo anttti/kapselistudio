@@ -75,7 +75,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
           assigns.number
         )
     ) do %>
-      <button class="text-sm px-4 py-2 play-button flex gap-4 items-center">
+      <button type="button" class="text-sm px-4 py-2 flex gap-4 items-center">
         <svg viewBox="0 0 63 15" class="w-4">
           <circle cx="7.5" cy="7.5" r="7.5" fill="currentColor" />
           <circle cx="31.5" cy="7.5" r="7.5" fill="currentColor" />
