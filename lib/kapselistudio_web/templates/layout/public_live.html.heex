@@ -8,16 +8,12 @@
 </div>
 
 <script>
-  const on = (evtName, delegator, ...args) => {
-    if (typeof args[0] === "string") {
-      delegator.addEventListener(evtName, (evt) => {
-        if (evt.target.closest(args[0])) {
-          args[1](evt);
-        }
-      });
-    } else {
-      delegator.addEventListener(evtName, ...args);
-    }
+  const on = (evtName, delegator, selector, callback) => {
+    delegator.addEventListener(evtName, (evt) => {
+      if (evt.target.closest(selector)) {
+        callback(evt);
+      }
+    });
   };
 
   on("click", document.querySelector("#web-root"), ".play-button", (evt) => {
@@ -26,11 +22,6 @@
 
   const playEpisode = ({ url, title, number }) => {
     const player = document.querySelector("#podcast-player")
-    if (player.getSrc() !== url) {
-      player.setEpisode({ url, title, number })
-    }
-    if (player.isPaused()) {
-      player.play()
-    }
+    player.setEpisodeAndPlay({ url, title, number })
   }
 </script>

@@ -247,6 +247,15 @@ class PodcastPlayer extends LitElement {
     this.audio.src = url;
   }
 
+  setEpisodeAndPlay({ url, number, title }) {
+    if (this.getSrc() !== url) {
+      this.setEpisode({ url, title, number });
+    }
+    if (this.isPaused()) {
+      this.play();
+    }
+  }
+
   changeSpeed() {
     this.currentSpeedIdx =
       this.currentSpeedIdx + 1 < this.speeds.length
