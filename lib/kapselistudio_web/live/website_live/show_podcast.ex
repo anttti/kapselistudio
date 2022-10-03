@@ -58,7 +58,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                 >
                   Kuuntele jakso
                 </.play_button>
-                <.show_notes_button />
+                <.show_notes_button number={@latest_episode.number} />
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                   <.play_button url={episode.url} title={episode.title} number={episode.number}>
                     Kuuntele jakso
                   </.play_button>
-                  <.show_notes_button />
+                  <.show_notes_button number={episode.number} />
                 </div>
               </li>
             <% end %>
