@@ -47,6 +47,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
             <div class="flex flex-col gap-2">
               <h1 class="text-xl font-bold">
                 <%= live_redirect(@latest_episode.title,
+                  class: "overflow-wrap-anywhere",
                   to:
                     KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                       KapselistudioWeb.Endpoint,
@@ -70,7 +71,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
           </div>
         </div>
 
-        <div class="max-w-4xl mx-auto px-8">
+        <div class="max-w-4xl mx-auto px-2 md:px-8">
           <div class="flex items-center">
             <hr class="h-[1px] bg-gray-200 flex-1" />
             <h2 class="px-4 uppercase font-bold text-sm tracking-widest text-gray-400">
@@ -82,8 +83,9 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
             <%= for episode <- @rest_episodes do %>
               <li class="py-4 flex flex-col gap-2">
                 <div class="flex text-md font-medium text-gray-900">
-                  <div class="flex-1">
+                  <div class="flex-1 flex">
                     <%= live_redirect(episode_title(episode),
+                      class: "overflow-wrap-anywhere",
                       to:
                         KapselistudioWeb.SubdomainRouter.Helpers.website_show_episode_path(
                           KapselistudioWeb.Endpoint,
@@ -97,7 +99,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                   </div>
                 </div>
                 <p class="text-sm text-gray-800"><%= episode.description %></p>
-                <div class="flex gap-2">
+                <div class="flex gap-4 text-primary">
                   <.play_button url={episode.url} title={episode.title} number={episode.number}>
                     Kuuntele jakso
                   </.play_button>

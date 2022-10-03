@@ -50,7 +50,7 @@ class PodcastPlayer extends LitElement {
       }
       @media screen and (min-width: 768px) {
         h1 {
-          width: 320px;
+          width: 336px;
         }
         .podcast-player {
           align-items: center;
