@@ -19,6 +19,15 @@ server {
 server {
   listen      [::]:443 ssl http2;
   listen      443 ssl http2;
+  server_name retropelipodcast.com;
+  location / {
+    proxy_pass https://webbidevaus.kapselistudio.net;
+  }
+}
+
+server {
+  listen      [::]:443 ssl http2;
+  listen      443 ssl http2;
 
   server_name .kapselistudio.net;
   access_log  /var/log/nginx/kapselistudio-access.log;
