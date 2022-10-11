@@ -1,5 +1,7 @@
 import Config
 
+config :kapselistudio, episode_dir: System.fetch_env!("EPISODE_DIR")
+
 # Configure your database
 config :kapselistudio, Kapselistudio.Repo,
   username: "kapselistudio",

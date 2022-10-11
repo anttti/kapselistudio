@@ -3,6 +3,8 @@ import Config
 # Only in tests, remove the complexity from the password hashing algorithm
 config :bcrypt_elixir, :log_rounds, 1
 
+config :kapselistudio, episode_dir: '/tmp'
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used

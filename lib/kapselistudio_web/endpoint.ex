@@ -20,7 +20,12 @@ defmodule KapselistudioWeb.Endpoint do
     at: "/",
     from: :kapselistudio,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt audio-files podcast-player.js)
+    only: ~w(assets fonts images favicon.ico robots.txt podcast-player.js)
+
+  plug Plug.Static,
+    at: "/audio-files",
+    from: Application.compile_env!(:kapselistudio, :episode_dir),
+    gzip: false
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

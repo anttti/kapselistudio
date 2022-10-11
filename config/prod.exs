@@ -11,6 +11,8 @@ import Config
 # before starting your production server.
 config :kapselistudio, KapselistudioWeb.Endpoint, url: [host: System.get_env("PHX_HOST")]
 
+config :kapselistudio, episode_dir: System.fetch_env!("EPISODE_DIR")
+
 # Do not print debug messages in production
 config :logger, level: :info
 

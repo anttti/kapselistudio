@@ -11,6 +11,7 @@
 
   vars_files:
     - vars/security.yml
+
   vars:
     dokku_plugins:
       - name: postgres
@@ -30,20 +31,31 @@
       ufw:
         rule: allow
         name: OpenSSH
+
     - name: add HTTP to ufw
       ufw:
         rule: allow
         port: "80"
+
     - name: add HTTPS to ufw
       ufw:
         rule: allow
         port: "443"
+
     - name: enable ufw
       ufw:
         state: enabled
+
+    - name: create episodes directory
+      ansible.builtin.file:
+        path: /home/dokku/kapselistudio_episodes
+        state: directory
+        mode: "0755"
+
     - name: dokku apps:create kapselistudio
       dokku_app:
         app: &kapselistudio kapselistudio
+
     - name: postgres:create kapselistudio
       environment:
         POSTGRES_IMAGE: postgres
@@ -51,11 +63,13 @@
       dokku_service_create:
         name: *kapselistudio
         service: postgres
+
     - name: postgres:link kapselistudio kapselistudio
       dokku_service_link:
         app: *kapselistudio
         name: *kapselistudio
         service: postgres
+
     - name: dokku config
       dokku_config:
         app: *kapselistudio
@@ -64,6 +78,8 @@
           SECRET_KEY_BASE: "{{ secret_key_base }}"
           DOKKU_LETSENCRYPT_EMAIL: me@rarelyneeded.com
           PORT: "5000"
+          EPISODE_DIR: "/kapselistudio_episodes"
+
     # Not sure why this "dokku.me" global domain is added by default, but it needs to go
     - name: dokku disable global domain
       dokku_domains:
@@ -72,33 +88,38 @@
         state: clear
         domains:
           - dokku.me
+
     - name: dokku domain
       dokku_domains:
         app: *kapselistudio
         domains:
           - kapselistudio.net
-    - name: enable the letsencrypt plugin
-      dokku_letsencrypt:
+
+    - name: dokku storage
+      dokku_storage:
         app: *kapselistudio
-    - name: enable letsencrypt cron job
-      ansible.builtin.shell: dokku letsencrypt:cron-job --add
-    - name: enable automatic letsencrypt renewals
-      ansible.builtin.shell: dokku letsencrypt:auto-renew
+        mounts:
+          - /home/dokku/kapselistudio_episodes:/kapselistudio_episodes
+        create_host_dir: true
+
     # TODO: There probably is a better way to add my key to dokku's authorized_keys...
     - name: create .ssh dir for dokku
       file:
         path: "/home/dokku/.ssh"
         state: directory
+
     - name: create empty authorized_keys file
       file:
         path: "/home/dokku/.ssh/authorized_keys"
         state: touch
+
     - name: add public key to authorized_keys
       lineinfile:
         path: "/home/dokku/.ssh/authorized_keys"
         line: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
     - name: install psql client
       ansible.builtin.apt:
         name: postgresql-client
 
-    # TODO: Setup automatic updates
+    # TODO: Document how to set up the wildcard Letsencrypt certificate

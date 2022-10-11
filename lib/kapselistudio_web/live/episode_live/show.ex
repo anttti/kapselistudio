@@ -115,7 +115,7 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
     audio_files =
       consume_uploaded_entries(socket, :audio_file, fn file, entry ->
         filename = "#{Ecto.UUID.generate()}_#{entry.client_name}"
-        dest = Path.join([:code.priv_dir(:kapselistudio), "static", "audio-files", filename])
+        dest = Path.join([Application.fetch_env!(:kapselistudio, :episode_dir), filename])
         File.cp!(file.path, dest)
         {:ok, %{:duration => duration}} = MP3Stat.parse(dest)
         path = "/audio-files/" <> filename
