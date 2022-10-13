@@ -17,7 +17,7 @@ defmodule KapselistudioWeb.FeedController do
       summary: episode.description,
       explicit: if(episode.explicit, do: "true", else: "false"),
       episodeType: "full",
-      image: "https://webbidevaus.fi/artwork.jpg"
+      image: "https://kapselistudio.net/images/webbidevaus-logo.jpg"
     }
   end
 
