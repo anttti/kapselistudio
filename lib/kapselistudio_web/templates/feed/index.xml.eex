@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <atom:link href="<%= @url %><%= @feedPath %>" rel="self" title="MP3 Audio" type="application/atom+xml"/>
+    <atom:link href="<%= @feedPath %>" rel="self" title="MP3 Audio" type="application/atom+xml"/>
     <title><%= @title %></title>
     <link><%= @url %></link>
     <language><%= @language %></language>
@@ -13,13 +13,13 @@
     <image>
       <link><%= @url %></link>
       <title><%= @title %></title>
-      <url><%= @url %><%= @imagePath %></url>
+      <url><%= @imagePath %></url>
     </image>
     <itunes:summary><%= @description %></itunes:summary>
     <itunes:author><%= @author %></itunes:author>
     <itunes:explicit><%= @explicit %></itunes:explicit>
     <itunes:type><%= @type %></itunes:type>
-    <itunes:image href="<%= @url %><%= @imagePath %>" />
+    <itunes:image href="<%= @imagePath %>" />
     <itunes:keywords><%= @keywords %></itunes:keywords>
     <itunes:owner>
       <itunes:name><%= @ownerName %></itunes:name>
@@ -30,10 +30,10 @@
       <itunes:category text="<%= @subCategory2 %>"/>
       <itunes:category text="<%= @subCategory3 %>"/>
     </itunes:category>
-    <itunes:new-feed-url><%= @url %><%= @feedPath %></itunes:new-feed-url>
+    <itunes:new-feed-url><%= @feedPath %></itunes:new-feed-url>
     <%= for episode <- @episodes do %>
     <item>
-      <guid><%= episode.number %></guid>
+      <guid isPermaLink="false"><%= episode.guid %></guid>
       <title><%= episode.number %>. <%= episode.title %></title>
       <description><%= episode.shownotes %></description>
       <pubDate><%= episode.publishDate %></pubDate>
@@ -49,7 +49,7 @@
       <itunes:explicit><%= episode.explicit %></itunes:explicit>
       <itunes:episodeType><%= episode.episodeType %></itunes:episodeType>
       <itunes:episode><%= episode.title %></itunes:episode>
-      <itunes:image href="<%= episode.image %>" />
+      <itunes:image href="<%= @imagePath %>" />
     </item>
     <% end %>
   </channel>

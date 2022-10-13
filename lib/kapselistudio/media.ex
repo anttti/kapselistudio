@@ -127,7 +127,10 @@ defmodule Kapselistudio.Media do
   def get_episode!(id), do: Repo.get!(Episode, id) |> Repo.preload(:podcast)
 
   def get_published_episodes!(id) do
-    query = from e in Episode, where: e.podcast_id == ^id and e.status == "PUBLISHED"
+    query =
+      from e in Episode,
+        where: e.podcast_id == ^id and e.status == "PUBLISHED",
+        order_by: [desc: e.number]
 
     Repo.all(query)
   end
@@ -146,7 +149,7 @@ defmodule Kapselistudio.Media do
           limit: 1
       )
 
-    %Episode{number: largest_number + 1}
+    %Episode{number: largest_number + 1, guid: Ecto.UUID.generate()}
   end
 
   def create_episode(attrs \\ %{}) do

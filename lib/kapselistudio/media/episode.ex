@@ -16,6 +16,7 @@ defmodule Kapselistudio.Media.Episode do
     field :episode_type, :string
     field :author, :string
     field :filesize, :integer
+    field :guid, :string
 
     belongs_to :podcast, Kapselistudio.Media.Podcast
 
@@ -39,14 +40,16 @@ defmodule Kapselistudio.Media.Episode do
       :explicit,
       :episode_type,
       :author,
-      :filesize
+      :filesize,
+      :guid
     ])
     # TODO: Validate that status is either DRAFT or PUBLISHED
     |> validate_required([
       :number,
       :title,
       :status,
-      :podcast_id
+      :podcast_id,
+      :guid
     ])
   end
 end

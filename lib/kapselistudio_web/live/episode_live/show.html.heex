@@ -17,6 +17,8 @@
     <div class={
       "px-4 py-5 flex flex-col gap-4 bg-white #{if @episode.status != "PUBLISHED", do: "border-t-8 border-yellow-300", else: ""}"
     }>
+      <%= hidden_input(f, :guid) %>
+
       <header class="flex">
         <%= text_input(f, :number,
           class:

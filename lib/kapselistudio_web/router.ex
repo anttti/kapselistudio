@@ -88,14 +88,6 @@ defmodule KapselistudioWeb.Router do
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
-  scope "/api", KapselistudioWeb do
-    pipe_through :api
-
-    # API endpoints for Simplecast compatibility
-    get "/podcast/:podcast_id/episodes", FeedController, :episodes
-    get "/episode/:episode_id", FeedController, :episode
-  end
-
   scope "/", KapselistudioWeb do
     pipe_through [:public_browser]
 
