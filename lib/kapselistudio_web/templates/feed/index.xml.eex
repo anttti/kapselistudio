@@ -35,11 +35,11 @@
     <item>
       <guid isPermaLink="false"><%= episode.guid %></guid>
       <title><%= episode.number %>. <%= episode.title %></title>
-      <description><%= episode.shownotes %></description>
+      <description><![CDATA[<%= episode.shownotes %>]]></description>
       <pubDate><%= episode.publishDate %></pubDate>
       <author><%= episode.author %> </author>
       <link><%= episode.link %></link>
-      <content:encoded><%= episode.shownotes %></content:encoded>
+      <content:encoded><![CDATA[<%= episode.shownotes %>]]></content:encoded>
       <enclosure url="<%= episode.contentUrl %>" length="<%= episode.fileSize %>" type="audio/mpeg" />
       <itunes:title><%= episode.title %></itunes:title>
       <itunes:author><%= episode.author %></itunes:author>
