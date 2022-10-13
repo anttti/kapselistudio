@@ -50,7 +50,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
   def play_button(assigns) do
     ~H"""
     <button
-      class="text-sm py-2 play-button flex gap-4 items-center"
+      class={"text-sm py-2 play-button flex gap-4 items-center " <> @class}
       phx-click={JS.dispatch("kapselistudio:play_episode")}
       data-url={@url}
       data-title={@title}

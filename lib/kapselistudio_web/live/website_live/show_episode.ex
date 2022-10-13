@@ -24,19 +24,19 @@ defmodule KapselistudioWeb.WebsiteLive.ShowEpisode do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
-      <section class="p-8 flex flex-col gap-4 break-all">
-        <h1 class="text-xl md:text-2xl font-bold text-gray-900">
+      <section class="p-8 flex flex-col gap-2">
+        <h1 class="text-xl md:text-2xl font-bold text-gray-900 break-all">
           <%= @episode.number %>: <%= @episode.title %>
         </h1>
 
-        <button
-          class="text-sm border border-gray-400 px-4 py-2 play-button"
-          data-url={@episode.url}
-          data-title={@episode.title}
-          data-number={@episode.number}
+        <.play_button
+          class="text-primary"
+          url={@episode.url}
+          title={@episode.title}
+          number={@episode.number}
         >
           Kuuntele jakso
-        </button>
+        </.play_button>
 
         <div class="prose prose-sm prose-li:m-0 prose-h2:mt-4 prose-h2:mb-2 prose-h3:mt-3 prose-h3:mb-2">
           <%= raw(@shownotes) %>
