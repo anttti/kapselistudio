@@ -1,5 +1,6 @@
 defmodule KapselistudioWeb.WebsiteLive.Components do
   import Phoenix.LiveView.Helpers
+  use Phoenix.Component
   alias Phoenix.LiveView.JS
 
   def page(assigns) do
@@ -48,6 +49,8 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
   end
 
   def play_button(assigns) do
+    assigns = assign_new(assigns, :class, fn -> "" end)
+
     ~H"""
     <button
       class={"text-sm py-2 play-button flex gap-4 items-center " <> @class}
