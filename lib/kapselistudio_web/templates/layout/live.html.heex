@@ -4,18 +4,14 @@
     role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="info"
-  >
-    <%= live_flash(@flash, :info) %>
-  </p>
+  ><%= live_flash(@flash, :info) %></p>
 
   <p
     class="alert alert-danger fixed top-3 right-[50%] translate-x-[50%] z-50"
     role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="error"
-  >
-    <%= live_flash(@flash, :error) %>
-  </p>
+  ><%= live_flash(@flash, :error) %></p>
 
   <%= @inner_content %>
 </main>
