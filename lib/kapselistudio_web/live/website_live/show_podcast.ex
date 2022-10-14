@@ -17,8 +17,24 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
     latest_episode = List.first(episodes)
     has_more? = Enum.count(podcast.episodes) == limit
 
+    meta_attrs = [
+      %{name: "title", content: podcast.name},
+      %{name: "description", content: podcast.description},
+      %{name: "keywords", content: podcast.keywords},
+      %{property: "og:title", content: podcast.name},
+      %{property: "og:description", content: podcast.description},
+      %{property: "og:url", content: podcast.url},
+      # %{property: "og:image", content: podcast.url},
+      %{property: "twitter:title", content: podcast.name},
+      %{property: "twitter:description", content: podcast.description},
+      %{property: "twitter:url", content: podcast.url}
+      # %{property: "twitter:image", content: podcast.url},
+    ]
+
     {:ok,
      socket
+     |> assign(:meta_attrs, meta_attrs)
+     |> assign(:page_title, podcast.name)
      |> assign(:podcast, podcast)
      |> assign(:episodes, episodes)
      |> assign(:has_more?, has_more?)

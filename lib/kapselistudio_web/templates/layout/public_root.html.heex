@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tag() %>
-    <%= live_title_tag(assigns[:page_title] || "Etusivu", suffix: " · Kapselistudio") %>
+
+    <%= if assigns[:meta_attrs], do: meta_tags(assigns[:meta_attrs]) %>
+
+    <%= live_title_tag(assigns[:page_title] || "Kapselistudio") %>
+
     <link
       phx-track-static
       rel="stylesheet"
