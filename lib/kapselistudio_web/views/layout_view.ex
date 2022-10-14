@@ -12,4 +12,11 @@ defmodule KapselistudioWeb.LayoutView do
   def meta_tag(attrs) do
     tag(:meta, Enum.into(attrs, []))
   end
+
+  def meta_image(image_url) do
+    """
+    <meta property="og:image" content="#{image_url}" />
+    <meta property="twitter:image" content="#{image_url}" />
+    """
+  end
 end

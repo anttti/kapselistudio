@@ -7,6 +7,7 @@
     <%= csrf_meta_tag() %>
 
     <%= if assigns[:meta_attrs], do: meta_tags(assigns[:meta_attrs]) %>
+    <%= if assigns[:meta_image_url], do: raw(meta_image(assigns[:meta_image_url])) %>
 
     <%= live_title_tag(assigns[:page_title] || "Kapselistudio") %>
 

@@ -24,11 +24,9 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
       %{property: "og:title", content: podcast.name},
       %{property: "og:description", content: podcast.description},
       %{property: "og:url", content: podcast.url},
-      # %{property: "og:image", content: podcast.url},
       %{property: "twitter:title", content: podcast.name},
       %{property: "twitter:description", content: podcast.description},
       %{property: "twitter:url", content: podcast.url}
-      # %{property: "twitter:image", content: podcast.url},
     ]
 
     {:ok,
