@@ -17,7 +17,6 @@ Kapselistudio.Repo.insert!(%Kapselistudio.Media.Podcast{
   slug: "webbidevaus",
   url: "https://webbidevaus.fi",
   description: "Devausta webistä ja webbisen devausta.",
-  author: "Antti Mattila",
   type: "episodic",
   keywords: "html, css, javascript",
   owner_name: "Antti Mattila",

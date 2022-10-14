@@ -37,7 +37,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
   @impl true
   def render(assigns) do
     ~H"""
-    <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
+    <.page name={@podcast.name} description={@podcast.description} owner_name={@podcast.owner_name}>
       <section class="flex flex-col gap-4 md:gap-8 p-4 md:p-8">
         <div class="flex flex-col gap-2 md:gap-4 p-4 md:p-8 bg-primary text-white rounded-xl max-w-4xl mx-auto">
           <div class="flex gap-4 md:gap-8">

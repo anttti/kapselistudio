@@ -21,7 +21,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
   @impl true
   def render(assigns) do
     ~H"""
-    <.page name={@podcast.name} description={@podcast.description} author={@podcast.author}>
+    <.page name={@podcast.name} description={@podcast.description} owner_name={@podcast.owner_name}>
       <section class="p-8 flex flex-col gap-4">
         <h2>Aiemmat jaksot</h2>
         <ol>

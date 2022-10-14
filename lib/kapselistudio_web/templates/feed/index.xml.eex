@@ -5,7 +5,7 @@
     <title><%= @title %></title>
     <link><%= @url %></link>
     <language><%= @language %></language>
-    <copyright>&#169; <%= @currentYear %> <%= @author %></copyright>
+    <copyright>&#169; <%= @currentYear %> <%= @owner_name %></copyright>
     <pubDate><%= @lastEpisodeDate %></pubDate>
     <lastBuildDate><%= @lastEpisodeDate %></lastBuildDate>
     <generator>Kapselistudio</generator>
@@ -16,28 +16,26 @@
       <url><%= @imagePath %></url>
     </image>
     <itunes:summary><%= @description %></itunes:summary>
-    <itunes:author><%= @author %></itunes:author>
-    <itunes:explicit><%= @explicit %></itunes:explicit>
+    <itunes:author><%= @owner_name %></itunes:author>
+    <itunes:explicit><%= if @explicit do "yes" else "no" end %></itunes:explicit>
     <itunes:type><%= @type %></itunes:type>
     <itunes:image href="<%= @imagePath %>" />
     <itunes:keywords><%= @keywords %></itunes:keywords>
     <itunes:owner>
-      <itunes:name><%= @ownerName %></itunes:name>
-      <itunes:email><%= @ownerEmail %></itunes:email>
+      <itunes:name><%= @owner_name %></itunes:name>
+      <itunes:email><%= @owner_email %></itunes:email>
     </itunes:owner>
-
-    <%= if @mainCategory do %>
-      <%= if @subCategory1 != "" or @subCategory2 != "" or @subCategory3 != "" do %>
-      <itunes:category text="<%= @mainCategory %>">
-        <%= if @subCategory1 != "" do %><itunes:category text="<%= @subCategory1 %>"/><% end %>
-        <%= if @subCategory2 != "" do %><itunes:category text="<%= @subCategory2 %>"/><% end %>
-        <%= if @subCategory3 != "" do %><itunes:category text="<%= @subCategory3 %>"/><% end %>
+    <%= if @main_category do %>
+      <%= if @sub_category1 != "" or @sub_category2 != "" or @sub_category3 != "" do %>
+      <itunes:category text="<%= @main_category %>">
+        <%= if @sub_category1 != "" do %><itunes:category text="<%= @sub_category1 %>"/><% end %>
+        <%= if @sub_category2 != "" do %><itunes:category text="<%= @sub_category2 %>"/><% end %>
+        <%= if @sub_category3 != "" do %><itunes:category text="<%= @sub_category3 %>"/><% end %>
       </itunes:category>
       <% else %>
-      <itunes:category text="<%= @mainCategory %>" />
+      <itunes:category text="<%= @main_category %>" />
       <% end %>
     <% end %>
-
     <itunes:new-feed-url><%= @feedPath %></itunes:new-feed-url>
     <%= for episode <- @episodes do %>
     <item>
@@ -45,7 +43,7 @@
       <title><%= episode.number %>. <%= episode.title %></title>
       <description><![CDATA[<%= episode.shownotes %>]]></description>
       <pubDate><%= episode.publishDate %></pubDate>
-      <author><%= episode.author %> </author>
+      <author><%= episode.author %></author>
       <link><%= episode.link %></link>
       <content:encoded><![CDATA[<%= episode.shownotes %>]]></content:encoded>
       <enclosure url="<%= episode.contentUrl %>" length="<%= episode.fileSize %>" type="audio/mpeg" />
@@ -53,10 +51,10 @@
       <itunes:author><%= episode.author %></itunes:author>
       <itunes:duration><%= episode.duration %></itunes:duration>
       <itunes:summary><%= episode.summary %></itunes:summary>
-      <itunes:subtitle><%= episode.summary %></itunes:subtitle>
-      <itunes:explicit><%= episode.explicit %></itunes:explicit>
+      <itunes:subtitle><%= episode.subtitle %></itunes:subtitle>
+      <itunes:explicit><%= if episode.explicit do "yes" else "no" end %></itunes:explicit>
       <itunes:episodeType><%= episode.episodeType %></itunes:episodeType>
-      <itunes:episode><%= episode.title %></itunes:episode>
+      <itunes:episode><%= episode.number %></itunes:episode>
       <itunes:image href="<%= @imagePath %>" />
     </item>
     <% end %>

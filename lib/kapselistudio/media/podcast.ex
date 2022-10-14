@@ -7,7 +7,6 @@ defmodule Kapselistudio.Media.Podcast do
     field :slug, :string
     field :description, :string
     field :url, :string
-    field :author, :string
     field :type, :string
     field :keywords, :string
     field :owner_name, :string
@@ -32,7 +31,6 @@ defmodule Kapselistudio.Media.Podcast do
       :slug,
       :description,
       :url,
-      :author,
       :type,
       :keywords,
       :owner_name,
@@ -49,7 +47,6 @@ defmodule Kapselistudio.Media.Podcast do
       :name,
       :slug,
       :url,
-      :author,
       :type,
       :owner_name,
       :owner_email,
