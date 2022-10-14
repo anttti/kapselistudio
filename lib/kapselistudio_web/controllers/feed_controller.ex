@@ -14,8 +14,8 @@ defmodule KapselistudioWeb.FeedController do
       title: escape(episode.title),
       subtitle:
         escape(
-          if(String.length(episode.description) > 255,
-            do: "#{String.slice(episode.description, 0..254)}…",
+          if(String.length(episode.description) > 254,
+            do: "#{String.slice(episode.description, 0..253)}…",
             else: episode.description
           )
         ),
