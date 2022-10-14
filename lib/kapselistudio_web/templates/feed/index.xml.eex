@@ -25,11 +25,19 @@
       <itunes:name><%= @ownerName %></itunes:name>
       <itunes:email><%= @ownerEmail %></itunes:email>
     </itunes:owner>
-    <itunes:category text="<%= @mainCategory %>">
-      <itunes:category text="<%= @subCategory1 %>"/>
-      <itunes:category text="<%= @subCategory2 %>"/>
-      <itunes:category text="<%= @subCategory3 %>"/>
-    </itunes:category>
+
+    <%= if @mainCategory do %>
+      <%= if @subCategory1 != "" or @subCategory2 != "" or @subCategory3 != "" do %>
+      <itunes:category text="<%= @mainCategory %>">
+        <%= if @subCategory1 != "" do %><itunes:category text="<%= @subCategory1 %>"/><% end %>
+        <%= if @subCategory2 != "" do %><itunes:category text="<%= @subCategory2 %>"/><% end %>
+        <%= if @subCategory3 != "" do %><itunes:category text="<%= @subCategory3 %>"/><% end %>
+      </itunes:category>
+      <% else %>
+      <itunes:category text="<%= @mainCategory %>" />
+      <% end %>
+    <% end %>
+
     <itunes:new-feed-url><%= @feedPath %></itunes:new-feed-url>
     <%= for episode <- @episodes do %>
     <item>
