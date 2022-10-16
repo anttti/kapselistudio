@@ -19,4 +19,14 @@ defmodule KapselistudioWeb.LayoutView do
     <meta property="twitter:image" content="#{image_url}" />
     """
   end
+
+  def rss_feed(podcast) do
+    # TODO: Use route helper
+    tag(:link,
+      rel: "alternate",
+      type: "application/rss+xml",
+      title: "#{podcast.name} RSS",
+      href: "https://kapselistudio.net/#{podcast.id}/feed.xml"
+    )
+  end
 end

@@ -8,6 +8,7 @@
 
     <%= if assigns[:meta_attrs], do: meta_tags(assigns[:meta_attrs]) %>
     <%= if assigns[:meta_image_url], do: raw(meta_image(assigns[:meta_image_url])) %>
+    <%= if assigns[:podcast], do: rss_feed(assigns[:podcast]) %>
 
     <%= live_title_tag(assigns[:page_title] || "Kapselistudio") %>
 

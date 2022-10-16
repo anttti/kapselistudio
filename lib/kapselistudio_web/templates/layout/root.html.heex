@@ -34,11 +34,6 @@
               <%= link to: Routes.user_session_path(@conn, :delete), method: :delete, class: "pl-4 border-l border-gray-200 hover:text-teal-600 flex items-center" do %>
                 Kirjaudu ulos
               <% end %>
-            <% else %>
-              <%= link("Kirjaudu sisään",
-                to: Routes.user_session_path(@conn, :new),
-                class: "pl-6 hover:text-teal-600 flex items-center"
-              ) %>
             <% end %>
           </div>
         </div>
