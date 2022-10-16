@@ -3,6 +3,7 @@ defmodule KapselistudioWeb.FeedController do
   alias Calendar.DateTime
   alias Kapselistudio.Media
   import Phoenix.HTML
+  import Kapselistudio.Media.Analytics
 
   defp escape(str) do
     str |> html_escape() |> safe_to_string()
@@ -24,7 +25,7 @@ defmodule KapselistudioWeb.FeedController do
       link: "https://webbidevaus.fi/" <> to_string(episode.number),
       publishDate: episode.published_at |> DateTime.Format.httpdate(),
       author: "#{podcast.owner_email} (#{podcast.owner_name})",
-      contentUrl: episode.url,
+      contentUrl: with_analytics(episode.url),
       fileSize: episode.filesize,
       duration: episode.duration,
       summary: escape(episode.description),

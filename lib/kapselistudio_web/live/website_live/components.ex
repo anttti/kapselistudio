@@ -2,6 +2,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
   import Phoenix.LiveView.Helpers
   use Phoenix.Component
   alias Phoenix.LiveView.JS
+  import Kapselistudio.Media.Analytics
 
   def page(assigns) do
     ~H"""
@@ -55,7 +56,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
     <button
       class={"text-sm py-2 play-button flex gap-4 items-center " <> @class}
       phx-click={JS.dispatch("kapselistudio:play_episode")}
-      data-url={@url}
+      data-url={with_analytics(@url)}
       data-title={@title}
       data-number={@number}
     >

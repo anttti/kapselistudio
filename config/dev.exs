@@ -1,6 +1,7 @@
 import Config
 
 config :kapselistudio, episode_dir: System.fetch_env!("EPISODE_DIR")
+config :kapselistudio, analytics_prefix: "http://"
 
 # Configure your database
 config :kapselistudio, Kapselistudio.Repo,

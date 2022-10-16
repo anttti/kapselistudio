@@ -12,6 +12,7 @@ import Config
 config :kapselistudio, KapselistudioWeb.Endpoint, url: [host: System.get_env("PHX_HOST")]
 
 config :kapselistudio, episode_dir: System.fetch_env!("EPISODE_DIR")
+config :kapselistudio, analytics_prefix: "https://dts.podtrac.com/redirect.mp4/"
 
 # Do not print debug messages in production
 config :logger, level: :info
