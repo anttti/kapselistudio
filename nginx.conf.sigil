@@ -20,6 +20,27 @@ server {
   listen      [::]:80;
   listen      80;
   server_name webbidevaus.fi;
+  access_log  /var/log/nginx/webbidevaus-access.log;
+  error_log   /var/log/nginx/webbidevaus-error.log;
+
+  location / {
+    return 301 https://$host:443$request_uri;
+  }
+}
+
+server {
+  listen      [::]:443 ssl http2;
+  listen      443 ssl http2;
+
+  server_name webbidevaus.fi;
+  access_log  /var/log/nginx/webbidevaus-access.log;
+  error_log   /var/log/nginx/webbidevaus-error.log;
+
+  ssl_certificate           /etc/letsencrypt/live/webbidevaus.fi/fullchain.pem;
+  ssl_certificate_key       /etc/letsencrypt/live/webbidevaus.fi/privkey.pem;
+  ssl_protocols             TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers off;
+
   location / {
     proxy_pass https://webbidevaus.kapselistudio.net;
   }

@@ -7,9 +7,9 @@ import {
 class PodcastPlayer extends LitElement {
   static get properties() {
     return {
-      currentTime: { type: String },
+      currentTime: { type: Number },
       currentSpeedIdx: { type: Number },
-      duration: { type: String },
+      duration: { type: Number },
       title: { type: String },
       number: { type: String },
     };
