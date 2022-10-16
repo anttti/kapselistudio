@@ -37,7 +37,7 @@ defmodule KapselistudioWeb.WebsiteLive.Components do
             </svg>
           <% end %>
           <h1 class="font-bold text-2xl mb-2 md:mb-4"><%= @name %></h1>
-          <p class="mb-2 md:mb-4"><%= @description %></p>
+          <p class="mb-2 md:mb-4 text-center md:text-left"><%= @description %></p>
           <p><%= @owner_name %></p>
         </div>
       </div>
