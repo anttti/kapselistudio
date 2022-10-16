@@ -24,14 +24,13 @@ server {
   error_log   /var/log/nginx/webbidevaus-error.log;
 
   location / {
-    return 301 https://$host:443$request_uri;
+    return 301 https://webbidevaus.kapselistudio.net$request_uri;
   }
 }
 
 server {
   listen      [::]:443 ssl http2;
   listen      443 ssl http2;
-
   server_name webbidevaus.fi;
   access_log  /var/log/nginx/webbidevaus-access.log;
   error_log   /var/log/nginx/webbidevaus-error.log;
@@ -42,29 +41,44 @@ server {
   ssl_prefer_server_ciphers off;
 
   location / {
-    proxy_pass https://webbidevaus.kapselistudio.net;
-    # proxy_set_header Upgrade $http_upgrade;
-    # proxy_set_header Connection $http_connection;
-    # proxy_set_header Host $host;
-
-    http2_push_preload on;
-    proxy_http_version 1.1;
-    
-    proxy_buffer_size 4096;
-    proxy_buffering on;
-    proxy_buffers 8 4096;
-    proxy_busy_buffers_size 8192;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection $http_connection;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Port $server_port;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_set_header X-Request-Start $msec;
+    return 301 https://webbidevaus.kapselistudio.net$request_uri;
   }
-
-  include /home/dokku/kapselistudio/nginx.conf.d/*.conf;
 }
+
+# server {
+#   listen      [::]:443 ssl http2;
+#   listen      443 ssl http2;
+# 
+#   server_name webbidevaus.fi;
+#   access_log  /var/log/nginx/webbidevaus-access.log;
+#   error_log   /var/log/nginx/webbidevaus-error.log;
+# 
+#   ssl_certificate           /etc/letsencrypt/live/webbidevaus.fi/fullchain.pem;
+#   ssl_certificate_key       /etc/letsencrypt/live/webbidevaus.fi/privkey.pem;
+#   ssl_protocols             TLSv1.2 TLSv1.3;
+#   ssl_prefer_server_ciphers off;
+# 
+#   location / {
+#     proxy_pass https://webbidevaus.kapselistudio.net;
+# 
+#     http2_push_preload on;
+#     proxy_http_version 1.1;
+# 
+#     proxy_buffer_size 4096;
+#     proxy_buffering on;
+#     proxy_buffers 8 4096;
+#     proxy_busy_buffers_size 8192;
+#     proxy_set_header Upgrade $http_upgrade;
+#     proxy_set_header Connection $http_connection;
+#     proxy_set_header Host $http_host;
+#     proxy_set_header X-Forwarded-For $remote_addr;
+#     proxy_set_header X-Forwarded-Port $server_port;
+#     proxy_set_header X-Forwarded-Proto $scheme;
+#     proxy_set_header X-Request-Start $msec;
+#   }
+# 
+#   include /home/dokku/kapselistudio/nginx.conf.d/*.conf;
+# }
 
 server {
   listen      [::]:443 ssl http2;
