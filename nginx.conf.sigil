@@ -51,7 +51,6 @@ server {
     proxy_busy_buffers_size 8192;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $http_connection;
-    proxy_set_header Host $http_host;
   }
 }
 
