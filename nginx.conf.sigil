@@ -43,8 +43,15 @@ server {
 
   location / {
     proxy_pass https://webbidevaus.kapselistudio.net;
+    proxy_http_version 1.1;
+    proxy_read_timeout 60s;
+    proxy_buffer_size 4096;
+    proxy_buffering on;
+    proxy_buffers 8 4096;
+    proxy_busy_buffers_size 8192;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $http_connection;
+    proxy_set_header Host $http_host;
   }
 }
 
