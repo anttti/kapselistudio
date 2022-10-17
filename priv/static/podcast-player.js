@@ -63,6 +63,7 @@ class PodcastPlayer extends LitElement {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        max-width: 90vw;
       }
       .number {
         display: block;
@@ -114,6 +115,12 @@ class PodcastPlayer extends LitElement {
       }
       .timeline {
         flex: 1;
+        display: none;
+      }
+      @media screen and (min-width: 350px) {
+        .timeline {
+          display: block;
+        }
       }
       .times {
         display: flex;
