@@ -27,7 +27,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowEpisode do
            %{property: "twitter:url", content: url}
          ],
          meta_image_url =
-           "https://og-webbidevaus.vercel.app/**Jakso #{episode_number}**: #{episode.title}?theme=light&md=1&fontSize=100px" do
+           "https://webbidevaus-og.vercel.app/api/episode?number=#{episode_number}&title=#{episode.title}" do
       {:ok,
        socket
        |> assign(:meta_attrs, meta_attrs)
