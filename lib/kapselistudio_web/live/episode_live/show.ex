@@ -117,19 +117,21 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
         filename = "#{Ecto.UUID.generate()}_#{entry.client_name}"
         dest = Path.join([Application.fetch_env!(:kapselistudio, :episode_dir), filename])
         File.cp!(file.path, dest)
+        %File.Stat{size: filesize} = File.stat!(file.path)
         {:ok, %{:duration => duration}} = MP3Stat.parse(dest)
         path = "/audio-files/" <> filename
         Routes.static_path(socket, path)
 
-        %{:path => path, :duration => duration}
+        %{:path => path, :duration => duration, :filesize => filesize}
       end)
 
-    %{path: url, duration: duration} = get_file_info(Enum.at(audio_files, 0))
+    %{path: url, duration: duration, filesize: filesize} = get_file_info(Enum.at(audio_files, 0))
 
     changes =
       episode_params
       |> add_param("url", url)
       |> add_param("duration", duration)
+      |> add_param("filesize", filesize)
 
     if socket.assigns.episode.id do
       save_episode(socket, socket.assigns.episode, :edit_episode, changes)
@@ -213,6 +215,6 @@ defmodule KapselistudioWeb.EpisodeLive.Show do
   defp add_param(params, _, nil), do: params
   defp add_param(params, key, val), do: Map.put(params, key, val)
 
-  defp get_file_info(nil), do: %{path: nil, duration: nil}
+  defp get_file_info(nil), do: %{path: nil, duration: nil, filesize: nil}
   defp get_file_info(file), do: file
 end
