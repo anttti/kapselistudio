@@ -88,7 +88,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
         <div class="max-w-4xl mx-auto px-2 md:px-8">
           <div class="flex items-center">
             <hr class="h-[1px] bg-gray-200 flex-1" />
-            <h2 class="px-4 uppercase font-bold text-sm tracking-widest text-gray-400">
+            <h2 class="px-4 uppercase font-bold text-sm tracking-widest text-gray-500">
               Aiemmat jaksot
             </h2>
             <hr class="h-[1px] bg-gray-200 flex-1" />
@@ -108,7 +108,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                         )
                     ) %>
                   </div>
-                  <div class="text-right text-gray-400">
+                  <div class="text-right text-gray-500">
                     <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
                   </div>
                 </div>
