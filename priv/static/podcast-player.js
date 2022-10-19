@@ -1,8 +1,4 @@
-import {
-  LitElement,
-  html,
-  css,
-} from "https://unpkg.com/lit-element@3.2.0/lit-element.js?module";
+import { LitElement, html, css } from "./lit/lit-element.js";
 
 class PodcastPlayer extends LitElement {
   static get properties() {

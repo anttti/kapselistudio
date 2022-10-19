@@ -19,8 +19,8 @@ defmodule KapselistudioWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :kapselistudio,
-    gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt podcast-player.js)
+    gzip: Mix.env() == :prod,
+    only: ~w(assets fonts images favicon.ico robots.txt lit podcast-player.js)
 
   plug Plug.Static,
     at: "/audio-files",
