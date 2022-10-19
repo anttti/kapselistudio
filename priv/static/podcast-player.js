@@ -336,8 +336,10 @@ class PodcastPlayer extends LitElement {
                 >
               </div>
             </div>
+            <label for="progress-meter" class="sr-only">Toistettu</label>
             <input
               type="range"
+              id="progress-meter"
               class="progress-meter"
               value="${this.currentTime}"
               max="${this.duration}"
