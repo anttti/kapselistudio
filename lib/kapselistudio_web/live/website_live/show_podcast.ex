@@ -55,7 +55,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
       <section class="flex flex-col gap-4 md:gap-8 p-4 md:p-8">
         <div class="flex flex-col gap-2 md:gap-4 p-4 md:p-8 bg-primary text-white rounded-xl max-w-4xl mx-auto">
           <div class="flex gap-4 md:gap-8">
-            <div class="text-4xl md:text-6xl font-extrabold mt-[-2px] text-primary-dark">
+            <div class="text-4xl md:text-6xl font-extrabold mt-[-2px]">
               <%= @latest_episode.number %>
             </div>
             <div class="flex flex-col gap-2">
