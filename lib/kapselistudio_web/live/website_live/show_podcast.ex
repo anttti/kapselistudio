@@ -129,7 +129,8 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
                 KapselistudioWeb.SubdomainRouter.Helpers.website_show_all_path(
                   KapselistudioWeb.Endpoint,
                   :show_all_episodes
-                )
+                ),
+              class: "block text-center font-bold text-white p-4 rounded-xl bg-primary"
             ) %>
           <% end %>
         </div>
