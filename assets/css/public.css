@@ -34,10 +34,6 @@ body {
   grid-template-rows: 110px 1fr;
 }
 
-.body {
-  overflow-y: scroll;
-}
-
 .overflow-wrap-anywhere {
   overflow-wrap: anywhere;
 }
