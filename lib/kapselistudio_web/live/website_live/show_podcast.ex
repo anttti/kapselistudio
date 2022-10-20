@@ -21,6 +21,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowPodcast do
       %{name: "title", content: podcast.name},
       %{name: "description", content: podcast.description},
       %{name: "keywords", content: podcast.keywords},
+      %{name: "theme-color", content: "#180140"},
       %{property: "og:title", content: podcast.name},
       %{property: "og:description", content: podcast.description},
       %{property: "og:url", content: podcast.url},

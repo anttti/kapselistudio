@@ -12,8 +12,17 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
 
     podcast = Media.get_podcast_for_slug_with_episodes!(subdomain, nil, nil)
 
+    meta_attrs = [
+      %{name: "title", content: podcast.name},
+      %{name: "description", content: podcast.description},
+      %{name: "keywords", content: podcast.keywords},
+      %{name: "theme-color", content: "#180140"}
+    ]
+
     {:ok,
      socket
+     |> assign(:meta_attrs, meta_attrs)
+     |> assign(:page_title, podcast.name)
      |> assign(:podcast, podcast)
      |> assign(:episodes, podcast.episodes)}
   end
