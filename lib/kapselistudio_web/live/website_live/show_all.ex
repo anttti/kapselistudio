@@ -22,8 +22,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
   def render(assigns) do
     ~H"""
     <.page name={@podcast.name} description={@podcast.description} owner_name={@podcast.owner_name}>
-      <section class="p-8 flex flex-col gap-4">
-        <h2>Aiemmat jaksot</h2>
+      <section class="px-4 py-2 md:px-8 md:py-6 flex flex-col gap-4">
         <ol>
           <%= for episode <- @episodes do %>
             <li class="py-2">
@@ -38,7 +37,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
                       )
                   ) %>
                 </div>
-                <div class="w-48 text-right text-gray-400">
+                <div class="text-gray-400">
                   <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
                 </div>
               </div>
