@@ -46,7 +46,7 @@ defmodule KapselistudioWeb.WebsiteLive.ShowAll do
                       )
                   ) %>
                 </div>
-                <div class="text-gray-400">
+                <div class="pr-4 text-gray-400">
                   <%= KapselistudioWeb.DateHelpers.format_date(episode.published_at) %>
                 </div>
               </div>
