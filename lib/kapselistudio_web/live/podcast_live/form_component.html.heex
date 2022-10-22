@@ -77,6 +77,21 @@
       <%= text_input(f, :copyright, class: "input") %>
       <%= error_tag(f, :copyright) %>
     </p>
+    <p class="mb-4">
+      <%= label(f, :show_art, "Kansikuva", class: "label") %>
+      <%= text_input(f, :show_art, class: "input") %>
+      <%= error_tag(f, :show_art) %>
+    </p>
+    <p class="mb-4">
+      <%= label(f, :authors, "Tekijät", class: "label") %>
+      <%= text_input(f, :authors, class: "input") %>
+      <%= error_tag(f, :authors) %>
+    </p>
+    <p class="mb-4">
+      <%= label(f, :show_type, "Podcastin tyyppi", class: "label") %>
+      <%= select f, :show_type, [:episodic, :episodic_with_seasons, :serial] %>
+      <%= error_tag(f, :show_type) %>
+    </p>
 
     <div>
       <%= submit("Tallenna", phx_disable_with: "Tallennetaan...", class: "btn-primary") %>

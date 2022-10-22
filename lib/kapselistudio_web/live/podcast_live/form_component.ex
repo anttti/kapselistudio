@@ -15,6 +15,8 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"podcast" => podcast_params}, socket) do
+    podcast_params = Map.put(podcast_params, "authors", [Map.get(podcast_params, "authors")])
+
     changeset =
       socket.assigns.podcast
       |> Media.change_podcast(podcast_params)
@@ -28,6 +30,8 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
   end
 
   defp save_podcast(socket, :edit, podcast_params) do
+    podcast_params = Map.put(podcast_params, "authors", [Map.get(podcast_params, "authors")])
+
     case Media.update_podcast(socket.assigns.podcast, podcast_params) do
       {:ok, _podcast} ->
         {:noreply,
@@ -41,6 +45,8 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
   end
 
   defp save_podcast(socket, :new, podcast_params) do
+    podcast_params = Map.put(podcast_params, "authors", [Map.get(podcast_params, "authors")])
+
     case Media.create_podcast(podcast_params) do
       {:ok, _podcast} ->
         {:noreply,

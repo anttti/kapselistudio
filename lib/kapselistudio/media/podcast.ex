@@ -18,6 +18,9 @@ defmodule Kapselistudio.Media.Podcast do
     field :explicit, :boolean
     field :copyright, :string
     field :image, :string
+    field :show_art, :string
+    field :authors, {:array, :string}
+    field :show_type, Ecto.Enum, values: [:episodic, :episodic_with_seasons, :serial]
     has_many :episodes, Kapselistudio.Media.Episode
 
     timestamps()
@@ -41,7 +44,10 @@ defmodule Kapselistudio.Media.Podcast do
       :sub_category_3,
       :explicit,
       :copyright,
-      :image
+      :image,
+      :show_art,
+      :authors,
+      :show_type
     ])
     |> validate_required([
       :name,
@@ -50,7 +56,9 @@ defmodule Kapselistudio.Media.Podcast do
       :type,
       :owner_name,
       :owner_email,
-      :explicit
+      :explicit,
+      :show_type,
+      :authors
     ])
   end
 end
