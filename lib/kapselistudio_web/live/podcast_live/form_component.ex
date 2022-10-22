@@ -15,7 +15,7 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"podcast" => podcast_params}, socket) do
-    podcast_params = Map.put(podcast_params, "authors", [Map.get(podcast_params, "authors")])
+    podcast_params = ensure_authors_is_list(podcast_params)
 
     changeset =
       socket.assigns.podcast
@@ -30,7 +30,7 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
   end
 
   defp save_podcast(socket, :edit, podcast_params) do
-    podcast_params = Map.put(podcast_params, "authors", [Map.get(podcast_params, "authors")])
+    podcast_params = ensure_authors_is_list(podcast_params)
 
     case Media.update_podcast(socket.assigns.podcast, podcast_params) do
       {:ok, _podcast} ->
@@ -45,7 +45,7 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
   end
 
   defp save_podcast(socket, :new, podcast_params) do
-    podcast_params = Map.put(podcast_params, "authors", [Map.get(podcast_params, "authors")])
+    podcast_params = ensure_authors_is_list(podcast_params)
 
     case Media.create_podcast(podcast_params) do
       {:ok, _podcast} ->
@@ -57,5 +57,13 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
+  end
+
+  defp ensure_authors_is_list(%{"authors" => authors} = params) when is_list(authors) do
+    params
+  end
+
+  defp ensure_authors_is_list(params) do
+    Map.put(params, "authors", [Map.get(params, "authors")])
   end
 end
