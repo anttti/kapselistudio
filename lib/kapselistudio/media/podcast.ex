@@ -11,7 +11,9 @@ defmodule Kapselistudio.Media.Podcast do
     field :keywords, :string
     field :owner_name, :string
     field :owner_email, :string
-    field :main_category, :string
+    field :main_category_1, :string
+    field :main_category_2, :string
+    field :main_category_3, :string
     field :sub_category_1, :string
     field :sub_category_2, :string
     field :sub_category_3, :string
@@ -38,7 +40,9 @@ defmodule Kapselistudio.Media.Podcast do
       :keywords,
       :owner_name,
       :owner_email,
-      :main_category,
+      :main_category_1,
+      :main_category_2,
+      :main_category_3,
       :sub_category_1,
       :sub_category_2,
       :sub_category_3,

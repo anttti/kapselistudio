@@ -47,26 +47,42 @@
       <%= text_input(f, :owner_email, class: "input") %>
       <%= error_tag(f, :owner_email) %>
     </p>
-    <p class="mb-4">
-      <%= label(f, :main_category, "Pääkategoria", class: "label") %>
-      <%= text_input(f, :main_category, class: "input") %>
-      <%= error_tag(f, :main_category) %>
-    </p>
-    <p class="mb-4">
-      <%= label(f, :sub_category_1, "Alikategoria 1", class: "label") %>
-      <%= text_input(f, :sub_category_1, class: "input") %>
-      <%= error_tag(f, :sub_category_1) %>
-    </p>
-    <p class="mb-4">
-      <%= label(f, :sub_category_2, "Alikategoria 2", class: "label") %>
-      <%= text_input(f, :sub_category_2, class: "input") %>
-      <%= error_tag(f, :sub_category_2) %>
-    </p>
-    <p class="mb-4">
-      <%= label(f, :sub_category_3, "Alikategoria 3", class: "label") %>
-      <%= text_input(f, :sub_category_3, class: "input") %>
-      <%= error_tag(f, :sub_category_3) %>
-    </p>
+    <div class="flex gap-4">
+      <p class="mb-4">
+        <%= label(f, :main_category_1, "Pääkategoria 1", class: "label") %>
+        <%= select f, :main_category_1, @main_categories, class: "input" %>
+        <%= error_tag(f, :main_category_1) %>
+      </p>
+      <p class="mb-4">
+        <%= label(f, :sub_category_1, "Alikategoria 1", class: "label") %>
+        <%= select f, :sub_category_1, @sub_categories_1, class: "input" %>
+        <%= error_tag(f, :sub_category_1) %>
+      </p>
+    </div>
+    <div class="flex gap-4">
+      <p class="mb-4">
+        <%= label(f, :main_category_2, "Pääkategoria 2", class: "label") %>
+        <%= select f, :main_category_2, @main_categories, class: "input" %>
+        <%= error_tag(f, :main_category_2) %>
+      </p>
+      <p class="mb-4">
+        <%= label(f, :sub_category_2, "Alikategoria 2", class: "label") %>
+        <%= select f, :sub_category_2, @sub_categories_2, class: "input" %>
+        <%= error_tag(f, :sub_category_2) %>
+      </p>
+    </div>
+    <div class="flex gap-4">
+      <p class="mb-4">
+        <%= label(f, :main_category_3, "Pääkategoria 3", class: "label") %>
+        <%= select f, :main_category_3, @main_categories, class: "input" %>
+        <%= error_tag(f, :main_category_3) %>
+      </p>
+      <p class="mb-4">
+        <%= label(f, :sub_category_3, "Alikategoria 3", class: "label") %>
+        <%= select f, :sub_category_3, @sub_categories_3, class: "input" %>
+        <%= error_tag(f, :sub_category_3) %>
+      </p>
+    </div>
     <p class="mb-4">
       <%= label(f, :explicit, "Kielletty alaikäisiltä", class: "label") %>
       <%= checkbox(f, :explicit) %>
@@ -89,7 +105,7 @@
     </p>
     <p class="mb-4">
       <%= label(f, :show_type, "Podcastin tyyppi", class: "label") %>
-      <%= select f, :show_type, [:episodic, :episodic_with_seasons, :serial] %>
+      <%= select f, :show_type, [{"Episodit", :episodic }, {"Episodit kausittain", :episodic_with_seasons}, {"Sarja", :serial}] %>
       <%= error_tag(f, :show_type) %>
     </p>
 
