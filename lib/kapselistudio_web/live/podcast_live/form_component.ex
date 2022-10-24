@@ -132,8 +132,6 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
 
   @impl true
   def mount(socket) do
-    IO.inspect("MOUNT")
-
     {:ok,
      socket
      |> assign(:main_categories, Map.keys(@categories))
@@ -144,8 +142,6 @@ defmodule KapselistudioWeb.PodcastLive.FormComponent do
 
   @impl true
   def update(%{podcast: podcast} = assigns, socket) do
-    IO.inspect("UPDATE")
-    IO.inspect(podcast)
     changeset = Media.change_podcast(podcast)
 
     {:ok,

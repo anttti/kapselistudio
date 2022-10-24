@@ -61,10 +61,12 @@ defmodule KapselistudioWeb.FeedController do
       keywords: podcast.keywords,
       owner_name: escape(podcast.owner_name),
       owner_email: escape(podcast.owner_email),
-      main_category: podcast.main_category,
-      sub_category1: if(podcast.sub_category_1, do: podcast.sub_category_1, else: ""),
-      sub_category2: if(podcast.sub_category_2, do: podcast.sub_category_2, else: ""),
-      sub_category3: if(podcast.sub_category_3, do: podcast.sub_category_3, else: ""),
+      main_category_1: podcast.main_category_1,
+      main_category_2: podcast.main_category_2,
+      main_category_3: podcast.main_category_3,
+      sub_category_1: if(podcast.sub_category_1, do: podcast.sub_category_1, else: ""),
+      sub_category_2: if(podcast.sub_category_2, do: podcast.sub_category_2, else: ""),
+      sub_category_3: if(podcast.sub_category_3, do: podcast.sub_category_3, else: ""),
       episodes: episodes
     }
 

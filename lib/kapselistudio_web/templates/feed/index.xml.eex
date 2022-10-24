@@ -25,15 +25,31 @@
       <itunes:name><%= @owner_name %></itunes:name>
       <itunes:email><%= @owner_email %></itunes:email>
     </itunes:owner>
-    <%= if @main_category do %>
-      <%= if @sub_category1 != "" or @sub_category2 != "" or @sub_category3 != "" do %>
-      <itunes:category text="<%= @main_category %>">
-        <%= if @sub_category1 != "" do %><itunes:category text="<%= @sub_category1 %>"/><% end %>
-        <%= if @sub_category2 != "" do %><itunes:category text="<%= @sub_category2 %>"/><% end %>
-        <%= if @sub_category3 != "" do %><itunes:category text="<%= @sub_category3 %>"/><% end %>
+    <%= if @main_category_1 do %>
+      <%= if @sub_category_1 != "" do %>
+      <itunes:category text="<%= @main_category_1 %>">
+        <itunes:category text="<%= @sub_category_1 %>"/>
       </itunes:category>
       <% else %>
-      <itunes:category text="<%= @main_category %>" />
+      <itunes:category text="<%= @main_category_1 %>" />
+      <% end %>
+    <% end %>
+    <%= if @main_category_2 do %>
+      <%= if @sub_category_2 != "" do %>
+      <itunes:category text="<%= @main_category_2 %>">
+        <itunes:category text="<%= @sub_category_2 %>"/>
+      </itunes:category>
+      <% else %>
+      <itunes:category text="<%= @main_category_2 %>" />
+      <% end %>
+    <% end %>
+    <%= if @main_category_3 do %>
+      <%= if @sub_category_3 != "" do %>
+      <itunes:category text="<%= @main_category_3 %>">
+        <itunes:category text="<%= @sub_category_3 %>"/>
+      </itunes:category>
+      <% else %>
+      <itunes:category text="<%= @main_category_3 %>" />
       <% end %>
     <% end %>
     <itunes:new-feed-url><%= @feedPath %></itunes:new-feed-url>
