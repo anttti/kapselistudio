@@ -21,7 +21,11 @@ defmodule KapselistudioWeb.FeedController do
           )
         ),
       # Not escaped, as it's rendered inside a <![CDATA
-      shownotes: episode.shownotes,
+      shownotes:
+        if(String.starts_with?(episode.shownotes, "<"),
+          do: episode.shownotes,
+          else: Earmark.as_html!(episode.shownotes)
+        ),
       link: "https://webbidevaus.fi/" <> to_string(episode.number),
       publishDate: episode.published_at |> DateTime.Format.httpdate(),
       author: "#{podcast.owner_email} (#{podcast.owner_name})",
