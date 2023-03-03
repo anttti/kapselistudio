@@ -57,7 +57,7 @@ defmodule KapselistudioWeb.FeedController do
       imagePath: "https://kapselistudio.net/images/webbidevaus-logo.jpg",
       language: "fi",
       # TODO: Get current year
-      currentYear: "2022",
+      currentYear: "2023",
       lastEpisodeDate: publishDate,
       description: escape(podcast.description),
       explicit: if(podcast.explicit, do: "true", else: "false"),
